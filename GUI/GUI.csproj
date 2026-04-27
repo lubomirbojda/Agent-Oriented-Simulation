@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>True</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DS_SEM_3\DS_SEM_3.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="ABACore">
+      <HintPath>..\DS_SEM_3\lib\ABACore.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

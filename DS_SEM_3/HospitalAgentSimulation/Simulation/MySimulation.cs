@@ -15,6 +15,11 @@ namespace Simulation
             Init();
         }
 
+        public void SetSeed(int seed)
+        {
+            SeedGenerator = new Random(seed);
+        }
+
         override public void PrepareSimulation()
         {
             base.PrepareSimulation();

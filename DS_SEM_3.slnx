@@ -1,3 +1,4 @@
 <Solution>
   <Project Path="DS_SEM_3/DS_SEM_3.csproj" />
+  <Project Path="GUI/GUI.csproj" Id="b60e3717-8cfe-485f-9652-1fd0ace062c9" />
 </Solution>
