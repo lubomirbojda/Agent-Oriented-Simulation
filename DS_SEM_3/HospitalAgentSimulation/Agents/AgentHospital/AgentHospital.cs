@@ -136,18 +136,18 @@ namespace Agents.AgentHospital
 		{
 			new ManagerHospital(SimId.ManagerHospital, MySim, this);
 			new ProcessMoveToEntranceSpace(SimId.ProcessMoveToEntranceSpace, MySim, this);
-			new ProcessMoveToHospital(SimId.ProcessMoveToHospital, MySim, this);
 			new ProcessEntranceTreat(SimId.ProcessEntranceTreat, MySim, this);
-			new ProcessMedicalTreat(SimId.ProcessMedicalTreat, MySim, this);
+            new ProcessMoveToAmbulance(SimId.ProcessMoveToAmbulance, MySim, this);
+            new ProcessMedicalTreat(SimId.ProcessMedicalTreat, MySim, this);
 			AddOwnMessage(Mc.TreatPatient);
 		}
         //meta! tag="end"
 
-        private void StartMoveToHospital(Patient patient, MessageForm message)
+        private void StartMoveToAmbulance(Patient patient, MessageForm message)
         {
             MyMessage msg = (MyMessage)message.CreateCopy();
             msg.Patient = patient;
-            msg.Addressee = FindAssistant(SimId.ProcessMoveToHospital);
+            msg.Addressee = FindAssistant(SimId.ProcessMoveToAmbulance);
             MyManager.StartContinualAssistant(msg);
         }
 
@@ -164,7 +164,7 @@ namespace Agents.AgentHospital
                 {
                     var patient = DequeuePatientAmbulanceA();
                     patient.AssignResources(nurse, ambA, doctor);
-                    StartMoveToHospital(patient, message);
+                    StartMoveToAmbulance(patient, message);
                     return;
                 }
             }
@@ -174,7 +174,7 @@ namespace Agents.AgentHospital
                 {
                     var patient = DequeuePatientAmbulanceB();
                     patient.AssignResources(nurse, ambB, doctor);
-                    StartMoveToHospital(patient, message);
+                    StartMoveToAmbulance(patient, message);
                     return;
                 }
             }
@@ -184,7 +184,7 @@ namespace Agents.AgentHospital
                 {
                     var patient = QueueEntranceAmbulancePatients.Dequeue();
                     patient.AssignResources(nurse, ambB);
-                    StartMoveToHospital(patient, message);
+                    StartMoveToAmbulance(patient, message);
                     return;
                 }
             }
@@ -194,7 +194,7 @@ namespace Agents.AgentHospital
                 {
                     var patient = QueueEntranceAlonePatients.Dequeue();
                     patient.AssignResources(nurse, ambB);
-                    StartMoveToHospital(patient, message);
+                    StartMoveToAmbulance(patient, message);
                     return;
                 }
             }

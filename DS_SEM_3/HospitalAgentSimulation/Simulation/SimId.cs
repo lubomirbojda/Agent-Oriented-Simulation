@@ -16,7 +16,7 @@ namespace Simulation
 		public const int ProcessEntranceTreat = 1007;
 		public const int ProcessMedicalTreat = 1008;
 		public const int ProcessMoveToEntranceSpace = 1014;
-		public const int ProcessMoveToHospital = 1015;
-		//meta! tag="end"
-	}
+        public const int ProcessMoveToAmbulance = 1015;
+        //meta! tag="end"
+    }
 }

@@ -50,13 +50,13 @@ namespace Agents.AgentHospital
             Response(message);
         }
 
-		//meta! sender="ProcessMoveToHospital", id="96", type="Finish"
-		public void ProcessFinishProcessMoveToHospital(MessageForm message)
-		{
-		}
+        //meta! sender="ProcessMoveToAmbulance", id="96", type="Finish"
+        public void ProcessFinishProcessMoveToAmbulance(MessageForm message)
+        {
+        }
 
-		//meta! sender="ProcessMoveToEntranceSpace", id="91", type="Finish"
-		public void ProcessFinishProcessMoveToEntranceSpace(MessageForm message)
+        //meta! sender="ProcessMoveToEntranceSpace", id="91", type="Finish"
+        public void ProcessFinishProcessMoveToEntranceSpace(MessageForm message)
 		{
 		}
 
@@ -88,8 +88,8 @@ namespace Agents.AgentHospital
 					ProcessFinishProcessMedicalTreat(message);
 				break;
 
-				case SimId.ProcessMoveToHospital:
-					ProcessFinishProcessMoveToHospital(message);
+				case SimId.ProcessMoveToAmbulance:
+                    ProcessFinishProcessMoveToAmbulance(message);
 				break;
 
 				case SimId.ProcessMoveToEntranceSpace:
