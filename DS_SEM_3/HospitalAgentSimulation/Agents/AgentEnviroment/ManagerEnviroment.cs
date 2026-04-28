@@ -58,7 +58,6 @@ namespace Agents.AgentEnviroment
             //MyMessage msg = (MyMessage)message;
             MySimulation sim = (MySimulation)MySim;
             sim.PatientsFinished++;
-
         }
 
         //meta! userInfo="Process messages defined in code", id="0"

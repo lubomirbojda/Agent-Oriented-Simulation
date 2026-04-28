@@ -41,7 +41,7 @@ namespace Agents.AgentEnviroment.ContinualAssistants
 
                     MyMessage msg = (MyMessage)message;
                     msg.Patient = new Patient(false, MySim.CurrentTime, 
-                        MyAgent.PatientsIdSeq++, MyAgent.AlonePatientsPriorityGen.GenerateNext());
+                        MyAgent.PatientsIdSeq++);
                     msg.Addressee = MyAgent;
 
                     Notice(msg);

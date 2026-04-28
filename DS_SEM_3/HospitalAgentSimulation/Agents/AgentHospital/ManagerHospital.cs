@@ -26,6 +26,10 @@ namespace Agents.AgentHospital
 		//meta! sender="AgentBoss", id="62", type="Request"
 		public void ProcessTreatPatient(MessageForm message)
 		{
+			MyMessage msg = (MyMessage)message;
+			if (msg.Patient != null)
+				MyAgent.PatientsInHospital.Add(msg.Patient);
+
             message.Addressee = MyAgent.FindAssistant(SimId.ProcessMoveToEntranceSpace);
             StartContinualAssistant(message);
         }
@@ -38,6 +42,10 @@ namespace Agents.AgentHospital
 		//meta! sender="ProcessMedicalTreat", id="68", type="Finish"
 		public void ProcessFinishProcessMedicalTreat(MessageForm message)
 		{
+			MyMessage msg = (MyMessage)message;
+			if (msg.Patient != null)
+				MyAgent.PatientsInHospital.Remove(msg.Patient);
+
             message.Code = Mc.TreatPatient;
             Response(message);
         }

@@ -7,6 +7,6 @@ public class Program
     static void Main(string[] args)
     {
         MySimulation sim = new MySimulation();
-        sim.Simulate(100, 24*60*60);
+        sim.Simulate(100, 24*60*60*28);
     }
 }

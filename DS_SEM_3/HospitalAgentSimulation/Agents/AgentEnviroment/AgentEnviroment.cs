@@ -12,9 +12,6 @@ namespace Agents.AgentEnviroment
         public ExponentialDist AmbulancePatientGen { get; private set; }
         public ExponentialDist AlonePatientGen { get; private set; }
 
-        public DiscreteEmpiric AlonePatientsPriorityGen { get; private set; }
-        public DiscreteEmpiric AmbulancePatientsPriorityGen { get; private set; }
-
         public int PatientsIdSeq { get; set; } = 0;
 
         public AgentEnviroment(int id, OSPABA.Simulation mySim, Agent parent) :
@@ -24,22 +21,6 @@ namespace Agents.AgentEnviroment
             MySimulation sim = (MySimulation)MySim;
             AmbulancePatientGen = new(sim.SeedGenerator, 1 / 15d);
             AlonePatientGen = new(sim.SeedGenerator, 1 / 15d);
-
-            AlonePatientsPriorityGen = new(sim.SeedGenerator, [
-                (1, 1, 0.1),
-                (2, 2, 0.2),
-                (3, 3, 0.15),
-                (4, 4, 0.25),
-                (5, 5, 0.3)
-            ]);
-
-            AmbulancePatientsPriorityGen = new(sim.SeedGenerator, [
-                (1, 1, 0.3),
-                (2, 2, 0.25),
-                (3, 3, 0.2),
-                (4, 4, 0.15),
-                (5, 5, 0.1)
-            ]);
         }
 
         override public void PrepareReplication()
@@ -47,8 +28,8 @@ namespace Agents.AgentEnviroment
             base.PrepareReplication();
             // Setup component for the next replication
             MySimulation sim = (MySimulation)MySim;
-            AmbulancePatientGen = new(sim.SeedGenerator, 1 / 36d);
-            AlonePatientGen = new(sim.SeedGenerator, 1 / 36d);
+            AmbulancePatientGen = new(sim.SeedGenerator, 1 / 180d);
+            AlonePatientGen = new(sim.SeedGenerator, 1 / 120d);
 
             //Start schedulers for patients arrival
             MyMessage messsage = new(MySim);

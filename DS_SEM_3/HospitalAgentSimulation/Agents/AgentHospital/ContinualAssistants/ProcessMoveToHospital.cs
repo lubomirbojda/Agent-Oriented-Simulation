@@ -22,6 +22,18 @@ namespace Agents.AgentHospital.ContinualAssistants
 		//meta! sender="AgentHospital", id="96", type="Start"
 		public void ProcessStart(MessageForm message)
 		{
+            MyMessage msg = (MyMessage)message.CreateCopy();
+            if (msg.Patient == null) return;
+
+            if (!msg.Patient.HasEntranceTreatDone)
+            {
+                msg.Patient.WaitingForEntranceTreat = MySim.CurrentTime - msg.Patient.TimeStartWaitingForEntranceTreat;
+            }
+            else
+            {
+				msg.Patient.WaitingForMedicalTreat = MySim.CurrentTime - msg.Patient.TimeStartWaitingForMedicalTreat;
+            }
+
             double moveTime = MyAgent.MoveToAmbulanceGen.GenerateNext();
 			message.Code = Mc.MoveToAmbulance;
             Hold(moveTime, message);
@@ -37,7 +49,7 @@ namespace Agents.AgentHospital.ContinualAssistants
                     if (msg.Patient == null) return;
 					if (!msg.Patient.HasEntranceTreatDone)
 					{
-						msg.Addressee = MyAgent.FindAssistant(SimId.ProcessEntranceTreat);
+                        msg.Addressee = MyAgent.FindAssistant(SimId.ProcessEntranceTreat);
                         MyAgent.MyManager.StartContinualAssistant(msg);
 					}
 					else

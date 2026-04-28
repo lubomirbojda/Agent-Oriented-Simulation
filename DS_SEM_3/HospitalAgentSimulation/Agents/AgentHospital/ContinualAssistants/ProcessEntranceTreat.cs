@@ -1,6 +1,7 @@
-using OSPABA;
 using Agents.AgentHospital;
+using OSPABA;
 using Simulation;
+using System.Timers;
 
 namespace Agents.AgentHospital.ContinualAssistants
 {
@@ -26,17 +27,17 @@ namespace Agents.AgentHospital.ContinualAssistants
 			if (msg.Patient == null) return;
 
             message.Code = Mc.PatientMakeEntranceTreat;
-            double moveTime;
+            double time;
             if (msg.Patient.CameByAmbulance)
             {
-                moveTime = MyAgent.AmbulancePatientsEntranceTreatGen.GenerateNext();
+                time = MyAgent.AmbulancePatientsEntranceTreatGen.GenerateNext();
             }
             else
             {
-                moveTime = MyAgent.AlonePatientsEntranceTreatGen.GenerateNext();
+                time = MyAgent.AlonePatientsEntranceTreatGen.GenerateNext();
             }
 
-			Hold(moveTime, message);
+			Hold(time, message);
         }
 
 		//meta! userInfo="Process messages defined in code", id="0"
@@ -47,6 +48,16 @@ namespace Agents.AgentHospital.ContinualAssistants
 				case Mc.PatientMakeEntranceTreat:
                     MyMessage msg = (MyMessage)message;
                     if (msg.Patient == null) return;
+
+                    if (msg.Patient.CameByAmbulance)
+                    {
+                        msg.Patient.Priority = MyAgent.AmbulancePatientsPriorityGen.GenerateNext();
+                    }
+                    else
+                    {
+                        msg.Patient.Priority = MyAgent.AlonePatientsPriorityGen.GenerateNext();
+                    }
+
                     var priority = msg.Patient.Priority;
                     if (priority == 1 || priority == 2)
                     {
@@ -61,6 +72,8 @@ namespace Agents.AgentHospital.ContinualAssistants
                     {
                         MyAgent.EnqueuePatientAmbulanceB(msg.Patient, msg.Patient.Priority);
                     }
+
+					msg.Patient.TimeStartWaitingForMedicalTreat = MySim.CurrentTime;
 
                     msg.Patient.UnassignResources();
 					msg.Patient.HasEntranceTreatDone = true;

@@ -34,7 +34,7 @@ namespace Agents.AgentHospital.ContinualAssistants
             }
             else
             {
-                moveTime = MyAgent.ALonePatientsMedicalTreatGen.GenerateNext();
+                moveTime = MyAgent.AlonePatientsMedicalTreatGen.GenerateNext();
             }
 
             Hold(moveTime, message);

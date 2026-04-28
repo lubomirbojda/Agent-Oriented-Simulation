@@ -5,24 +5,29 @@ public class Patient
     public bool CameByAmbulance { get; private set; }
     public double ArrivalTime { get; private set; }
 
+    public double TimeStartWaitingForEntranceTreat { get; set; } = -1;
+    public double WaitingForEntranceTreat { get; set; } = -1;
+
+    public double TimeStartWaitingForMedicalTreat { get; set; } = -1;
+    public double WaitingForMedicalTreat { get; set; } = -1;
+
     public int Id { get; private set; } = 0;
-    public int Priority { get; private set; } = 0;
+    public int Priority { get; set; } = 0;
 
     public Nurse? AssignedNurse { get; set; }
     public Doctor? AssignedDoctor { get; set; }
-    public Ambulance? AssignedAmbulance { get; set; }
+    public AmbulanceA? AssignedAmbulance { get; set; }
 
     public bool HasEntranceTreatDone { get; set; } = false;
 
-    public Patient(bool cameByAmbulance, double arrivalTime, int id, int priority)
+    public Patient(bool cameByAmbulance, double arrivalTime, int id)
     {
         CameByAmbulance = cameByAmbulance;
         ArrivalTime = arrivalTime;
         Id = id;
-        Priority = priority;
     }
 
-    public void AssignResources(Nurse nurse, Ambulance ambulance, Doctor? doctor = null)
+    public void AssignResources(Nurse nurse, AmbulanceA ambulance, Doctor? doctor = null)
     {
         if (ambulance != nurse.ActualAmbulance)
         {
