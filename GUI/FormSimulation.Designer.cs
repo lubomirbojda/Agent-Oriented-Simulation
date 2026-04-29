@@ -92,6 +92,11 @@ namespace GUI
             label11 = new Label();
             label12 = new Label();
             labelActualReplication = new Label();
+            buttonCreateAnimator = new Button();
+            buttonDeleteAnimator = new Button();
+            groupBox1 = new GroupBox();
+            groupBox2 = new GroupBox();
+            groupBox3 = new GroupBox();
             tabControlMain.SuspendLayout();
             tabPageSimulation.SuspendLayout();
             tabControlSimulation.SuspendLayout();
@@ -112,6 +117,9 @@ namespace GUI
             ((System.ComponentModel.ISupportInitialize)numericUpDown3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown4).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown5).BeginInit();
+            groupBox1.SuspendLayout();
+            groupBox2.SuspendLayout();
+            groupBox3.SuspendLayout();
             SuspendLayout();
             // 
             // tabControlMain
@@ -119,10 +127,10 @@ namespace GUI
             tabControlMain.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tabControlMain.Controls.Add(tabPageSimulation);
             tabControlMain.Controls.Add(tabPageAnimation);
-            tabControlMain.Location = new Point(1, 126);
+            tabControlMain.Location = new Point(1, 141);
             tabControlMain.Name = "tabControlMain";
             tabControlMain.SelectedIndex = 0;
-            tabControlMain.Size = new Size(1015, 562);
+            tabControlMain.Size = new Size(1151, 547);
             tabControlMain.TabIndex = 0;
             // 
             // tabPageSimulation
@@ -131,7 +139,7 @@ namespace GUI
             tabPageSimulation.Location = new Point(4, 24);
             tabPageSimulation.Name = "tabPageSimulation";
             tabPageSimulation.Padding = new Padding(3);
-            tabPageSimulation.Size = new Size(1007, 534);
+            tabPageSimulation.Size = new Size(1143, 519);
             tabPageSimulation.TabIndex = 0;
             tabPageSimulation.Text = "Simulácia";
             tabPageSimulation.UseVisualStyleBackColor = true;
@@ -147,7 +155,7 @@ namespace GUI
             tabControlSimulation.Location = new Point(3, 3);
             tabControlSimulation.Name = "tabControlSimulation";
             tabControlSimulation.SelectedIndex = 0;
-            tabControlSimulation.Size = new Size(1001, 528);
+            tabControlSimulation.Size = new Size(1137, 513);
             tabControlSimulation.TabIndex = 0;
             // 
             // tabPagePatients
@@ -156,7 +164,7 @@ namespace GUI
             tabPagePatients.Location = new Point(4, 24);
             tabPagePatients.Name = "tabPagePatients";
             tabPagePatients.Padding = new Padding(3);
-            tabPagePatients.Size = new Size(993, 500);
+            tabPagePatients.Size = new Size(1129, 485);
             tabPagePatients.TabIndex = 0;
             tabPagePatients.Text = "Pacienti";
             tabPagePatients.UseVisualStyleBackColor = true;
@@ -168,7 +176,7 @@ namespace GUI
             dataGridViewPatients.Dock = DockStyle.Fill;
             dataGridViewPatients.Location = new Point(3, 3);
             dataGridViewPatients.Name = "dataGridViewPatients";
-            dataGridViewPatients.Size = new Size(987, 494);
+            dataGridViewPatients.Size = new Size(1123, 479);
             dataGridViewPatients.TabIndex = 0;
             // 
             // ColumnId_Patient
@@ -222,7 +230,7 @@ namespace GUI
             tabPageDoctors.Location = new Point(4, 24);
             tabPageDoctors.Name = "tabPageDoctors";
             tabPageDoctors.Padding = new Padding(3);
-            tabPageDoctors.Size = new Size(993, 500);
+            tabPageDoctors.Size = new Size(1071, 485);
             tabPageDoctors.TabIndex = 1;
             tabPageDoctors.Text = "Doktori";
             tabPageDoctors.UseVisualStyleBackColor = true;
@@ -234,7 +242,7 @@ namespace GUI
             dataGridViewDoctors.Dock = DockStyle.Fill;
             dataGridViewDoctors.Location = new Point(3, 3);
             dataGridViewDoctors.Name = "dataGridViewDoctors";
-            dataGridViewDoctors.Size = new Size(987, 494);
+            dataGridViewDoctors.Size = new Size(1065, 479);
             dataGridViewDoctors.TabIndex = 0;
             // 
             // ColumnID_doctors
@@ -258,7 +266,7 @@ namespace GUI
             tabPageNurses.Location = new Point(4, 24);
             tabPageNurses.Name = "tabPageNurses";
             tabPageNurses.Padding = new Padding(3);
-            tabPageNurses.Size = new Size(993, 500);
+            tabPageNurses.Size = new Size(1071, 485);
             tabPageNurses.TabIndex = 2;
             tabPageNurses.Text = "Sestričky";
             tabPageNurses.UseVisualStyleBackColor = true;
@@ -270,7 +278,7 @@ namespace GUI
             dataGridViewNurses.Dock = DockStyle.Fill;
             dataGridViewNurses.Location = new Point(3, 3);
             dataGridViewNurses.Name = "dataGridViewNurses";
-            dataGridViewNurses.Size = new Size(987, 494);
+            dataGridViewNurses.Size = new Size(1065, 479);
             dataGridViewNurses.TabIndex = 0;
             // 
             // ColumnId_nurse
@@ -294,7 +302,7 @@ namespace GUI
             tabPageAmbulationsA.Location = new Point(4, 24);
             tabPageAmbulationsA.Name = "tabPageAmbulationsA";
             tabPageAmbulationsA.Padding = new Padding(3);
-            tabPageAmbulationsA.Size = new Size(993, 500);
+            tabPageAmbulationsA.Size = new Size(1071, 485);
             tabPageAmbulationsA.TabIndex = 3;
             tabPageAmbulationsA.Text = "Ambulancie A";
             tabPageAmbulationsA.UseVisualStyleBackColor = true;
@@ -306,7 +314,7 @@ namespace GUI
             dataGridViewAmbA.Dock = DockStyle.Fill;
             dataGridViewAmbA.Location = new Point(3, 3);
             dataGridViewAmbA.Name = "dataGridViewAmbA";
-            dataGridViewAmbA.Size = new Size(987, 494);
+            dataGridViewAmbA.Size = new Size(1065, 479);
             dataGridViewAmbA.TabIndex = 0;
             // 
             // Columnid_amb_a
@@ -340,7 +348,7 @@ namespace GUI
             tabPageAmbulationsB.Location = new Point(4, 24);
             tabPageAmbulationsB.Name = "tabPageAmbulationsB";
             tabPageAmbulationsB.Padding = new Padding(3);
-            tabPageAmbulationsB.Size = new Size(993, 500);
+            tabPageAmbulationsB.Size = new Size(1071, 485);
             tabPageAmbulationsB.TabIndex = 4;
             tabPageAmbulationsB.Text = "Ambulancie B";
             tabPageAmbulationsB.UseVisualStyleBackColor = true;
@@ -352,7 +360,7 @@ namespace GUI
             dataGridViewAmbB.Dock = DockStyle.Fill;
             dataGridViewAmbB.Location = new Point(3, 3);
             dataGridViewAmbB.Name = "dataGridViewAmbB";
-            dataGridViewAmbB.Size = new Size(987, 494);
+            dataGridViewAmbB.Size = new Size(1065, 479);
             dataGridViewAmbB.TabIndex = 0;
             // 
             // ColumnId_amb_b
@@ -385,14 +393,14 @@ namespace GUI
             tabPageAnimation.Location = new Point(4, 24);
             tabPageAnimation.Name = "tabPageAnimation";
             tabPageAnimation.Padding = new Padding(3);
-            tabPageAnimation.Size = new Size(1007, 534);
+            tabPageAnimation.Size = new Size(1085, 519);
             tabPageAnimation.TabIndex = 1;
             tabPageAnimation.Text = "Animácia";
             tabPageAnimation.UseVisualStyleBackColor = true;
             // 
             // trackBarPauseTime
             // 
-            trackBarPauseTime.Location = new Point(659, 46);
+            trackBarPauseTime.Location = new Point(91, 26);
             trackBarPauseTime.Minimum = 1;
             trackBarPauseTime.Name = "trackBarPauseTime";
             trackBarPauseTime.Size = new Size(146, 45);
@@ -433,7 +441,7 @@ namespace GUI
             // 
             // trackBarIntervalTime
             // 
-            trackBarIntervalTime.Location = new Point(656, 90);
+            trackBarIntervalTime.Location = new Point(91, 71);
             trackBarIntervalTime.Maximum = 100;
             trackBarIntervalTime.Minimum = 1;
             trackBarIntervalTime.Name = "trackBarIntervalTime";
@@ -445,7 +453,7 @@ namespace GUI
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(587, 20);
+            label3.Location = new Point(42, 22);
             label3.Name = "label3";
             label3.Size = new Size(63, 15);
             label3.TabIndex = 8;
@@ -453,18 +461,18 @@ namespace GUI
             // 
             // numericUpDownReplications
             // 
-            numericUpDownReplications.Location = new Point(667, 14);
+            numericUpDownReplications.Location = new Point(111, 18);
             numericUpDownReplications.Maximum = new decimal(new int[] { 100000000, 0, 0, 0 });
             numericUpDownReplications.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numericUpDownReplications.Name = "numericUpDownReplications";
-            numericUpDownReplications.Size = new Size(102, 23);
+            numericUpDownReplications.Size = new Size(100, 23);
             numericUpDownReplications.TabIndex = 9;
             numericUpDownReplications.Value = new decimal(new int[] { 100, 0, 0, 0 });
             // 
             // checkBoxSeed
             // 
             checkBoxSeed.AutoSize = true;
-            checkBoxSeed.Location = new Point(807, 16);
+            checkBoxSeed.Location = new Point(28, 58);
             checkBoxSeed.Name = "checkBoxSeed";
             checkBoxSeed.Size = new Size(94, 19);
             checkBoxSeed.TabIndex = 10;
@@ -474,7 +482,7 @@ namespace GUI
             // numericUpDown2
             // 
             numericUpDown2.Enabled = false;
-            numericUpDown2.Location = new Point(907, 15);
+            numericUpDown2.Location = new Point(128, 57);
             numericUpDown2.Name = "numericUpDown2";
             numericUpDown2.Size = new Size(83, 23);
             numericUpDown2.TabIndex = 11;
@@ -482,7 +490,7 @@ namespace GUI
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(843, 80);
+            label4.Location = new Point(217, 43);
             label4.Name = "label4";
             label4.Size = new Size(56, 15);
             label4.TabIndex = 12;
@@ -491,7 +499,7 @@ namespace GUI
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(850, 111);
+            label5.Location = new Point(224, 74);
             label5.Name = "label5";
             label5.Size = new Size(49, 15);
             label5.TabIndex = 13;
@@ -499,7 +507,7 @@ namespace GUI
             // 
             // numericUpDown3
             // 
-            numericUpDown3.Location = new Point(905, 78);
+            numericUpDown3.Location = new Point(279, 41);
             numericUpDown3.Name = "numericUpDown3";
             numericUpDown3.Size = new Size(54, 23);
             numericUpDown3.TabIndex = 14;
@@ -507,7 +515,7 @@ namespace GUI
             // 
             // numericUpDown4
             // 
-            numericUpDown4.Location = new Point(905, 109);
+            numericUpDown4.Location = new Point(279, 72);
             numericUpDown4.Name = "numericUpDown4";
             numericUpDown4.Size = new Size(54, 23);
             numericUpDown4.TabIndex = 15;
@@ -516,7 +524,7 @@ namespace GUI
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(818, 50);
+            label6.Location = new Point(36, 91);
             label6.Name = "label6";
             label6.Size = new Size(86, 15);
             label6.TabIndex = 16;
@@ -524,9 +532,9 @@ namespace GUI
             // 
             // numericUpDown5
             // 
-            numericUpDown5.Location = new Point(907, 46);
+            numericUpDown5.Location = new Point(128, 91);
             numericUpDown5.Name = "numericUpDown5";
-            numericUpDown5.Size = new Size(52, 23);
+            numericUpDown5.Size = new Size(83, 23);
             numericUpDown5.TabIndex = 17;
             // 
             // buttonStartSim
@@ -553,7 +561,7 @@ namespace GUI
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(571, 55);
+            label7.Location = new Point(11, 34);
             label7.Name = "label7";
             label7.Size = new Size(82, 15);
             label7.TabIndex = 20;
@@ -562,7 +570,7 @@ namespace GUI
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(601, 109);
+            label8.Location = new Point(36, 80);
             label8.Name = "label8";
             label8.Size = new Size(49, 15);
             label8.TabIndex = 21;
@@ -571,7 +579,7 @@ namespace GUI
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(667, 72);
+            label2.Location = new Point(94, 53);
             label2.Name = "label2";
             label2.Size = new Size(13, 15);
             label2.TabIndex = 22;
@@ -580,7 +588,7 @@ namespace GUI
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(667, 120);
+            label9.Location = new Point(94, 98);
             label9.Name = "label9";
             label9.Size = new Size(13, 15);
             label9.TabIndex = 23;
@@ -589,7 +597,7 @@ namespace GUI
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(783, 72);
+            label10.Location = new Point(212, 53);
             label10.Name = "label10";
             label10.Size = new Size(19, 15);
             label10.TabIndex = 24;
@@ -598,7 +606,7 @@ namespace GUI
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new Point(777, 120);
+            label11.Location = new Point(212, 98);
             label11.Name = "label11";
             label11.Size = new Size(25, 15);
             label11.TabIndex = 25;
@@ -623,36 +631,87 @@ namespace GUI
             labelActualReplication.TabIndex = 27;
             labelActualReplication.Text = "0";
             // 
+            // buttonCreateAnimator
+            // 
+            buttonCreateAnimator.Location = new Point(23, 29);
+            buttonCreateAnimator.Name = "buttonCreateAnimator";
+            buttonCreateAnimator.Size = new Size(157, 23);
+            buttonCreateAnimator.TabIndex = 28;
+            buttonCreateAnimator.Text = "Vytvoriť animátor";
+            buttonCreateAnimator.UseVisualStyleBackColor = true;
+            // 
+            // buttonDeleteAnimator
+            // 
+            buttonDeleteAnimator.Location = new Point(23, 56);
+            buttonDeleteAnimator.Name = "buttonDeleteAnimator";
+            buttonDeleteAnimator.Size = new Size(157, 23);
+            buttonDeleteAnimator.TabIndex = 29;
+            buttonDeleteAnimator.Text = "Vymazať animátor";
+            buttonDeleteAnimator.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(label9);
+            groupBox1.Controls.Add(label11);
+            groupBox1.Controls.Add(label10);
+            groupBox1.Controls.Add(label2);
+            groupBox1.Controls.Add(label7);
+            groupBox1.Controls.Add(trackBarPauseTime);
+            groupBox1.Controls.Add(trackBarIntervalTime);
+            groupBox1.Controls.Add(label8);
+            groupBox1.Location = new Point(298, 12);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(259, 123);
+            groupBox1.TabIndex = 31;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Ovládanie rýchlosti";
+            // 
+            // groupBox2
+            // 
+            groupBox2.Controls.Add(label3);
+            groupBox2.Controls.Add(numericUpDownReplications);
+            groupBox2.Controls.Add(checkBoxSeed);
+            groupBox2.Controls.Add(numericUpDown2);
+            groupBox2.Controls.Add(label4);
+            groupBox2.Controls.Add(label5);
+            groupBox2.Controls.Add(numericUpDown3);
+            groupBox2.Controls.Add(numericUpDown4);
+            groupBox2.Controls.Add(label6);
+            groupBox2.Controls.Add(numericUpDown5);
+            groupBox2.Location = new Point(563, 12);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(362, 127);
+            groupBox2.TabIndex = 32;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Nastavenia simulácie";
+            // 
+            // groupBox3
+            // 
+            groupBox3.Controls.Add(buttonCreateAnimator);
+            groupBox3.Controls.Add(buttonDeleteAnimator);
+            groupBox3.Enabled = false;
+            groupBox3.Location = new Point(931, 34);
+            groupBox3.Name = "groupBox3";
+            groupBox3.Size = new Size(200, 100);
+            groupBox3.TabIndex = 33;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "groupBox3";
+            // 
             // FormSimulation
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1016, 689);
+            ClientSize = new Size(1152, 689);
+            Controls.Add(groupBox3);
+            Controls.Add(groupBox2);
+            Controls.Add(groupBox1);
             Controls.Add(labelActualReplication);
             Controls.Add(label12);
-            Controls.Add(label11);
-            Controls.Add(label10);
-            Controls.Add(label9);
-            Controls.Add(label2);
-            Controls.Add(label8);
-            Controls.Add(label7);
             Controls.Add(buttonPauseSim);
             Controls.Add(buttonStartSim);
-            Controls.Add(numericUpDown5);
-            Controls.Add(label6);
-            Controls.Add(numericUpDown4);
-            Controls.Add(numericUpDown3);
-            Controls.Add(label5);
-            Controls.Add(label4);
-            Controls.Add(numericUpDown2);
-            Controls.Add(checkBoxSeed);
-            Controls.Add(numericUpDownReplications);
-            Controls.Add(label3);
-            Controls.Add(trackBarIntervalTime);
             Controls.Add(labelSimTime);
             Controls.Add(label1);
             Controls.Add(MaxSpeedCheckBox);
-            Controls.Add(trackBarPauseTime);
             Controls.Add(tabControlMain);
             Name = "FormSimulation";
             Text = "gr";
@@ -676,6 +735,11 @@ namespace GUI
             ((System.ComponentModel.ISupportInitialize)numericUpDown3).EndInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown4).EndInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown5).EndInit();
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
+            groupBox3.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -748,5 +812,10 @@ namespace GUI
         private DataGridViewTextBoxColumn ColumnDoc_amb_b;
         private Label label12;
         private Label labelActualReplication;
+        private Button buttonCreateAnimator;
+        private Button buttonDeleteAnimator;
+        private GroupBox groupBox1;
+        private GroupBox groupBox2;
+        private GroupBox groupBox3;
     }
 }

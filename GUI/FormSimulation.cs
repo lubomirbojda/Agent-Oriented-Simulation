@@ -42,7 +42,7 @@ namespace GUI
             if (_simulation.IsMaxSpeed()) return;
 
 
-            labelSimTime.Text = _simulation.CurrentTime.ToString();
+            labelSimTime.Text = _simulation.CurrentTime.ToString("F3");
 
             if (tabControlMain.SelectedTab == tabPageSimulation)
                 RefreshSimulation();
@@ -99,8 +99,8 @@ namespace GUI
         {
             if (tabControlSimulation.SelectedTab == tabPagePatients)
                 RefreshPatients();
-            
-            
+
+
             RefreshDoctors();
             RefreshNurses();
             RefreshAbmA();
@@ -137,7 +137,10 @@ namespace GUI
                     string waitingForMedical = patient.WaitingForMedicalTreat >= 0 ? patient.WaitingForMedicalTreat.ToString() : "---";
                     string assignedNurse = patient.AssignedNurse != null ? patient.AssignedNurse.Id.ToString() : "---";
                     string assignedDoctor = patient.AssignedDoctor != null ? patient.AssignedDoctor.Id.ToString() : "---";
-                    string assignedAmbulance = patient.AssignedAmbulance != null ? patient.AssignedAmbulance.Id.ToString() : "---";
+                    string assignedAmbulance = patient.AssignedAmbulance != null ? 
+                        (patient.AssignedAmbulance.IsTypeA ? 
+                        "A_" + patient.AssignedAmbulance.Id : "B_" + patient.AssignedAmbulance.Id) 
+                        : "---";
 
                     dataGridViewPatients.Rows.Add(id, cameByAmbulance, waitingForEntrance, entranceDone, priority,
                         waitingForMedical, assignedNurse, assignedDoctor, assignedAmbulance);
@@ -156,7 +159,10 @@ namespace GUI
                 {
                     string id = doctor.Id.ToString();
                     string isBusy = doctor.IsBusy ? "Áno" : "Nie";
-                    string ambulance = doctor.ActualAmbulance != null ? doctor.ActualAmbulance.Id.ToString() : "---";
+                    string ambulance = doctor.ActualAmbulance != null ?
+                        (doctor.ActualAmbulance.IsTypeA ?
+                        "A_" + doctor.ActualAmbulance.Id : "B_" + doctor.ActualAmbulance.Id)
+                        : "---";
 
                     dataGridViewDoctors.Rows.Add(id, isBusy, ambulance);
                 }
@@ -174,7 +180,10 @@ namespace GUI
                 {
                     string id = nurse.Id.ToString();
                     string isBusy = nurse.IsBusy ? "Áno" : "Nie";
-                    string ambulance = nurse.ActualAmbulance != null ? nurse.ActualAmbulance.Id.ToString() : "---";
+                    string ambulance = nurse.ActualAmbulance != null ?
+                        (nurse.ActualAmbulance.IsTypeA ?
+                        "A_" + nurse.ActualAmbulance.Id : "B_" + nurse.ActualAmbulance.Id)
+                        : "---";
 
                     dataGridViewNurses.Rows.Add(id, isBusy, ambulance);
                 }
@@ -182,15 +191,20 @@ namespace GUI
             dataGridViewNurses.ResumeLayout();
         }
 
-        private void RefreshAbmA()
+        private void RefreshAbmA() => RefreshAmbulances(dataGridViewAmbA, _simulation.AgentHospital.AmbulationsA.AllResources);
+
+        private void RefreshAbmB() => RefreshAmbulances(dataGridViewAmbB, _simulation.AgentHospital.AmbulationsB.AllResources);
+
+        private void RefreshAmbulances(DataGridView datagridview, AmbulanceA[] ambulance)
         {
-            dataGridViewAmbA.SuspendLayout();
-            dataGridViewAmbA.Rows.Clear();
-            foreach (var amb in _simulation.AgentHospital.AmbulationsA.AllResources.ToList())
+            datagridview.SuspendLayout();
+            datagridview.Rows.Clear();
+            foreach (var amb in ambulance.ToList())
             {
                 if (amb != null)
                 {
-                    string id = amb.Id.ToString();
+                    string id = amb.IsTypeA ? "A_" : "B_";
+                    id += amb.Id.ToString();
                     string isBusy = amb.IsBusy ? "Áno" : "Nie";
                     string patient = amb.Patient != null ? amb.Patient.Id.ToString() : "---";
                     var busynurse = amb.GetBusyNurse();
@@ -198,32 +212,10 @@ namespace GUI
                     var busydoctor = amb.GetBusyDoctor();
                     string doctor = busydoctor != null ? busydoctor.Id.ToString() : "---";
 
-                    dataGridViewAmbA.Rows.Add(id, isBusy, patient, nurse, doctor);
+                    datagridview.Rows.Add(id, isBusy, patient, nurse, doctor);
                 }
             }
-            dataGridViewAmbA.ResumeLayout();
-        }
-
-        private void RefreshAbmB()
-        {
-            dataGridViewAmbB.SuspendLayout();
-            dataGridViewAmbB.Rows.Clear();
-            foreach (var amb in _simulation.AgentHospital.AmbulationsB.AllResources.ToList())
-            {
-                if (amb != null)
-                {
-                    string id = amb.Id.ToString();
-                    string isBusy = amb.IsBusy ? "Áno" : "Nie";
-                    string patient = amb.Patient != null ? amb.Patient.Id.ToString() : "---";
-                    var busynurse = amb.GetBusyNurse();
-                    string nurse = busynurse != null ? busynurse.Id.ToString() : "---";
-                    var busydoctor = amb.GetBusyDoctor();
-                    string doctor = busydoctor != null ? busydoctor.Id.ToString() : "---";
-
-                    dataGridViewAmbB.Rows.Add(id, isBusy, patient, nurse, doctor);
-                }
-            }
-            dataGridViewAmbB.ResumeLayout();
+            datagridview.ResumeLayout();
         }
 
         private void buttonStartSim_Click(object sender, EventArgs e)
