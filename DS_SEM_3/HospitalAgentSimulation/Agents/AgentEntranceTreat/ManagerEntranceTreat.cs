@@ -26,6 +26,9 @@ namespace Agents.AgentEntranceTreat
 		//meta! sender="AgentHospital", id="121", type="Request"
 		public void ProcessEntranceTreat(MessageForm message)
 		{
+			var msg = message.CreateCopy();
+            msg.Addressee = MyAgent.FindAssistant(SimId.ProcessEntranceTreat);
+			StartContinualAssistant(msg);
 		}
 
 		//meta! userInfo="Process messages defined in code", id="0"
@@ -34,6 +37,13 @@ namespace Agents.AgentEntranceTreat
 			switch (message.Code)
 			{
 			}
+		}
+
+		//meta! sender="ProcessEntranceTreat", id="134", type="Finish"
+		public void ProcessFinish(MessageForm message)
+		{
+			message.Code = Mc.EntranceTreat;
+			Response(message);
 		}
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"
@@ -47,6 +57,10 @@ namespace Agents.AgentEntranceTreat
 			{
 			case Mc.EntranceTreat:
 				ProcessEntranceTreat(message);
+			break;
+
+			case Mc.Finish:
+				ProcessFinish(message);
 			break;
 
 			default:

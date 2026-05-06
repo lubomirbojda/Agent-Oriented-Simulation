@@ -77,10 +77,6 @@ namespace Agents.AgentEnviroment
 		{
 			switch (message.Code)
 			{
-			case Mc.PatientLeave:
-				ProcessPatientLeave(message);
-			break;
-
 			case Mc.PatientArrived:
 				switch (message.Sender.Id)
 				{
@@ -97,14 +93,18 @@ namespace Agents.AgentEnviroment
 			case Mc.Finish:
 				switch (message.Sender.Id)
 				{
-				case SimId.SchedulerAmbulancePatientArrival:
-					ProcessFinishSchedulerAmbulancePatientArrival(message);
-				break;
-
 				case SimId.SchedulerAlonePatientArrival:
 					ProcessFinishSchedulerAlonePatientArrival(message);
 				break;
+
+				case SimId.SchedulerAmbulancePatientArrival:
+					ProcessFinishSchedulerAmbulancePatientArrival(message);
+				break;
 				}
+			break;
+
+			case Mc.PatientLeave:
+				ProcessPatientLeave(message);
 			break;
 
 			default:

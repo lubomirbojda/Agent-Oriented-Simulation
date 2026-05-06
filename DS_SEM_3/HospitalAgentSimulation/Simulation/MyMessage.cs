@@ -34,6 +34,9 @@ namespace Simulation
             MyMessage original = (MyMessage)message;
             // Copy attributes
             Patient = original.Patient;
+            QueueEntranceAlonePatients = original.QueueEntranceAlonePatients;
+            QueueEntranceAmbulancePatients = original.QueueEntranceAmbulancePatients;
+            QueuesAmbulances = original.QueuesAmbulances;
         }
     }
 }

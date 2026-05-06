@@ -20,6 +20,10 @@ public class Patient
 
     public bool HasEntranceTreatDone { get; set; } = false;
 
+    public bool HasAssignedAllResources { get; private set; } = false;
+
+    public bool CanStartTreat { get; set; } = false;
+
     public Patient(bool cameByAmbulance, double arrivalTime, int id)
     {
         CameByAmbulance = cameByAmbulance;
@@ -53,6 +57,7 @@ public class Patient
         AssignedNurse = nurse;
         AssignedAmbulance = ambulance;
         AssignedDoctor = doctor;
+        HasAssignedAllResources = true;
     }
 
     public void UnassignResources()
@@ -76,5 +81,6 @@ public class Patient
         AssignedNurse = null;
         AssignedDoctor = null;
         AssignedAmbulance = null;
+        HasAssignedAllResources = false;
     }
 }

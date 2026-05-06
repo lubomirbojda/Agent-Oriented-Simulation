@@ -26,7 +26,10 @@ namespace Agents.AgentMedicalTreat
 		//meta! sender="AgentHospital", id="123", type="Request"
 		public void ProcessMedicalTreat(MessageForm message)
 		{
-		}
+			var msg = message.CreateCopy();
+            msg.Addressee = MyAgent.FindAssistant(SimId.ProcessMedicalTreat);
+            StartContinualAssistant(msg);
+        }
 
 		//meta! userInfo="Process messages defined in code", id="0"
 		public void ProcessDefault(MessageForm message)
@@ -35,6 +38,13 @@ namespace Agents.AgentMedicalTreat
 			{
 			}
 		}
+
+		//meta! sender="ProcessMedicalTreat", id="136", type="Finish"
+		public void ProcessFinish(MessageForm message)
+		{
+            message.Code = Mc.MedicalTreat;
+            Response(message);
+        }
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"
 		public void Init()
@@ -45,6 +55,10 @@ namespace Agents.AgentMedicalTreat
 		{
 			switch (message.Code)
 			{
+			case Mc.Finish:
+				ProcessFinish(message);
+			break;
+
 			case Mc.MedicalTreat:
 				ProcessMedicalTreat(message);
 			break;

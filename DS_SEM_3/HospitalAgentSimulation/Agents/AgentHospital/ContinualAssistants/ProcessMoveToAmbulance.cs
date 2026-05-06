@@ -22,21 +22,20 @@ namespace Agents.AgentHospital.ContinualAssistants
 		//meta! sender="AgentHospital", id="96", type="Start"
 		public void ProcessStart(MessageForm message)
 		{
-            MyMessage msg = (MyMessage)message.CreateCopy();
-            if (msg.Patient == null) return;
+            MyMessage msg = (MyMessage)message;
+            if (msg.Patient == null || msg.Patient.AssignedNurse == null) return;
 
             if (!msg.Patient.HasEntranceTreatDone)
             {
-                msg.Patient.WaitingForEntranceTreat = MySim.CurrentTime - msg.Patient.TimeStartWaitingForEntranceTreat;
+                if (msg.Patient.AssignedNurse.ActualAmbulance != msg.Patient.AssignedAmbulance)
+				{
+
+				}
             }
             else
             {
-                msg.Patient.WaitingForMedicalTreat = MySim.CurrentTime - msg.Patient.TimeStartWaitingForMedicalTreat;
+                
             }
-
-            double moveTime = MyAgent.MoveToAmbulanceGen.GenerateNext();
-            message.Code = Mc.MoveToAmbulance;
-            Hold(moveTime, message);
         }
 
 		//meta! userInfo="Process messages defined in code", id="0"
