@@ -23,53 +23,53 @@ namespace Agents.AgentBoss
             }
         }
 
-        //meta! sender="AgentHospital", id="62", type="Response"
-        public void ProcessTreatPatient(MessageForm message)
+		//meta! sender="AgentHospital", id="62", type="Response"
+		public void ProcessTreatPatient(MessageForm message)
         {
             message.Code = Mc.PatientLeave;
             message.Addressee = MySim.FindAgent(SimId.AgentEnviroment);
             Notice(message);
         }
 
-        //meta! sender="AgentEnviroment", id="52", type="Notice"
-        public void ProcessPatientArrival(MessageForm message)
+		//meta! sender="AgentEnviroment", id="52", type="Notice"
+		public void ProcessPatientArrival(MessageForm message)
         {
             message.Code = Mc.TreatPatient;
             message.Addressee = MySim.FindAgent(SimId.AgentHospital);
             Request(message);
         }
 
-        //meta! userInfo="Process messages defined in code", id="0"
-        public void ProcessDefault(MessageForm message)
+		//meta! userInfo="Process messages defined in code", id="0"
+		public void ProcessDefault(MessageForm message)
         {
             switch (message.Code)
             {
             }
         }
 
-        //meta! userInfo="Generated code: do not modify", tag="begin"
-        public void Init()
-        {
-        }
+		//meta! userInfo="Generated code: do not modify", tag="begin"
+		public void Init()
+		{
+		}
 
-        override public void ProcessMessage(MessageForm message)
-        {
-            switch (message.Code)
-            {
-                case Mc.TreatPatient:
-                    ProcessTreatPatient(message);
-                    break;
+		override public void ProcessMessage(MessageForm message)
+		{
+			switch (message.Code)
+			{
+			case Mc.TreatPatient:
+				ProcessTreatPatient(message);
+			break;
 
-                case Mc.PatientArrival:
-                    ProcessPatientArrival(message);
-                    break;
+			case Mc.PatientArrival:
+				ProcessPatientArrival(message);
+			break;
 
-                default:
-                    ProcessDefault(message);
-                    break;
-            }
-        }
-        //meta! tag="end"
+			default:
+				ProcessDefault(message);
+			break;
+			}
+		}
+		//meta! tag="end"
         public new AgentBoss MyAgent
         {
             get

@@ -19,8 +19,8 @@ namespace Agents.AgentEnviroment.ContinualAssistants
             // Setup component for the next replication
         }
 
-        //meta! sender="AgentEnviroment", id="49", type="Start"
-        public void ProcessStart(MessageForm message)
+		//meta! sender="AgentEnviroment", id="49", type="Start"
+		public void ProcessStart(MessageForm message)
         {
             AgentEnviroment sender = (AgentEnviroment)message.Sender;
 
@@ -30,8 +30,8 @@ namespace Agents.AgentEnviroment.ContinualAssistants
             Hold(sender.AmbulancePatientGen.GenerateNext(), msgCopy);
         }
 
-        //meta! userInfo="Process messages defined in code", id="0"
-        public void ProcessDefault(MessageForm message)
+		//meta! userInfo="Process messages defined in code", id="0"
+		public void ProcessDefault(MessageForm message)
         {
             switch (message.Code)
             {
@@ -50,21 +50,21 @@ namespace Agents.AgentEnviroment.ContinualAssistants
             }
         }
 
-        //meta! userInfo="Generated code: do not modify", tag="begin"
-        override public void ProcessMessage(MessageForm message)
-        {
-            switch (message.Code)
-            {
-                case Mc.Start:
-                    ProcessStart(message);
-                    break;
+		//meta! userInfo="Generated code: do not modify", tag="begin"
+		override public void ProcessMessage(MessageForm message)
+		{
+			switch (message.Code)
+			{
+			case Mc.Start:
+				ProcessStart(message);
+			break;
 
-                default:
-                    ProcessDefault(message);
-                    break;
-            }
-        }
-        //meta! tag="end"
+			default:
+				ProcessDefault(message);
+			break;
+			}
+		}
+		//meta! tag="end"
         public new AgentEnviroment MyAgent
         {
             get

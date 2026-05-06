@@ -18,13 +18,13 @@ namespace Agents.AgentBoss
             // Setup component for the next replication
         }
 
-        //meta! userInfo="Generated code: do not modify", tag="begin"
-        private void Init()
-        {
-            new ManagerBoss(SimId.ManagerBoss, MySim, this);
-            AddOwnMessage(Mc.TreatPatient);
-            AddOwnMessage(Mc.PatientArrival);
-        }
-        //meta! tag="end"
+		//meta! userInfo="Generated code: do not modify", tag="begin"
+		private void Init()
+		{
+			new ManagerBoss(SimId.ManagerBoss, MySim, this);
+			AddOwnMessage(Mc.TreatPatient);
+			AddOwnMessage(Mc.PatientArrival);
+		}
+		//meta! tag="end"
     }
 }

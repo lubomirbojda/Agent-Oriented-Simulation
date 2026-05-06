@@ -23,14 +23,14 @@ namespace Agents.AgentEnviroment
             }
         }
 
-        //meta! sender="SchedulerAmbulancePatientArrival", id="50", type="Notice"
-        public void ProcessPatientArrivedSchedulerAmbulancePatientArrival(MessageForm message)
+		//meta! sender="SchedulerAmbulancePatientArrival", id="50", type="Notice"
+		public void ProcessPatientArrivedSchedulerAmbulancePatientArrival(MessageForm message)
         {
             ProcessPatientArrived(message);
         }
 
-        //meta! sender="SchedulerAlonePatientArrival", id="83", type="Notice"
-        public void ProcessPatientArrivedSchedulerAlonePatientArrival(MessageForm message)
+		//meta! sender="SchedulerAlonePatientArrival", id="83", type="Notice"
+		public void ProcessPatientArrivedSchedulerAlonePatientArrival(MessageForm message)
         {
             ProcessPatientArrived(message);
         }
@@ -42,77 +42,77 @@ namespace Agents.AgentEnviroment
             Notice(message);
         }
 
-        //meta! sender="SchedulerAlonePatientArrival", id="82", type="Finish"
-        public void ProcessFinishSchedulerAlonePatientArrival(MessageForm message)
+		//meta! sender="SchedulerAlonePatientArrival", id="82", type="Finish"
+		public void ProcessFinishSchedulerAlonePatientArrival(MessageForm message)
         {
         }
 
-        //meta! sender="SchedulerAmbulancePatientArrival", id="49", type="Finish"
-        public void ProcessFinishSchedulerAmbulancePatientArrival(MessageForm message)
+		//meta! sender="SchedulerAmbulancePatientArrival", id="49", type="Finish"
+		public void ProcessFinishSchedulerAmbulancePatientArrival(MessageForm message)
         {
         }
 
-        //meta! sender="AgentBoss", id="60", type="Notice"
-        public void ProcessPatientLeave(MessageForm message)
+		//meta! sender="AgentBoss", id="60", type="Notice"
+		public void ProcessPatientLeave(MessageForm message)
         {
             //MyMessage msg = (MyMessage)message;
             MySimulation sim = (MySimulation)MySim;
             sim.PatientsFinished++;
         }
 
-        //meta! userInfo="Process messages defined in code", id="0"
-        public void ProcessDefault(MessageForm message)
+		//meta! userInfo="Process messages defined in code", id="0"
+		public void ProcessDefault(MessageForm message)
         {
             switch (message.Code)
             {
             }
         }
 
-        //meta! userInfo="Generated code: do not modify", tag="begin"
-        public void Init()
-        {
-        }
+		//meta! userInfo="Generated code: do not modify", tag="begin"
+		public void Init()
+		{
+		}
 
-        override public void ProcessMessage(MessageForm message)
-        {
-            switch (message.Code)
-            {
-                case Mc.PatientArrived:
-                    switch (message.Sender.Id)
-                    {
-                        case SimId.SchedulerAmbulancePatientArrival:
-                            ProcessPatientArrivedSchedulerAmbulancePatientArrival(message);
-                            break;
+		override public void ProcessMessage(MessageForm message)
+		{
+			switch (message.Code)
+			{
+			case Mc.PatientArrived:
+				switch (message.Sender.Id)
+				{
+				case SimId.SchedulerAmbulancePatientArrival:
+					ProcessPatientArrivedSchedulerAmbulancePatientArrival(message);
+				break;
 
-                        case SimId.SchedulerAlonePatientArrival:
-                            ProcessPatientArrivedSchedulerAlonePatientArrival(message);
-                            break;
-                    }
-                    break;
+				case SimId.SchedulerAlonePatientArrival:
+					ProcessPatientArrivedSchedulerAlonePatientArrival(message);
+				break;
+				}
+			break;
 
-                case Mc.PatientLeave:
-                    ProcessPatientLeave(message);
-                    break;
+			case Mc.Finish:
+				switch (message.Sender.Id)
+				{
+				case SimId.SchedulerAmbulancePatientArrival:
+					ProcessFinishSchedulerAmbulancePatientArrival(message);
+				break;
 
-                case Mc.Finish:
-                    switch (message.Sender.Id)
-                    {
-                        case SimId.SchedulerAlonePatientArrival:
-                            ProcessFinishSchedulerAlonePatientArrival(message);
-                            break;
+				case SimId.SchedulerAlonePatientArrival:
+					ProcessFinishSchedulerAlonePatientArrival(message);
+				break;
+				}
+			break;
 
-                        case SimId.SchedulerAmbulancePatientArrival:
-                            ProcessFinishSchedulerAmbulancePatientArrival(message);
-                            break;
-                    }
-                    break;
+			case Mc.PatientLeave:
+				ProcessPatientLeave(message);
+			break;
 
-                default:
-                    ProcessDefault(message);
-                    break;
-            }
-        }
-        //meta! tag="end"
+			default:
+				ProcessDefault(message);
+			break;
+			}
+		}
+		//meta! tag="end"
         public new AgentEnviroment MyAgent
         {
             get

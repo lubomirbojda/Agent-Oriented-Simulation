@@ -50,13 +50,13 @@ namespace Agents.AgentHospital
             Response(message);
         }
 
-        //meta! sender="ProcessMoveToAmbulance", id="96", type="Finish"
-        public void ProcessFinishProcessMoveToAmbulance(MessageForm message)
+		//meta! sender="ProcessMoveToAmbulance", id="96", type="Finish"
+		public void ProcessFinishProcessMoveToAmbulance(MessageForm message)
         {
         }
 
-        //meta! sender="ProcessMoveToEntranceSpace", id="91", type="Finish"
-        public void ProcessFinishProcessMoveToEntranceSpace(MessageForm message)
+		//meta! sender="ProcessMoveToEntranceSpace", id="91", type="Finish"
+		public void ProcessFinishProcessMoveToEntranceSpace(MessageForm message)
 		{
 		}
 
@@ -68,6 +68,11 @@ namespace Agents.AgentHospital
 			}
 		}
 
+		//meta! sender="AgentResources", id="111", type="Response"
+		public void ProcessTryAssignResources(MessageForm message)
+		{
+		}
+
 		//meta! userInfo="Generated code: do not modify", tag="begin"
 		public void Init()
 		{
@@ -77,29 +82,33 @@ namespace Agents.AgentHospital
 		{
 			switch (message.Code)
 			{
+			case Mc.TreatPatient:
+				ProcessTreatPatient(message);
+			break;
+
 			case Mc.Finish:
 				switch (message.Sender.Id)
 				{
-				case SimId.ProcessEntranceTreat:
-					ProcessFinishProcessEntranceTreat(message);
-				break;
-
 				case SimId.ProcessMedicalTreat:
 					ProcessFinishProcessMedicalTreat(message);
-				break;
-
-				case SimId.ProcessMoveToAmbulance:
-                    ProcessFinishProcessMoveToAmbulance(message);
 				break;
 
 				case SimId.ProcessMoveToEntranceSpace:
 					ProcessFinishProcessMoveToEntranceSpace(message);
 				break;
+
+				case SimId.ProcessMoveToAmbulance:
+					ProcessFinishProcessMoveToAmbulance(message);
+				break;
+
+				case SimId.ProcessEntranceTreat:
+					ProcessFinishProcessEntranceTreat(message);
+				break;
 				}
 			break;
 
-			case Mc.TreatPatient:
-				ProcessTreatPatient(message);
+			case Mc.TryAssignResources:
+				ProcessTryAssignResources(message);
 			break;
 
 			default:

@@ -1,4 +1,5 @@
 using Agents.AgentBoss;
+using Agents.AgentResources;
 using OSPABA;
 using Agents.AgentHospital;
 using Agents.AgentEnviroment;
@@ -50,19 +51,22 @@ namespace Simulation
             base.SimulationFinished();
         }
 
-        //meta! userInfo="Generated code: do not modify", tag="begin"
-        private void Init()
-        {
-            AgentBoss = new AgentBoss(SimId.AgentBoss, this, null);
-            AgentEnviroment = new AgentEnviroment(SimId.AgentEnviroment, this, AgentBoss);
-            AgentHospital = new AgentHospital(SimId.AgentHospital, this, AgentBoss);
-        }
-        public AgentBoss AgentBoss
-        { get; set; }
-        public AgentEnviroment AgentEnviroment
-        { get; set; }
-        public AgentHospital AgentHospital
-        { get; set; }
-        //meta! tag="end"
+		//meta! userInfo="Generated code: do not modify", tag="begin"
+		private void Init()
+		{
+			AgentBoss = new AgentBoss(SimId.AgentBoss, this, null);
+			AgentEnviroment = new AgentEnviroment(SimId.AgentEnviroment, this, AgentBoss);
+			AgentHospital = new AgentHospital(SimId.AgentHospital, this, AgentBoss);
+			AgentResources = new AgentResources(SimId.AgentResources, this, AgentHospital);
+		}
+		public AgentBoss AgentBoss
+		{ get; set; }
+		public AgentEnviroment AgentEnviroment
+		{ get; set; }
+		public AgentHospital AgentHospital
+		{ get; set; }
+		public AgentResources AgentResources
+		{ get; set; }
+		//meta! tag="end"
     }
 }

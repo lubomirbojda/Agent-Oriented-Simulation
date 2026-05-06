@@ -5,6 +5,7 @@ namespace Simulation
 	public class Mc : OSPABA.IdList
 	{
 		//meta! userInfo="Generated code: do not modify", tag="begin"
+		public const int TryAssignResources = 1014;
 		public const int PatientArrived = 1002;
 		public const int PatientArrival = 1004;
 		public const int PatientLeave = 1010;

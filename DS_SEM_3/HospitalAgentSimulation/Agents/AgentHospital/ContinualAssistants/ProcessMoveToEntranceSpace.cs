@@ -59,7 +59,7 @@ namespace Agents.AgentHospital.ContinualAssistants
 					msg.Patient.TimeStartWaitingForEntranceTreat = MySim.CurrentTime;
 
 					AssistantFinished(message);
-                    MyAgent.TryAssignResources(msg);
+                    //MyAgent.TryAssignResources(msg);
                     break;
             }
 		}

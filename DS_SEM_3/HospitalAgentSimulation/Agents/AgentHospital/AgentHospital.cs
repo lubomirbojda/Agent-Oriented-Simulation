@@ -1,11 +1,11 @@
+using OSPABA;
 using Agents.AgentHospital.ContinualAssistants;
+using Simulation;
 using DS_SEM_3.Generators.Empiric.Continuous;
 using DS_SEM_3.Generators.Empiric.Discrete;
 using DS_SEM_3.Generators.Triangular;
 using DS_SEM_3.Generators.Uniform;
 using DS_SEM_3.HospitalAgentSimulation.Entities;
-using OSPABA;
-using Simulation;
 using System.Diagnostics;
 
 namespace Agents.AgentHospital
@@ -16,18 +16,11 @@ namespace Agents.AgentHospital
         public List<Patient> PatientsInHospital { get; private set; } = new();
         public Queue<Patient> QueueEntranceAmbulancePatients { get; private set; } = new();
         public Queue<Patient> QueueEntranceAlonePatients { get; private set; } = new();
-        //public PriorityQueue<Patient, (int priority, int order)> QueueAmbulanceA { get; private set; } = new();
         private int ambulanceAOrder = 0;
-        //public PriorityQueue<Patient, (int priority, int order)> QueueAmbulanceB { get; private set; } = new();
         private int ambulanceBOrder = 0;
 
         public SortedList<(int priority, int order), Patient> QueueAmbulanceA { get; private set; } = new();
         public SortedList<(int priority, int order), Patient> QueueAmbulanceB { get; private set; } = new();
-
-        public Resources<Nurse> Nurses { get; private set; } = new(12);
-        public Resources<Doctor> Doctors { get; private set; } = new(8);
-        public Resources<AmbulanceA> AmbulationsA { get; private set; } = new(5);
-        public Resources<AmbulanceB> AmbulationsB { get; private set; } = new(7);
 
         public TriangularDist AlonePatientsMoveToEntranceSpaceGen { get; private set; }
         public ContinuousUniform AmbulancePatientsMoveToEntranceSpaceGen { get; private set; }
@@ -93,10 +86,6 @@ namespace Agents.AgentHospital
             QueueAmbulanceB.Clear();
             ambulanceAOrder = 0;
             ambulanceBOrder = 0;
-            Nurses.ResetResources();
-            Doctors.ResetResources();
-            AmbulationsA.ResetResources();
-            AmbulationsB.ResetResources();
         }
 
         public void EnqueuePatientAmbulanceA(Patient patient, int priority)
@@ -131,73 +120,19 @@ namespace Agents.AgentHospital
 
         public Patient DequeuePatientAmbulanceB() => DequeuePatient(QueueAmbulanceB, QueueAmbulanceA);
 
-        //meta! userInfo="Generated code: do not modify", tag="begin"
-        private void Init()
+		//meta! userInfo="Generated code: do not modify", tag="begin"
+		private void Init()
 		{
 			new ManagerHospital(SimId.ManagerHospital, MySim, this);
-			new ProcessMoveToEntranceSpace(SimId.ProcessMoveToEntranceSpace, MySim, this);
 			new ProcessEntranceTreat(SimId.ProcessEntranceTreat, MySim, this);
-            new ProcessMoveToAmbulance(SimId.ProcessMoveToAmbulance, MySim, this);
-            new ProcessMedicalTreat(SimId.ProcessMedicalTreat, MySim, this);
+			new ProcessMoveToEntranceSpace(SimId.ProcessMoveToEntranceSpace, MySim, this);
+			new ProcessMoveToAmbulance(SimId.ProcessMoveToAmbulance, MySim, this);
+			new ProcessMedicalTreat(SimId.ProcessMedicalTreat, MySim, this);
 			AddOwnMessage(Mc.TreatPatient);
+			AddOwnMessage(Mc.TryAssignResources);
 		}
-        //meta! tag="end"
+		//meta! tag="end"
 
-        private void StartMoveToAmbulance(Patient patient, MessageForm message)
-        {
-            MyMessage msg = (MyMessage)message.CreateCopy();
-            msg.Patient = patient;
-            msg.Addressee = FindAssistant(SimId.ProcessMoveToAmbulance);
-            MyManager.StartContinualAssistant(msg);
-        }
-
-        public void TryAssignResources(MessageForm message)
-        {
-            var nurse = Nurses.TryGetFreeResource();
-            var doctor = Doctors.TryGetFreeResource();
-            var ambA = AmbulationsA.TryGetFreeResource();
-            var ambB = AmbulationsB.TryGetFreeResource();
-
-            if (QueueAmbulanceA.Count > 0)
-            {
-                if (nurse != null && doctor != null && ambA != null)
-                {
-                    var patient = DequeuePatientAmbulanceA();
-                    patient.AssignResources(nurse, ambA, doctor);
-                    StartMoveToAmbulance(patient, message);
-                    return;
-                }
-            }
-            if (QueueAmbulanceB.Count > 0)
-            {
-                if (nurse != null && doctor != null && ambB != null)
-                {
-                    var patient = DequeuePatientAmbulanceB();
-                    patient.AssignResources(nurse, ambB, doctor);
-                    StartMoveToAmbulance(patient, message);
-                    return;
-                }
-            }
-            if (QueueEntranceAmbulancePatients.Count > 0)
-            {
-                if (nurse != null && ambB != null)
-                {
-                    var patient = QueueEntranceAmbulancePatients.Dequeue();
-                    patient.AssignResources(nurse, ambB);
-                    StartMoveToAmbulance(patient, message);
-                    return;
-                }
-            }
-            if (QueueEntranceAlonePatients.Count > 0)
-            {
-                if (nurse != null && ambB != null)
-                {
-                    var patient = QueueEntranceAlonePatients.Dequeue();
-                    patient.AssignResources(nurse, ambB);
-                    StartMoveToAmbulance(patient, message);
-                    return;
-                }
-            }
-        }
+        
     }
 }

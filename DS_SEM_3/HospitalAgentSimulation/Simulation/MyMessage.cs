@@ -7,6 +7,7 @@ namespace Simulation
     {
         public Patient? Patient { get; set; }
 
+
         public MyMessage(OSPABA.Simulation mySim) :
             base(mySim)
         {

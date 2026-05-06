@@ -1,8 +1,8 @@
+using OSPABA;
+using Simulation;
 using Agents.AgentEnviroment.ContinualAssistants;
 using DS_SEM_3.Generators.Empiric.Discrete;
 using DS_SEM_3.Generators.Exponential;
-using OSPABA;
-using Simulation;
 
 namespace Agents.AgentEnviroment
 {
@@ -43,15 +43,15 @@ namespace Agents.AgentEnviroment
             PatientsIdSeq = 0;
         }
 
-        //meta! userInfo="Generated code: do not modify", tag="begin"
-        private void Init()
-        {
-            new ManagerEnviroment(SimId.ManagerEnviroment, MySim, this);
-            new SchedulerAlonePatientArrival(SimId.SchedulerAlonePatientArrival, MySim, this);
-            new SchedulerAmbulancePatientArrival(SimId.SchedulerAmbulancePatientArrival, MySim, this);
-            AddOwnMessage(Mc.PatientArrived);
-            AddOwnMessage(Mc.PatientLeave);
-        }
-        //meta! tag="end"
+		//meta! userInfo="Generated code: do not modify", tag="begin"
+		private void Init()
+		{
+			new ManagerEnviroment(SimId.ManagerEnviroment, MySim, this);
+			new SchedulerAlonePatientArrival(SimId.SchedulerAlonePatientArrival, MySim, this);
+			new SchedulerAmbulancePatientArrival(SimId.SchedulerAmbulancePatientArrival, MySim, this);
+			AddOwnMessage(Mc.PatientArrived);
+			AddOwnMessage(Mc.PatientLeave);
+		}
+		//meta! tag="end"
     }
 }
