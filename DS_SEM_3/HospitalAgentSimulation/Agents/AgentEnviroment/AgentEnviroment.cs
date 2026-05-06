@@ -47,8 +47,8 @@ namespace Agents.AgentEnviroment
 		private void Init()
 		{
 			new ManagerEnviroment(SimId.ManagerEnviroment, MySim, this);
-			new SchedulerAlonePatientArrival(SimId.SchedulerAlonePatientArrival, MySim, this);
 			new SchedulerAmbulancePatientArrival(SimId.SchedulerAmbulancePatientArrival, MySim, this);
+			new SchedulerAlonePatientArrival(SimId.SchedulerAlonePatientArrival, MySim, this);
 			AddOwnMessage(Mc.PatientArrived);
 			AddOwnMessage(Mc.PatientLeave);
 		}

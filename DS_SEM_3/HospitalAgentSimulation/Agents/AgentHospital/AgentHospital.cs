@@ -16,11 +16,8 @@ namespace Agents.AgentHospital
         public List<Patient> PatientsInHospital { get; private set; } = new();
         public Queue<Patient> QueueEntranceAmbulancePatients { get; private set; } = new();
         public Queue<Patient> QueueEntranceAlonePatients { get; private set; } = new();
-        private int ambulanceAOrder = 0;
-        private int ambulanceBOrder = 0;
 
-        public SortedList<(int priority, int order), Patient> QueueAmbulanceA { get; private set; } = new();
-        public SortedList<(int priority, int order), Patient> QueueAmbulanceB { get; private set; } = new();
+        public PriorityQueuesAmbulances QueuesAmbulances { get; private set; } = new();
 
         public TriangularDist AlonePatientsMoveToEntranceSpaceGen { get; private set; }
         public ContinuousUniform AmbulancePatientsMoveToEntranceSpaceGen { get; private set; }
@@ -82,57 +79,21 @@ namespace Agents.AgentHospital
             PatientsInHospital.Clear();
             QueueEntranceAmbulancePatients.Clear();
             QueueEntranceAlonePatients.Clear();
-            QueueAmbulanceA.Clear();
-            QueueAmbulanceB.Clear();
-            ambulanceAOrder = 0;
-            ambulanceBOrder = 0;
+            QueuesAmbulances.Clear();
         }
-
-        public void EnqueuePatientAmbulanceA(Patient patient, int priority)
-        {
-            //QueueAmbulanceA.Enqueue(patient, (priority, ambulanceAOrder++));
-            QueueAmbulanceA.Add((priority, ambulanceAOrder++), patient);
-        }
-
-        public void EnqueuePatientAmbulanceB(Patient patient, int priority)
-        {
-            //QueueAmbulanceB.Enqueue(patient, (priority, ambulanceBOrder++));
-            QueueAmbulanceB.Add((priority, ambulanceBOrder++), patient);
-        }
-
-        private Patient DequeuePatient(
-            SortedList<(int priority, int order), Patient> sourceQueue,
-            SortedList<(int priority, int order), Patient> otherQueue)
-        {
-            var patient = sourceQueue.Values[0];
-            sourceQueue.RemoveAt(0);
-
-            int otherIndex = otherQueue.IndexOfValue(patient);
-            if (otherIndex >= 0)
-            {
-                otherQueue.RemoveAt(otherIndex);
-            }
-
-            return patient;
-        }
-
-        public Patient DequeuePatientAmbulanceA() => DequeuePatient(QueueAmbulanceA, QueueAmbulanceB);
-
-        public Patient DequeuePatientAmbulanceB() => DequeuePatient(QueueAmbulanceB, QueueAmbulanceA);
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"
 		private void Init()
 		{
 			new ManagerHospital(SimId.ManagerHospital, MySim, this);
-			new ProcessEntranceTreat(SimId.ProcessEntranceTreat, MySim, this);
 			new ProcessMoveToEntranceSpace(SimId.ProcessMoveToEntranceSpace, MySim, this);
 			new ProcessMoveToAmbulance(SimId.ProcessMoveToAmbulance, MySim, this);
-			new ProcessMedicalTreat(SimId.ProcessMedicalTreat, MySim, this);
+			AddOwnMessage(Mc.ResourcesAssigned);
+			AddOwnMessage(Mc.EntranceTreat);
 			AddOwnMessage(Mc.TreatPatient);
-			AddOwnMessage(Mc.TryAssignResources);
+			AddOwnMessage(Mc.MedicalTreat);
 		}
-		//meta! tag="end"
+        //meta! tag="end"
 
-        
     }
 }

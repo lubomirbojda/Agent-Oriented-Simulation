@@ -1,3 +1,4 @@
+using DS_SEM_3.HospitalAgentSimulation.Entities;
 using OSPABA;
 using Simulation;
 
@@ -34,12 +35,12 @@ namespace Agents.AgentHospital
             StartContinualAssistant(message);
         }
 
-		//meta! sender="ProcessEntranceTreat", id="66", type="Finish"
+		//meta! userInfo="Removed from model"
 		public void ProcessFinishProcessEntranceTreat(MessageForm message)
 		{
         }
 
-		//meta! sender="ProcessMedicalTreat", id="68", type="Finish"
+		//meta! userInfo="Removed from model"
 		public void ProcessFinishProcessMedicalTreat(MessageForm message)
 		{
 			MyMessage msg = (MyMessage)message;
@@ -58,7 +59,10 @@ namespace Agents.AgentHospital
 		//meta! sender="ProcessMoveToEntranceSpace", id="91", type="Finish"
 		public void ProcessFinishProcessMoveToEntranceSpace(MessageForm message)
 		{
-		}
+            message.Code = Mc.TryAssignResources;
+            message.Addressee = MySim.FindAgent(SimId.AgentResources);
+            Request(message);
+        }
 
 		//meta! userInfo="Process messages defined in code", id="0"
 		public void ProcessDefault(MessageForm message)
@@ -68,9 +72,25 @@ namespace Agents.AgentHospital
 			}
 		}
 
-		//meta! sender="AgentResources", id="111", type="Response"
+		//meta! userInfo="Removed from model"
 		public void ProcessTryAssignResources(MessageForm message)
 		{
+		}
+
+		//meta! sender="AgentEntranceTreat", id="121", type="Response"
+		public void ProcessEntranceTreat(MessageForm message)
+		{
+		}
+
+		//meta! sender="AgentMedicalTreat", id="123", type="Response"
+		public void ProcessMedicalTreat(MessageForm message)
+		{
+		}
+
+		//meta! sender="AgentResources", id="127", type="Notice"
+		public void ProcessResourcesAssigned(MessageForm message)
+		{
+
 		}
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"
@@ -82,17 +102,13 @@ namespace Agents.AgentHospital
 		{
 			switch (message.Code)
 			{
-			case Mc.TreatPatient:
-				ProcessTreatPatient(message);
+			case Mc.EntranceTreat:
+				ProcessEntranceTreat(message);
 			break;
 
 			case Mc.Finish:
 				switch (message.Sender.Id)
 				{
-				case SimId.ProcessMedicalTreat:
-					ProcessFinishProcessMedicalTreat(message);
-				break;
-
 				case SimId.ProcessMoveToEntranceSpace:
 					ProcessFinishProcessMoveToEntranceSpace(message);
 				break;
@@ -100,15 +116,19 @@ namespace Agents.AgentHospital
 				case SimId.ProcessMoveToAmbulance:
 					ProcessFinishProcessMoveToAmbulance(message);
 				break;
-
-				case SimId.ProcessEntranceTreat:
-					ProcessFinishProcessEntranceTreat(message);
-				break;
 				}
 			break;
 
-			case Mc.TryAssignResources:
-				ProcessTryAssignResources(message);
+			case Mc.ResourcesAssigned:
+				ProcessResourcesAssigned(message);
+			break;
+
+			case Mc.MedicalTreat:
+				ProcessMedicalTreat(message);
+			break;
+
+			case Mc.TreatPatient:
+				ProcessTreatPatient(message);
 			break;
 
 			default:
@@ -124,5 +144,13 @@ namespace Agents.AgentHospital
 				return (AgentHospital)base.MyAgent;
 			}
 		}
-	}
+
+        private void StartMoveToAmbulance(Patient patient, MessageForm message)
+        {
+            MyMessage msg = (MyMessage)message.CreateCopy();
+            msg.Patient = patient;
+            msg.Addressee = MyAgent.FindAssistant(SimId.ProcessMoveToAmbulance);
+            StartContinualAssistant(msg);
+        }
+    }
 }

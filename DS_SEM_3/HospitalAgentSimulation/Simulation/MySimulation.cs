@@ -3,6 +3,8 @@ using Agents.AgentResources;
 using OSPABA;
 using Agents.AgentHospital;
 using Agents.AgentEnviroment;
+using Agents.AgentMedicalTreat;
+using Agents.AgentEntranceTreat;
 
 namespace Simulation
 {
@@ -58,6 +60,8 @@ namespace Simulation
 			AgentEnviroment = new AgentEnviroment(SimId.AgentEnviroment, this, AgentBoss);
 			AgentHospital = new AgentHospital(SimId.AgentHospital, this, AgentBoss);
 			AgentResources = new AgentResources(SimId.AgentResources, this, AgentHospital);
+			AgentEntranceTreat = new AgentEntranceTreat(SimId.AgentEntranceTreat, this, AgentHospital);
+			AgentMedicalTreat = new AgentMedicalTreat(SimId.AgentMedicalTreat, this, AgentHospital);
 		}
 		public AgentBoss AgentBoss
 		{ get; set; }
@@ -66,6 +70,10 @@ namespace Simulation
 		public AgentHospital AgentHospital
 		{ get; set; }
 		public AgentResources AgentResources
+		{ get; set; }
+		public AgentEntranceTreat AgentEntranceTreat
+		{ get; set; }
+		public AgentMedicalTreat AgentMedicalTreat
 		{ get; set; }
 		//meta! tag="end"
     }

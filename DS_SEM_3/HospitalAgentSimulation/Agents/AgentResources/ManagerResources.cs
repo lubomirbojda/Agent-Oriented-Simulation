@@ -1,4 +1,6 @@
+using DS_SEM_3.HospitalAgentSimulation.Entities;
 using OSPABA;
+using OSPAnimatorGIS;
 using Simulation;
 
 namespace Agents.AgentResources
@@ -23,11 +25,6 @@ namespace Agents.AgentResources
 			}
 		}
 
-		//meta! sender="AgentHospital", id="111", type="Request"
-		public void ProcessTryAssignResources(MessageForm message)
-		{
-		}
-
 		//meta! userInfo="Process messages defined in code", id="0"
 		public void ProcessDefault(MessageForm message)
 		{
@@ -35,6 +32,13 @@ namespace Agents.AgentResources
 			{
 			}
 		}
+
+		//meta! sender="AgentHospital", id="126", type="Notice"
+		public void ProcessTryAssignResources(MessageForm message)
+		{
+            MyMessage msg = (MyMessage)message;
+            TryAssignResources(msg);
+        }
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"
 		public void Init()
@@ -62,5 +66,69 @@ namespace Agents.AgentResources
 				return (AgentResources)base.MyAgent;
 			}
 		}
-	}
+
+        private void AssignedResources(Patient patient, MyMessage message)
+        {
+            message.Patient = patient;
+            message.Code = Mc.ResourcesAssigned;
+            message.Addressee = MySim.FindAgent(SimId.AgentHospital);
+            Notice(message);
+        }
+
+        private void TryAssignResources(MyMessage message)
+        {
+            var nurse = MyAgent.Nurses.TryGetFreeResource();
+            var doctor = MyAgent.Doctors.TryGetFreeResource();
+            var ambA = MyAgent.AmbulationsA.TryGetFreeResource();
+            var ambB = MyAgent.AmbulationsB.TryGetFreeResource();
+
+            var queueAmbA = message.QueuesAmbulances.QueueAmbulanceA;
+            var queueAmbB = message.QueuesAmbulances.QueueAmbulanceB;
+
+            if (queueAmbA.Count > 0)
+            {
+                if (nurse != null && doctor != null && ambA != null)
+                {
+                    var patient = message.QueuesAmbulances.DequeuePatientAmbulanceA();
+                    patient.AssignResources(nurse, ambA, doctor);
+                    AssignedResources(patient, message);
+                    //StartMoveToAmbulance(patient, message);
+                    return;
+                }
+            }
+            if (queueAmbB.Count > 0)
+            {
+                if (nurse != null && doctor != null && ambB != null)
+                {
+                    var patient = message.QueuesAmbulances.DequeuePatientAmbulanceB();
+                    patient.AssignResources(nurse, ambB, doctor);
+                    AssignedResources(patient, message);
+                    //StartMoveToAmbulance(patient, message);
+                    return;
+                }
+            }
+            if (message.QueueEntranceAmbulancePatients.Count > 0)
+            {
+                if (nurse != null && ambB != null)
+                {
+                    var patient = message.QueueEntranceAmbulancePatients.Dequeue();
+                    patient.AssignResources(nurse, ambB);
+                    AssignedResources(patient, message);
+                    //StartMoveToAmbulance(patient, message);
+                    return;
+                }
+            }
+            if (message.QueueEntranceAlonePatients.Count > 0)
+            {
+                if (nurse != null && ambB != null)
+                {
+                    var patient = message.QueueEntranceAlonePatients.Dequeue();
+                    patient.AssignResources(nurse, ambB);
+                    AssignedResources(patient, message);
+                    //StartMoveToAmbulance(patient, message);
+                    return;
+                }
+            }
+        }
+    }
 }

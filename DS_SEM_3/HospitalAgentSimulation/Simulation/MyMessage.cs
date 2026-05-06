@@ -6,6 +6,9 @@ namespace Simulation
     public class MyMessage : OSPABA.MessageForm
     {
         public Patient? Patient { get; set; }
+        public Queue<Patient> QueueEntranceAmbulancePatients { get; set; } = new();
+        public Queue<Patient> QueueEntranceAlonePatients { get; set; } = new();
+        public PriorityQueuesAmbulances QueuesAmbulances { get; set; } = new();
 
 
         public MyMessage(OSPABA.Simulation mySim) :
