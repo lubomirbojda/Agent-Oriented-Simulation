@@ -78,43 +78,50 @@ namespace Agents.AgentResources
 
         private void TryAssignResources(MyMessage message)
         {
-            var nurse = MyAgent.Nurses.TryGetFreeResource();
-            var doctor = MyAgent.Doctors.TryGetFreeResource();
-            var ambA = MyAgent.AmbulationsA.TryGetFreeResource();
-            var ambB = MyAgent.AmbulationsB.TryGetFreeResource();
+            bool assigned = true;
 
-            var queueAmbA = message.QueuesAmbulances.QueueAmbulanceA;
-            var queueAmbB = message.QueuesAmbulances.QueueAmbulanceB;
-
-            if (queueAmbA.Count > 0)
+            // Cyklus beží, kým sa nám v predchádzajúcom kroku podarilo niekoho priradiť
+            while (assigned)
             {
-                if (nurse != null && doctor != null && ambA != null)
+                assigned = false;
+
+                // Skúsime získať aktuálne voľné zdroje v tejto iterácii
+                var nurse = MyAgent.Nurses.TryGetFreeResource();
+                var doctor = MyAgent.Doctors.TryGetFreeResource();
+                var ambA = MyAgent.AmbulationsA.TryGetFreeResource();
+                var ambB = MyAgent.AmbulationsB.TryGetFreeResource();
+
+                var queueAmbA = message.QueuesAmbulances.QueueAmbulanceA;
+                var queueAmbB = message.QueuesAmbulances.QueueAmbulanceB;
+
+                // 1. Skúsime obslúžiť pacientov z radu A (Priority 1, 2, 3, 4)
+                if (queueAmbA.Count > 0 && nurse != null && doctor != null && ambA != null)
                 {
                     var patient = message.QueuesAmbulances.DequeuePatientAmbulanceA();
                     patient.AssignResources(nurse, ambA, doctor);
                     AssignedResources(patient, message);
-                    return;
+                    assigned = true;
+                    continue; // Skočíme na začiatok cyklu, pre načítanie nových voľných zdrojov
                 }
-            }
-            if (queueAmbB.Count > 0)
-            {
-                if (nurse != null && doctor != null && ambB != null)
+
+                // 2. Skúsime obslúžiť pacientov z radu B (Priority 3, 4, 5)
+                if (queueAmbB.Count > 0 && nurse != null && doctor != null && ambB != null)
                 {
                     var patient = message.QueuesAmbulances.DequeuePatientAmbulanceB();
                     patient.AssignResources(nurse, ambB, doctor);
                     AssignedResources(patient, message);
-                    return;
+                    assigned = true;
+                    continue;
                 }
-            }
 
-            if (message.QueueEntrancePatients.GetCount() > 0)
-            {
-                if (nurse != null && ambB != null)
+                // 3. Skúsime obslúžiť pacientov na Vstupnom vyšetrení
+                if (message.QueueEntrancePatients.GetCount() > 0 && nurse != null && ambB != null)
                 {
                     var patient = message.QueueEntrancePatients.Dequeue();
                     patient.AssignResources(nurse, ambB);
                     AssignedResources(patient, message);
-                    return;
+                    assigned = true;
+                    continue;
                 }
             }
         }

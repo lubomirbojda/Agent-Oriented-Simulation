@@ -37,7 +37,7 @@ namespace Agents.AgentEnviroment.ContinualAssistants
             {
                 case Mc.PatientArrived:
                     //AgentEnviroment sender = (AgentEnviroment)message.Sender;
-                    Hold(MyAgent.AmbulancePatientGen.GenerateNext(), message.CreateCopy());
+                    Hold(MyAgent.AlonePatientGen.GenerateNext(), message.CreateCopy());
 
                     MyMessage msg = (MyMessage)message;
                     msg.Patient = new Patient(false, MySim.CurrentTime, 

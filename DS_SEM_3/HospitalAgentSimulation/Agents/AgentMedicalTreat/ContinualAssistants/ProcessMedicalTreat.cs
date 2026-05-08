@@ -48,14 +48,7 @@ namespace Agents.AgentMedicalTreat.ContinualAssistants
                     if (msg.Patient == null) return;
                     msg.Patient.UnassignResources();
                     AssistantFinished(message);
-
-                    //message.Code = Mc.PatientMoveToLeaveDoor;
-                    //var leaveTime = MyAgent.PatientMoveToLeaveDoorGen.GenerateNext();
-                    //Hold(leaveTime, message);
                     break;
-                //case Mc.PatientMoveToLeaveDoor:
-                    
-                //    break;
             }
 		}
 

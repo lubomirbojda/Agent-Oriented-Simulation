@@ -7,7 +7,7 @@ namespace Agents.AgentResources
 	//meta! id="108"
 	public class AgentResources : OSPABA.Agent
 	{
-        public Resources<Nurse> Nurses { get; private set; } = new(8);
+		public Resources<Nurse> Nurses { get; private set; } = new(8);
         public Resources<Doctor> Doctors { get; private set; } = new(6);
         public Resources<AmbulanceA> AmbulationsA { get; private set; } = new(5);
         public Resources<AmbulanceB> AmbulationsB { get; private set; } = new(7);
