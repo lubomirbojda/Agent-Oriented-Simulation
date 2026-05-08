@@ -54,6 +54,21 @@ namespace Agents.AgentHospital
 		//meta! sender="ProcessMoveToAmbulance", id="96", type="Finish"
 		public void ProcessFinishProcessMoveToAmbulance(MessageForm message)
         {
+			MyMessage msg = (MyMessage)message;
+            if (msg.Patient == null) return;
+
+			if (!msg.Patient.HasEntranceTreatDone)
+			{
+				msg.Code = Mc.EntranceTreat;
+                msg.Addressee = MySim.FindAgent(SimId.AgentEntranceTreat);
+            }
+			else
+			{
+				msg.Code = Mc.MedicalTreat;
+                msg.Addressee = MySim.FindAgent(SimId.AgentMedicalTreat);
+            }
+
+			Request(msg);
         }
 
 		//meta! sender="ProcessMoveToEntranceSpace", id="91", type="Finish"
@@ -61,8 +76,7 @@ namespace Agents.AgentHospital
 		{
             MyMessage msg = (MyMessage)message;
 			msg.QueuesAmbulances = MyAgent.QueuesAmbulances;
-			msg.QueueEntranceAmbulancePatients = MyAgent.QueueEntranceAmbulancePatients;
-			msg.QueueEntranceAlonePatients = MyAgent.QueueEntranceAlonePatients;
+			msg.QueueEntrancePatients = MyAgent.QueueEntrancePatients;
             msg.Code = Mc.TryAssignResources;
             msg.Addressee = MySim.FindAgent(SimId.AgentResources);
             Notice(msg);
@@ -105,25 +119,16 @@ namespace Agents.AgentHospital
 		public void ProcessResourcesAssigned(MessageForm message)
 		{
             MyMessage msg = (MyMessage)message;
-            if (msg.Patient == null) return;
-
-			if (!msg.Patient.HasEntranceTreatDone)
-			{
-				msg.Code = Mc.EntranceTreat;
-                msg.Addressee = MySim.FindAgent(SimId.AgentEntranceTreat);
-            }
-			else
-			{
-				msg.Code = Mc.MedicalTreat;
-                msg.Addressee = MySim.FindAgent(SimId.AgentMedicalTreat);
-            }
-
-			Request(msg);
+			if (msg.Patient == null) return;
 
 			var msgCopy = msg.CreateCopy();
-            msgCopy.Addressee = MyAgent.FindAssistant(SimId.ProcessMoveToAmbulance);
+			msgCopy.Addressee = MyAgent.FindAssistant(SimId.ProcessMoveToAmbulance);
 			StartContinualAssistant(msgCopy);
-        }
+
+			//message.Code = Mc.TryAssignResources;
+			//message.Addressee = MySim.FindAgent(SimId.AgentResources);
+			//Notice(message);
+		}
 
 		//meta! sender="ProcessMoveToLeaveDoor", id="139", type="Finish"
 		public void ProcessFinishProcessMoveToLeaveDoor(MessageForm message)

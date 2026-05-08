@@ -69,10 +69,11 @@ namespace Agents.AgentResources
 
         private void AssignedResources(Patient patient, MyMessage message)
         {
-            message.Patient = patient;
-            message.Code = Mc.ResourcesAssigned;
-            message.Addressee = MySim.FindAgent(SimId.AgentHospital);
-            Notice(message);
+			var msg = (MyMessage)message.CreateCopy();
+            msg.Patient = patient;
+            msg.Code = Mc.ResourcesAssigned;
+            msg.Addressee = MySim.FindAgent(SimId.AgentHospital);
+            Notice(msg);
         }
 
         private void TryAssignResources(MyMessage message)
@@ -92,7 +93,6 @@ namespace Agents.AgentResources
                     var patient = message.QueuesAmbulances.DequeuePatientAmbulanceA();
                     patient.AssignResources(nurse, ambA, doctor);
                     AssignedResources(patient, message);
-                    //StartMoveToAmbulance(patient, message);
                     return;
                 }
             }
@@ -103,29 +103,17 @@ namespace Agents.AgentResources
                     var patient = message.QueuesAmbulances.DequeuePatientAmbulanceB();
                     patient.AssignResources(nurse, ambB, doctor);
                     AssignedResources(patient, message);
-                    //StartMoveToAmbulance(patient, message);
                     return;
                 }
             }
-            if (message.QueueEntranceAmbulancePatients.Count > 0)
+
+            if (message.QueueEntrancePatients.GetCount() > 0)
             {
                 if (nurse != null && ambB != null)
                 {
-                    var patient = message.QueueEntranceAmbulancePatients.Dequeue();
+                    var patient = message.QueueEntrancePatients.Dequeue();
                     patient.AssignResources(nurse, ambB);
                     AssignedResources(patient, message);
-                    //StartMoveToAmbulance(patient, message);
-                    return;
-                }
-            }
-            if (message.QueueEntranceAlonePatients.Count > 0)
-            {
-                if (nurse != null && ambB != null)
-                {
-                    var patient = message.QueueEntranceAlonePatients.Dequeue();
-                    patient.AssignResources(nurse, ambB);
-                    AssignedResources(patient, message);
-                    //StartMoveToAmbulance(patient, message);
                     return;
                 }
             }

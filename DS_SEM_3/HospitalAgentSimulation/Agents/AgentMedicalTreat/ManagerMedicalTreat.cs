@@ -26,6 +26,17 @@ namespace Agents.AgentMedicalTreat
 		//meta! sender="AgentHospital", id="123", type="Request"
 		public void ProcessMedicalTreat(MessageForm message)
 		{
+			var rr = (MyMessage)message;
+			if (rr.Patient == null || rr.Patient.AssignedAmbulance == null) return;
+
+			if (rr.Patient.Priority == 3 || rr.Patient.Priority == 4)
+			{
+				if (!rr.Patient.AssignedAmbulance.IsTypeA)
+				{
+					Console.WriteLine("fasd");
+				}
+			}
+
 			var msg = message.CreateCopy();
             msg.Addressee = MyAgent.FindAssistant(SimId.ProcessMedicalTreat);
             StartContinualAssistant(msg);

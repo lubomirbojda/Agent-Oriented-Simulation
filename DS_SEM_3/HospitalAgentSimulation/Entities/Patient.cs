@@ -20,8 +20,6 @@ public class Patient
 
     public bool HasEntranceTreatDone { get; set; } = false;
 
-    public bool HasAssignedAllResources { get; private set; } = false;
-
     public bool CanStartTreat { get; set; } = false;
 
     public Patient(bool cameByAmbulance, double arrivalTime, int id)
@@ -39,6 +37,7 @@ public class Patient
             nurse.ActualAmbulance?.RemoveNurse(nurse);
         }
         nurse.IsBusy = true;
+        nurse.LastAmbulance = nurse.ActualAmbulance;
         nurse.ActualAmbulance = ambulance;
         ambulance.IsBusy = true;
         ambulance.Patient = this;
@@ -51,13 +50,13 @@ public class Patient
             
             }
             doctor.IsBusy = true;
+            doctor.LastAmbulance = doctor.ActualAmbulance;
             doctor.ActualAmbulance = ambulance;
         }
 
         AssignedNurse = nurse;
         AssignedAmbulance = ambulance;
         AssignedDoctor = doctor;
-        HasAssignedAllResources = true;
     }
 
     public void UnassignResources()
@@ -81,6 +80,6 @@ public class Patient
         AssignedNurse = null;
         AssignedDoctor = null;
         AssignedAmbulance = null;
-        HasAssignedAllResources = false;
+        CanStartTreat = false;
     }
 }

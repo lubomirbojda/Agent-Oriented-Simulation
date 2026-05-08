@@ -47,15 +47,8 @@ namespace Agents.AgentHospital.ContinualAssistants
                 case Mc.PatientMoveToEntranceSpace:
                     MyMessage msg = (MyMessage)message;
                     if (msg.Patient == null) return;
-                    if (msg.Patient.CameByAmbulance)
-                    {
-                        MyAgent.QueueEntranceAmbulancePatients.Enqueue(msg.Patient);
-                    }
-                    else
-                    {
-                        MyAgent.QueueEntranceAlonePatients.Enqueue(msg.Patient);
-                    }
 
+					MyAgent.QueueEntrancePatients.Enqueue(msg.Patient);
 					msg.Patient.TimeStartWaitingForEntranceTreat = MySim.CurrentTime;
 
 					AssistantFinished(message);

@@ -3,24 +3,28 @@ using Simulation;
 using Agents.AgentEnviroment.ContinualAssistants;
 using DS_SEM_3.Generators.Empiric.Discrete;
 using DS_SEM_3.Generators.Exponential;
+using DS_SEM_3.Statistics;
+using DS_SEM_3.Generators.Erlang;
 
 namespace Agents.AgentEnviroment
 {
     //meta! id="3"
     public class AgentEnviroment : OSPABA.Agent
     {
-        public ExponentialDist AmbulancePatientGen { get; private set; }
+        public ErlangDist AmbulancePatientGen { get; private set; }
         public ExponentialDist AlonePatientGen { get; private set; }
 
         public int PatientsIdSeq { get; set; } = 0;
+
+        public SimpleStatistics AverageTimeInSystem { get; private set; } = new();
 
         public AgentEnviroment(int id, OSPABA.Simulation mySim, Agent parent) :
             base(id, mySim, parent)
         {
             Init();
             MySimulation sim = (MySimulation)MySim;
-            AmbulancePatientGen = new(sim.SeedGenerator, 1 / 15d);
-            AlonePatientGen = new(sim.SeedGenerator, 1 / 15d);
+            AmbulancePatientGen = new(sim.SeedGenerator, 7, 1.0 / (0.836d * 60));
+            AlonePatientGen = new(sim.SeedGenerator, 1.0 / (9.57d * 60));
         }
 
         override public void PrepareReplication()
@@ -28,8 +32,11 @@ namespace Agents.AgentEnviroment
             base.PrepareReplication();
             // Setup component for the next replication
             MySimulation sim = (MySimulation)MySim;
-            AmbulancePatientGen = new(sim.SeedGenerator, 1 / 180d);
-            AlonePatientGen = new(sim.SeedGenerator, 1 / 120d);
+            AmbulancePatientGen = new(sim.SeedGenerator, 7, 1.0 / (0.836d * 60));
+            AlonePatientGen = new(sim.SeedGenerator, 1.0 / (9.57d * 60));
+
+            //Reset stats
+            AverageTimeInSystem.Reset();
 
             //Start schedulers for patients arrival
             MyMessage messsage = new(MySim);

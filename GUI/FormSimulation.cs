@@ -153,7 +153,7 @@ namespace GUI
         {
             dataGridViewDoctors.SuspendLayout();
             dataGridViewDoctors.Rows.Clear();
-            foreach (var doctor in _simulation.AgentHospital.Doctors.AllResources.ToList())
+            foreach (var doctor in _simulation.AgentResources.Doctors.AllResources.ToList())
             {
                 if (doctor != null)
                 {
@@ -174,7 +174,7 @@ namespace GUI
         {
             dataGridViewNurses.SuspendLayout();
             dataGridViewNurses.Rows.Clear();
-            foreach (var nurse in _simulation.AgentHospital.Nurses.AllResources.ToList())
+            foreach (var nurse in _simulation.AgentResources.Nurses.AllResources.ToList())
             {
                 if (nurse != null)
                 {
@@ -191,9 +191,9 @@ namespace GUI
             dataGridViewNurses.ResumeLayout();
         }
 
-        private void RefreshAbmA() => RefreshAmbulances(dataGridViewAmbA, _simulation.AgentHospital.AmbulationsA.AllResources);
+        private void RefreshAbmA() => RefreshAmbulances(dataGridViewAmbA, _simulation.AgentResources.AmbulationsA.AllResources);
 
-        private void RefreshAbmB() => RefreshAmbulances(dataGridViewAmbB, _simulation.AgentHospital.AmbulationsB.AllResources);
+        private void RefreshAbmB() => RefreshAmbulances(dataGridViewAmbB, _simulation.AgentResources.AmbulationsB.AllResources);
 
         private void RefreshAmbulances(DataGridView datagridview, AmbulanceA[] ambulance)
         {

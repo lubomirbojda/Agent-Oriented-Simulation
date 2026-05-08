@@ -6,8 +6,7 @@ namespace Simulation
     public class MyMessage : OSPABA.MessageForm
     {
         public Patient? Patient { get; set; }
-        public Queue<Patient> QueueEntranceAmbulancePatients { get; set; } = new();
-        public Queue<Patient> QueueEntranceAlonePatients { get; set; } = new();
+        public QueueEntrancePatients QueueEntrancePatients { get; set; } = new();
         public PriorityQueuesAmbulances QueuesAmbulances { get; set; } = new();
 
 
@@ -34,8 +33,7 @@ namespace Simulation
             MyMessage original = (MyMessage)message;
             // Copy attributes
             Patient = original.Patient;
-            QueueEntranceAlonePatients = original.QueueEntranceAlonePatients;
-            QueueEntranceAmbulancePatients = original.QueueEntranceAmbulancePatients;
+            QueueEntrancePatients = original.QueueEntrancePatients;
             QueuesAmbulances = original.QueuesAmbulances;
         }
     }

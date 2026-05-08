@@ -1,5 +1,6 @@
 using OSPABA;
 using Simulation;
+using System.Reflection.Metadata;
 
 namespace Agents.AgentEnviroment
 {
@@ -57,7 +58,11 @@ namespace Agents.AgentEnviroment
         {
             //MyMessage msg = (MyMessage)message;
             MySimulation sim = (MySimulation)MySim;
+            var msg = (MyMessage)message;
+            if (msg.Patient == null) return;
+            var timeInSystem = sim.CurrentTime - msg.Patient.ArrivalTime;
             sim.PatientsFinished++;
+            MyAgent.AverageTimeInSystem.Add(timeInSystem);
         }
 
 		//meta! userInfo="Process messages defined in code", id="0"

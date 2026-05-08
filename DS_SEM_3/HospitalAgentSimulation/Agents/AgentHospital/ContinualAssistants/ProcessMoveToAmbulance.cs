@@ -24,17 +24,34 @@ namespace Agents.AgentHospital.ContinualAssistants
 		{
             MyMessage msg = (MyMessage)message;
             if (msg.Patient == null || msg.Patient.AssignedNurse == null) return;
+			var assNurse = msg.Patient.AssignedNurse;
+			var assDoctor = msg.Patient.AssignedDoctor;
+			double nurseMoveTime = 0;
+			double doctorMoveTime = 0;
 
             if (!msg.Patient.HasEntranceTreatDone)
             {
-                if (msg.Patient.AssignedNurse.ActualAmbulance != msg.Patient.AssignedAmbulance)
-				{
-
-				}
+                if (assNurse.ActualAmbulance != assNurse.LastAmbulance)
+					nurseMoveTime = MyAgent.NurseMoveToAmbulanceGen.GenerateNext();	
+				
+                msg.Code = Mc.MoveToAmbulance;
+                Hold(nurseMoveTime, msg);
+                return;
             }
             else
             {
-                
+				if (assDoctor == null) return;
+
+                if (assNurse.ActualAmbulance != assNurse.LastAmbulance)
+                    nurseMoveTime = MyAgent.NurseMoveToAmbulanceGen.GenerateNext();
+
+				if (assDoctor.ActualAmbulance != assDoctor.LastAmbulance)
+					doctorMoveTime = MyAgent.DoctorMoveToAmbulanceGen.GenerateNext();
+
+				var higherMoveTime = Math.Max(doctorMoveTime, nurseMoveTime);
+                msg.Code = Mc.MoveToAmbulance;
+                Hold(higherMoveTime, msg);
+                return;
             }
         }
 
@@ -44,19 +61,9 @@ namespace Agents.AgentHospital.ContinualAssistants
             switch (message.Code)
             {
                 case Mc.MoveToAmbulance:
-                    MyMessage msg = (MyMessage)message.CreateCopy();
+                    MyMessage msg = (MyMessage)message;
                     if (msg.Patient == null) return;
-                    if (!msg.Patient.HasEntranceTreatDone)
-                    {
-                        msg.Addressee = MyAgent.FindAssistant(SimId.ProcessEntranceTreat);
-                        MyAgent.MyManager.StartContinualAssistant(msg);
-                    }
-                    else
-                    {
-                        msg.Addressee = MyAgent.FindAssistant(SimId.ProcessMedicalTreat);
-                        MyAgent.MyManager.StartContinualAssistant(msg);
-                    }
-
+					msg.Patient.CanStartTreat = true;
 
                     AssistantFinished(message);
                     break;

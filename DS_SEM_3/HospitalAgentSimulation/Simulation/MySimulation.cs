@@ -42,6 +42,8 @@ namespace Simulation
             base.ReplicationFinished();
             Console.WriteLine("Patients finished: " + PatientsFinished);
             Console.WriteLine("Repliacation : " + CurrentReplication + " finished");
+            TimeSpan avgTimeInSystem = TimeSpan.FromSeconds(AgentEnviroment.AverageTimeInSystem.GetAverage());
+            Console.WriteLine("Average time in system: " + avgTimeInSystem.TotalMinutes);
 
             PatientsFinished = 0;
 

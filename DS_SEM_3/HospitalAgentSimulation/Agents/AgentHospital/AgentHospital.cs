@@ -14,15 +14,15 @@ namespace Agents.AgentHospital
 	public class AgentHospital : OSPABA.Agent
 	{
         public List<Patient> PatientsInHospital { get; private set; } = new();
-        public Queue<Patient> QueueEntranceAmbulancePatients { get; private set; } = new();
-        public Queue<Patient> QueueEntranceAlonePatients { get; private set; } = new();
+        public QueueEntrancePatients QueueEntrancePatients { get; private set; } = new();
 
         public PriorityQueuesAmbulances QueuesAmbulances { get; private set; } = new();
 
         public TriangularDist AlonePatientsMoveToEntranceSpaceGen { get; private set; }
         public ContinuousUniform AmbulancePatientsMoveToEntranceSpaceGen { get; private set; }
 
-        public TriangularDist MoveToAmbulanceGen { get; private set; }
+        public TriangularDist NurseMoveToAmbulanceGen { get; private set; }
+        public TriangularDist DoctorMoveToAmbulanceGen { get; private set; }
 
 
         public ContinuousUniform PatientMoveToLeaveDoorGen { get; private set; }
@@ -34,8 +34,9 @@ namespace Agents.AgentHospital
             MySimulation sim = (MySimulation)MySim;
             AlonePatientsMoveToEntranceSpaceGen = new(sim.SeedGenerator, 120, 300, 150);
             AmbulancePatientsMoveToEntranceSpaceGen = new(sim.SeedGenerator, 90, 200);
-            MoveToAmbulanceGen = new(sim.SeedGenerator, 15, 45, 20);
-            
+            NurseMoveToAmbulanceGen = new(sim.SeedGenerator, 15, 45, 20);
+            DoctorMoveToAmbulanceGen = new(sim.SeedGenerator, 15, 45, 20);
+
             PatientMoveToLeaveDoorGen = new(sim.SeedGenerator, 150, 240);
         }
 
@@ -44,8 +45,7 @@ namespace Agents.AgentHospital
 			base.PrepareReplication();
             // Setup component for the next replication
             PatientsInHospital.Clear();
-            QueueEntranceAmbulancePatients.Clear();
-            QueueEntranceAlonePatients.Clear();
+            QueueEntrancePatients.Clear();
             QueuesAmbulances.Clear();
         }
 
