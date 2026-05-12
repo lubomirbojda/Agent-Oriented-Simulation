@@ -61,8 +61,19 @@ namespace Agents.AgentEnviroment
             var msg = (MyMessage)message;
             if (msg.Patient == null) return;
             var timeInSystem = sim.CurrentTime - msg.Patient.ArrivalTime;
+            MyAgent.AverageTimeInSystemAll.Add(timeInSystem);
             sim.PatientsFinished++;
-            MyAgent.AverageTimeInSystem.Add(timeInSystem);
+            if (msg.Patient.CameByAmbulance)
+            {
+                sim.AmbulancePatientsFinished++;
+                MyAgent.AverageTimeInSystemAmbulance.Add(timeInSystem);
+            }
+            else
+            {
+                sim.AlonePatientsFinished++;
+                MyAgent.AverageTimeInSystemAlone.Add(timeInSystem);
+            }
+            
         }
 
 		//meta! userInfo="Process messages defined in code", id="0"

@@ -31,7 +31,19 @@ namespace Agents.AgentHospital.ContinualAssistants
 
             if (!msg.Patient.HasEntranceTreatDone)
             {
-				msg.Patient.WaitingForEntranceTreat = MySim.CurrentTime - msg.Patient.ArrivalTime;
+				//Stats-------
+				var waitingTime = MySim.CurrentTime - msg.Patient.ArrivalTime;
+				msg.Patient.WaitingForEntranceTreat = waitingTime;
+				MyAgent.AverageWaitingForEntranceTreatAll.Add(waitingTime);
+				if (msg.Patient.CameByAmbulance)
+				{
+					MyAgent.AverageWaitingForEntranceTreatAmbulance.Add(waitingTime);
+                }
+				else
+				{
+					MyAgent.AverageWaitingForEntranceTreatAlone.Add(waitingTime);
+                }
+				//------------
                 if (assNurse.ActualAmbulance != assNurse.LastAmbulance)
 					nurseMoveTime = MyAgent.NurseMoveToAmbulanceGen.GenerateNext();	
 				
@@ -42,7 +54,19 @@ namespace Agents.AgentHospital.ContinualAssistants
             else
             {
 				if (assDoctor == null) return;
-                msg.Patient.WaitingForMedicalTreat = MySim.CurrentTime - msg.Patient.ArrivalTime;
+                //Stats-------
+                var waitingTime = MySim.CurrentTime - msg.Patient.ArrivalTime;
+                msg.Patient.WaitingForMedicalTreat = waitingTime;
+				MyAgent.AverageWaitingForMedicalTreatAll.Add(waitingTime);
+                if (msg.Patient.CameByAmbulance)
+                {
+                    MyAgent.AverageWaitingForMedicalTreatAmbulance.Add(waitingTime);
+                }
+                else
+                {
+                    MyAgent.AverageWaitingForMedicalTreatAlone.Add(waitingTime);
+                }
+                //------------
 
                 if (assNurse.ActualAmbulance != assNurse.LastAmbulance)
                     nurseMoveTime = MyAgent.NurseMoveToAmbulanceGen.GenerateNext();

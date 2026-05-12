@@ -16,7 +16,9 @@ namespace Agents.AgentEnviroment
 
         public int PatientsIdSeq { get; set; } = 0;
 
-        public SimpleStatistics AverageTimeInSystem { get; private set; } = new();
+        public SimpleStatistics AverageTimeInSystemAll { get; private set; } = new();
+        public SimpleStatistics AverageTimeInSystemAlone { get; set; } = new();
+        public SimpleStatistics AverageTimeInSystemAmbulance { get; set; } = new();
 
         public AgentEnviroment(int id, OSPABA.Simulation mySim, Agent parent) :
             base(id, mySim, parent)
@@ -36,7 +38,9 @@ namespace Agents.AgentEnviroment
             AlonePatientGen = new(sim.SeedGenerator, 1.0 / (9.57d * 60));
 
             //Reset stats
-            AverageTimeInSystem.Reset();
+            AverageTimeInSystemAll.Reset();
+            AverageTimeInSystemAlone.Reset();
+            AverageTimeInSystemAmbulance.Reset();
 
             //Start schedulers for patients arrival
             MyMessage messsage = new(MySim);

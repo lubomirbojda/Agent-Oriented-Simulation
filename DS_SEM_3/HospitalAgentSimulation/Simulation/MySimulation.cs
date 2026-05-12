@@ -5,13 +5,40 @@ using Agents.AgentHospital;
 using Agents.AgentEnviroment;
 using Agents.AgentMedicalTreat;
 using Agents.AgentEntranceTreat;
+using DS_SEM_3.Statistics;
 
 namespace Simulation
 {
     public class MySimulation : OSPABA.Simulation
     {
         public Random SeedGenerator { get; private set; } = new Random();
-        public int PatientsFinished = 0;
+        public int PatientsFinished { get; set; } = 0;
+        public int AlonePatientsFinished { get; set; } = 0;
+        public int AmbulancePatientsFinished { get; set; } = 0;
+
+        //Stats
+        public SimpleStatistics AveragePatientsFinishedAll { get; set; } = new();
+        public SimpleStatistics AveragePatientsFinishedAlone { get; set; } = new();
+        public SimpleStatistics AveragePatientsFinishedAmbulance { get; set; } = new();
+
+        public SimpleStatistics AverageTimeInSystemAll { get; set; } = new();
+        public SimpleStatistics AverageTimeInSystemAlone { get; set; } = new();
+        public SimpleStatistics AverageTimeInSystemAmbulance { get; set; } = new();
+
+        public SimpleStatistics AverageWaitingForEntranceTreatAll { get; set; } = new();
+        public SimpleStatistics AverageWaitingForEntranceTreatAlone { get; set; } = new();
+        public SimpleStatistics AverageWaitingForEntranceTreatAmbulance { get; set; } = new();
+
+        public SimpleStatistics AverageEntranceQueueLength { get; set; } = new();
+
+        public SimpleStatistics AverageWaitingForMedicalTreatAll { get; set; } = new();
+        public SimpleStatistics AverageWaitingForMedicalTreatAlone { get; set; } = new();
+        public SimpleStatistics AverageWaitingForMedicalTreatAmbulance { get; set; } = new();
+
+        public SimpleStatistics AverageNursesUtilization { get; set; } = new();
+        public SimpleStatistics AverageDoctorsUtilization { get; set; } = new();
+        public SimpleStatistics AverageAmbulanceAUtilization { get; set; } = new();
+        public SimpleStatistics AverageAmbulanceBUtilization { get; set; } = new();
 
         public MySimulation()
         {
@@ -33,20 +60,61 @@ namespace Simulation
         {
             base.PrepareReplication();
             // Reset entities, queues, local statistics, etc...
-            Console.WriteLine("Repliacation : " + CurrentReplication + " started");
+            //Console.WriteLine("Repliacation : " + CurrentReplication + " started");
         }
 
         override public void ReplicationFinished()
         {
             // Collect local statistics into global, update UI, etc...
             base.ReplicationFinished();
-            Console.WriteLine("Patients finished: " + PatientsFinished);
-            Console.WriteLine("Repliacation : " + CurrentReplication + " finished");
-            TimeSpan avgTimeInSystem = TimeSpan.FromSeconds(AgentEnviroment.AverageTimeInSystem.GetAverage());
-            Console.WriteLine("Average time in system: " + avgTimeInSystem.TotalMinutes);
+            //Console.WriteLine("Patients finished: " + PatientsFinished);
+            //Console.WriteLine("Repliacation : " + CurrentReplication + " finished");
+            //TimeSpan avgTimeInSystem = TimeSpan.FromSeconds(AgentEnviroment.AverageTimeInSystem.GetAverage());
+            //Console.WriteLine("Average time in system: " + avgTimeInSystem.TotalMinutes);
 
+            AveragePatientsFinishedAll.Add(PatientsFinished);
+            AveragePatientsFinishedAlone.Add(AlonePatientsFinished);
+            AveragePatientsFinishedAmbulance.Add(AmbulancePatientsFinished);
+
+            AverageTimeInSystemAll.Add(AgentEnviroment.AverageTimeInSystemAll.GetAverage());
+            AverageTimeInSystemAlone.Add(AgentEnviroment.AverageTimeInSystemAlone.GetAverage());
+            AverageTimeInSystemAmbulance.Add(AgentEnviroment.AverageTimeInSystemAmbulance.GetAverage());
+
+            AverageWaitingForEntranceTreatAll.Add(AgentHospital.AverageWaitingForEntranceTreatAll.GetAverage());
+            AverageWaitingForEntranceTreatAlone.Add(AgentHospital.AverageWaitingForEntranceTreatAlone.GetAverage());
+            AverageWaitingForEntranceTreatAmbulance.Add(AgentHospital.AverageWaitingForEntranceTreatAmbulance.GetAverage());
+
+            AverageEntranceQueueLength.Add(AgentHospital.AverageEntranceQueueLength.GetAverage(CurrentTime));
+
+            AverageWaitingForMedicalTreatAll.Add(AgentHospital.AverageWaitingForMedicalTreatAll.GetAverage());
+            AverageWaitingForMedicalTreatAlone.Add(AgentHospital.AverageWaitingForMedicalTreatAlone.GetAverage());
+            AverageWaitingForMedicalTreatAmbulance.Add(AgentHospital.AverageWaitingForMedicalTreatAmbulance.GetAverage());
+
+            //Reset counters
             PatientsFinished = 0;
+            AlonePatientsFinished = 0;
+            AmbulancePatientsFinished = 0;
+        }
 
+        private void ResetStats()
+        {
+            //AveragePatientsFinishedAll.Reset();
+            //AveragePatientsFinishedAlone.Reset();
+            //AveragePatientsFinishedAmbulance.Reset();
+            //AverageTimeInSystemAll.Reset();
+            //AverageTimeInSystemAmbulance.Reset();
+            //AverageTimeInSystemAlone.Reset();
+            //AverageWaitingForEntranceTreatAll.Reset();
+            //AverageWaitingForEntranceTreatAlone.Reset();
+            //AverageWaitingForEntranceTreatAmbulance.Reset();
+            //AverageEntranceQueueLength.Reset();
+            //AverageWaitingForMedicalTreatAll.Reset();
+            //AverageWaitingForMedicalTreatAlone.Reset();
+            //AverageWaitingForMedicalTreatAmbulance.Reset();
+            //AverageNursesUtilization.Reset();
+            //AverageDoctorsUtilization.Reset();
+            //AverageAmbulanceAUtilization.Reset();
+            //AverageAmbulanceBUtilization.Reset();
         }
 
         override public void SimulationFinished()

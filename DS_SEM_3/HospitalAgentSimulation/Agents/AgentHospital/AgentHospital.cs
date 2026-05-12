@@ -1,11 +1,12 @@
-using OSPABA;
 using Agents.AgentHospital.ContinualAssistants;
-using Simulation;
 using DS_SEM_3.Generators.Empiric.Continuous;
 using DS_SEM_3.Generators.Empiric.Discrete;
 using DS_SEM_3.Generators.Triangular;
 using DS_SEM_3.Generators.Uniform;
 using DS_SEM_3.HospitalAgentSimulation.Entities;
+using DS_SEM_3.Statistics;
+using OSPABA;
+using Simulation;
 using System.Diagnostics;
 
 namespace Agents.AgentHospital
@@ -27,6 +28,17 @@ namespace Agents.AgentHospital
 
         public ContinuousUniform PatientMoveToLeaveDoorGen { get; private set; }
 
+        //Stats
+        public SimpleStatistics AverageWaitingForEntranceTreatAll { get; set; } = new();
+        public SimpleStatistics AverageWaitingForEntranceTreatAlone { get; set; } = new();
+        public SimpleStatistics AverageWaitingForEntranceTreatAmbulance { get; set; } = new();
+
+        public TimeStatistics AverageEntranceQueueLength { get; set; } = new();
+
+        public SimpleStatistics AverageWaitingForMedicalTreatAll { get; set; } = new();
+        public SimpleStatistics AverageWaitingForMedicalTreatAlone { get; set; } = new();
+        public SimpleStatistics AverageWaitingForMedicalTreatAmbulance { get; set; } = new();
+
         public AgentHospital(int id, OSPABA.Simulation mySim, Agent parent) :
 			base(id, mySim, parent)
 		{
@@ -47,6 +59,16 @@ namespace Agents.AgentHospital
             PatientsInHospital.Clear();
             QueueEntrancePatients.Clear();
             QueuesAmbulances.Clear();
+
+            AverageWaitingForEntranceTreatAll.Reset();
+            AverageWaitingForEntranceTreatAlone.Reset();
+            AverageWaitingForEntranceTreatAmbulance.Reset();
+
+            AverageWaitingForMedicalTreatAll.Reset();
+            AverageWaitingForMedicalTreatAlone.Reset();
+            AverageWaitingForMedicalTreatAmbulance.Reset();
+
+            AverageEntranceQueueLength.Reset();
         }
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"
