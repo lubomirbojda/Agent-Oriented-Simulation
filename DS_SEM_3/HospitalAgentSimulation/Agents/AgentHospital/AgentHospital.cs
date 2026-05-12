@@ -24,6 +24,7 @@ namespace Agents.AgentHospital
 
         public TriangularDist NurseMoveToAmbulanceGen { get; private set; }
         public TriangularDist DoctorMoveToAmbulanceGen { get; private set; }
+        public TriangularDist PatientMoveToAmbulanceGen { get; private set; }
 
 
         public ContinuousUniform PatientMoveToLeaveDoorGen { get; private set; }
@@ -53,6 +54,7 @@ namespace Agents.AgentHospital
             AmbulancePatientsMoveToEntranceSpaceGen = new(sim.SeedGenerator, 90, 200);
             NurseMoveToAmbulanceGen = new(sim.SeedGenerator, 15, 45, 20);
             DoctorMoveToAmbulanceGen = new(sim.SeedGenerator, 15, 45, 20);
+            PatientMoveToAmbulanceGen = new(sim.SeedGenerator, 15, 45, 20);
 
             PatientMoveToLeaveDoorGen = new(sim.SeedGenerator, 150, 240);
         }

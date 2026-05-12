@@ -128,8 +128,6 @@ namespace GUI
             trackBarIntervalTime = new TrackBar();
             label3 = new Label();
             numericUpDownReplications = new NumericUpDown();
-            checkBoxSeed = new CheckBox();
-            numericUpDown2 = new NumericUpDown();
             label4 = new Label();
             label5 = new Label();
             numericUpDownNurses = new NumericUpDown();
@@ -168,7 +166,6 @@ namespace GUI
             ((System.ComponentModel.ISupportInitialize)trackBarPauseTime).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBarIntervalTime).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDownReplications).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDownNurses).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDownDoctors).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDownWarpUmHours).BeginInit();
@@ -1000,7 +997,7 @@ namespace GUI
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(42, 22);
+            label3.Location = new Point(37, 25);
             label3.Name = "label3";
             label3.Size = new Size(63, 15);
             label3.TabIndex = 8;
@@ -1008,36 +1005,18 @@ namespace GUI
             // 
             // numericUpDownReplications
             // 
-            numericUpDownReplications.Location = new Point(111, 18);
+            numericUpDownReplications.Location = new Point(112, 21);
             numericUpDownReplications.Maximum = new decimal(new int[] { 100000000, 0, 0, 0 });
             numericUpDownReplications.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numericUpDownReplications.Name = "numericUpDownReplications";
             numericUpDownReplications.Size = new Size(100, 23);
             numericUpDownReplications.TabIndex = 9;
-            numericUpDownReplications.Value = new decimal(new int[] { 100, 0, 0, 0 });
-            // 
-            // checkBoxSeed
-            // 
-            checkBoxSeed.AutoSize = true;
-            checkBoxSeed.Location = new Point(28, 58);
-            checkBoxSeed.Name = "checkBoxSeed";
-            checkBoxSeed.Size = new Size(94, 19);
-            checkBoxSeed.TabIndex = 10;
-            checkBoxSeed.Text = "Vlastný seed:";
-            checkBoxSeed.UseVisualStyleBackColor = true;
-            // 
-            // numericUpDown2
-            // 
-            numericUpDown2.Enabled = false;
-            numericUpDown2.Location = new Point(128, 57);
-            numericUpDown2.Name = "numericUpDown2";
-            numericUpDown2.Size = new Size(83, 23);
-            numericUpDown2.TabIndex = 11;
+            numericUpDownReplications.Value = new decimal(new int[] { 200, 0, 0, 0 });
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(217, 43);
+            label4.Location = new Point(218, 22);
             label4.Name = "label4";
             label4.Size = new Size(56, 15);
             label4.TabIndex = 12;
@@ -1046,7 +1025,7 @@ namespace GUI
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(224, 74);
+            label5.Location = new Point(225, 60);
             label5.Name = "label5";
             label5.Size = new Size(49, 15);
             label5.TabIndex = 13;
@@ -1054,24 +1033,24 @@ namespace GUI
             // 
             // numericUpDownNurses
             // 
-            numericUpDownNurses.Location = new Point(279, 41);
+            numericUpDownNurses.Location = new Point(280, 21);
             numericUpDownNurses.Name = "numericUpDownNurses";
             numericUpDownNurses.Size = new Size(54, 23);
             numericUpDownNurses.TabIndex = 14;
-            numericUpDownNurses.Value = new decimal(new int[] { 12, 0, 0, 0 });
+            numericUpDownNurses.Value = new decimal(new int[] { 8, 0, 0, 0 });
             // 
             // numericUpDownDoctors
             // 
-            numericUpDownDoctors.Location = new Point(279, 72);
+            numericUpDownDoctors.Location = new Point(280, 58);
             numericUpDownDoctors.Name = "numericUpDownDoctors";
             numericUpDownDoctors.Size = new Size(54, 23);
             numericUpDownDoctors.TabIndex = 15;
-            numericUpDownDoctors.Value = new decimal(new int[] { 8, 0, 0, 0 });
+            numericUpDownDoctors.Value = new decimal(new int[] { 6, 0, 0, 0 });
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(36, 91);
+            label6.Location = new Point(14, 60);
             label6.Name = "label6";
             label6.Size = new Size(86, 15);
             label6.TabIndex = 16;
@@ -1079,10 +1058,11 @@ namespace GUI
             // 
             // numericUpDownWarpUmHours
             // 
-            numericUpDownWarpUmHours.Location = new Point(128, 91);
+            numericUpDownWarpUmHours.Location = new Point(112, 57);
             numericUpDownWarpUmHours.Name = "numericUpDownWarpUmHours";
             numericUpDownWarpUmHours.Size = new Size(83, 23);
             numericUpDownWarpUmHours.TabIndex = 17;
+            numericUpDownWarpUmHours.Value = new decimal(new int[] { 72, 0, 0, 0 });
             // 
             // buttonStartSim
             // 
@@ -1217,8 +1197,6 @@ namespace GUI
             // 
             groupBox2.Controls.Add(label3);
             groupBox2.Controls.Add(numericUpDownReplications);
-            groupBox2.Controls.Add(checkBoxSeed);
-            groupBox2.Controls.Add(numericUpDown2);
             groupBox2.Controls.Add(label4);
             groupBox2.Controls.Add(label5);
             groupBox2.Controls.Add(numericUpDownNurses);
@@ -1227,7 +1205,7 @@ namespace GUI
             groupBox2.Controls.Add(numericUpDownWarpUmHours);
             groupBox2.Location = new Point(563, 12);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(362, 127);
+            groupBox2.Size = new Size(362, 136);
             groupBox2.TabIndex = 32;
             groupBox2.TabStop = false;
             groupBox2.Text = "Nastavenia simulácie";
@@ -1280,7 +1258,6 @@ namespace GUI
             ((System.ComponentModel.ISupportInitialize)trackBarPauseTime).EndInit();
             ((System.ComponentModel.ISupportInitialize)trackBarIntervalTime).EndInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDownReplications).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown2).EndInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDownNurses).EndInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDownDoctors).EndInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDownWarpUmHours).EndInit();
@@ -1306,8 +1283,6 @@ namespace GUI
         private TrackBar trackBarIntervalTime;
         private Label label3;
         private NumericUpDown numericUpDownReplications;
-        private CheckBox checkBoxSeed;
-        private NumericUpDown numericUpDown2;
         private Label label4;
         private Label label5;
         private NumericUpDown numericUpDownNurses;

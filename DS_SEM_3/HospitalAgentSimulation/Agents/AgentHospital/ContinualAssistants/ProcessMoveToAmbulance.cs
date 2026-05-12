@@ -1,6 +1,7 @@
 using OSPABA;
 using Agents.AgentHospital;
 using Simulation;
+using System.ComponentModel.DataAnnotations;
 
 namespace Agents.AgentHospital.ContinualAssistants
 {
@@ -28,6 +29,7 @@ namespace Agents.AgentHospital.ContinualAssistants
 			var assDoctor = msg.Patient.AssignedDoctor;
 			double nurseMoveTime = 0;
 			double doctorMoveTime = 0;
+			double patientMoveTime = 0;
 
             if (!msg.Patient.HasEntranceTreatDone)
             {
@@ -68,6 +70,9 @@ namespace Agents.AgentHospital.ContinualAssistants
                 }
                 //------------
 
+				if (msg.Patient.AssignedAmbulance != msg.Patient.LastAmbulance)
+					patientMoveTime = MyAgent.PatientMoveToAmbulanceGen.GenerateNext();
+
                 if (assNurse.ActualAmbulance != assNurse.LastAmbulance)
                     nurseMoveTime = MyAgent.NurseMoveToAmbulanceGen.GenerateNext();
 
@@ -75,8 +80,9 @@ namespace Agents.AgentHospital.ContinualAssistants
 					doctorMoveTime = MyAgent.DoctorMoveToAmbulanceGen.GenerateNext();
 
 				var higherMoveTime = Math.Max(doctorMoveTime, nurseMoveTime);
+				var finalMoveTime = Math.Max(higherMoveTime, patientMoveTime);
                 msg.Code = Mc.MoveToAmbulance;
-                Hold(higherMoveTime, msg);
+                Hold(finalMoveTime, msg);
                 return;
             }
         }

@@ -81,9 +81,7 @@ namespace Simulation
 
         override public void ReplicationFinished()
         {
-            // Collect local statistics into global, update UI, etc...
-            base.ReplicationFinished();
-
+            // Collect local statistics into global, update UI, etc...  
             AveragePatientsFinishedAll.Add(PatientsFinished);
             AveragePatientsFinishedAlone.Add(AlonePatientsFinished);
             AveragePatientsFinishedAmbulance.Add(AmbulancePatientsFinished);
@@ -116,6 +114,8 @@ namespace Simulation
             PatientsFinished = 0;
             AlonePatientsFinished = 0;
             AmbulancePatientsFinished = 0;
+
+            base.ReplicationFinished();
         }
 
         public void ResetStats()

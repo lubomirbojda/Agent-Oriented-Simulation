@@ -78,13 +78,12 @@ namespace Agents.AgentEnviroment
             { 
                 sim.IsWarmedUp = true;
                 sim.ResetStatsAfterWarmUp();
-                sim.ResetStats();
             }
 
             if (sim.IsWarmUpAnalysis && (sim.CurrentTime - sim.LastLogTime >= 3600))
             {
                 double currentHour = sim.CurrentTime / 3600.0;
-                double avgTime = MyAgent.AverageTimeInSystemAll.GetAverage() / 60.0;
+                double avgTime = MyAgent.AverageTimeInSystemAll.GetAverage();
 
                 sim.CsvWriter.WriteLine($"{(int)currentHour};{avgTime}");
 

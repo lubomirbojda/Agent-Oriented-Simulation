@@ -15,6 +15,8 @@ public class Patient
     public Doctor? AssignedDoctor { get; set; }
     public AmbulanceA? AssignedAmbulance { get; set; }
 
+    public AmbulanceA? LastAmbulance { get; set; }
+
     public bool HasEntranceTreatDone { get; set; } = false;
 
     public bool CanStartTreat { get; set; } = false;
@@ -76,6 +78,7 @@ public class Patient
 
         AssignedNurse = null;
         AssignedDoctor = null;
+        LastAmbulance = AssignedAmbulance;
         AssignedAmbulance = null;
         CanStartTreat = false;
     }
