@@ -74,6 +74,22 @@ namespace Agents.AgentEnviroment
                 MyAgent.AverageTimeInSystemAlone.Add(timeInSystem);
             }
             
+            if (sim.WarmUpEndTime > 0 && !sim.IsWarmedUp && sim.CurrentTime >= sim.WarmUpEndTime)
+            { 
+                sim.IsWarmedUp = true;
+                sim.ResetStatsAfterWarmUp();
+                sim.ResetStats();
+            }
+
+            if (sim.IsWarmUpAnalysis && (sim.CurrentTime - sim.LastLogTime >= 3600))
+            {
+                double currentHour = sim.CurrentTime / 3600.0;
+                double avgTime = MyAgent.AverageTimeInSystemAll.GetAverage() / 60.0;
+
+                sim.CsvWriter.WriteLine($"{(int)currentHour};{avgTime}");
+
+                sim.LastLogTime = sim.CurrentTime;
+            }
         }
 
 		//meta! userInfo="Process messages defined in code", id="0"

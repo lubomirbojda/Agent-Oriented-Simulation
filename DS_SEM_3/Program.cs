@@ -7,6 +7,9 @@ public class Program
     static void Main(string[] args)
     {
         MySimulation sim = new MySimulation();
-        sim.Simulate(100, 24*60*60*28);
+        string filename = Path.Combine(Environment.CurrentDirectory, "warmupanalyzeAA.csv");
+        sim.StartWarmUpAnalysis(filename);
+        sim.SetInputParameters(12, 10, 0);
+        sim.Simulate(1, 200*24*60*60);
     }
 }

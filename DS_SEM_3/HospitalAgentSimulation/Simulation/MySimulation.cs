@@ -15,6 +15,14 @@ namespace Simulation
         public int PatientsFinished { get; set; } = 0;
         public int AlonePatientsFinished { get; set; } = 0;
         public int AmbulancePatientsFinished { get; set; } = 0;
+        public double WarmUpEndTime { get; set; } = 0;
+        public bool IsWarmedUp { get; set; } = false;
+
+        public const int REPLICATION_TIME_SECONDS = 28 * 24 * 60 * 60;
+
+        public double LastLogTime { get; set; } = 0;
+        public StreamWriter CsvWriter { get; set; }
+        public bool IsWarmUpAnalysis { get; set; } = false;
 
         //Stats
         public SimpleStatistics AveragePatientsFinishedAll { get; set; } = new();
@@ -61,6 +69,14 @@ namespace Simulation
         {
             base.PrepareReplication();
             // Reset entities, queues, local statistics, etc...
+            IsWarmedUp = false;
+            LastLogTime = 0;
+        }
+
+        public void StartWarmUpAnalysis(string filepath)
+        {
+            IsWarmUpAnalysis = true;
+            CsvWriter = new StreamWriter(filepath);
         }
 
         override public void ReplicationFinished()
@@ -102,7 +118,7 @@ namespace Simulation
             AmbulancePatientsFinished = 0;
         }
 
-        private void ResetStats()
+        public void ResetStats()
         {
             AveragePatientsFinishedAll.Reset();
             AveragePatientsFinishedAlone.Reset();
@@ -123,15 +139,46 @@ namespace Simulation
             AverageAmbulanceBUtilization.Reset();
         }
 
+        public void ResetStatsAfterWarmUp()
+        {
+            PatientsFinished = 0;
+            AlonePatientsFinished = 0;
+            AmbulancePatientsFinished = 0;
+
+            AgentEnviroment.AverageTimeInSystemAll.Reset();
+            AgentEnviroment.AverageTimeInSystemAlone.Reset();
+            AgentEnviroment.AverageTimeInSystemAmbulance.Reset();
+
+            AgentHospital.AverageWaitingForEntranceTreatAll.Reset();
+            AgentHospital.AverageWaitingForEntranceTreatAlone.Reset();
+            AgentHospital.AverageWaitingForEntranceTreatAmbulance.Reset();
+            AgentHospital.AverageEntranceQueueLength.ResetAtTime(CurrentTime);
+            AgentHospital.AverageWaitingForMedicalTreatAll.Reset();
+            AgentHospital.AverageWaitingForMedicalTreatAlone.Reset();
+            AgentHospital.AverageWaitingForMedicalTreatAmbulance.Reset();
+
+            AgentResources.Nurses.ResetResourceUtilStats(CurrentTime);
+            AgentResources.Doctors.ResetResourceUtilStats(CurrentTime);
+            AgentResources.AmbulationsA.ResetResourceUtilStats(CurrentTime);
+            AgentResources.AmbulationsB.ResetResourceUtilStats(CurrentTime);
+        }
+
         override public void SimulationFinished()
         {
             // Display simulation results
             base.SimulationFinished();
+
+            if (IsWarmUpAnalysis && CsvWriter != null)
+            {
+                CsvWriter.Close();
+                IsWarmUpAnalysis = false;
+            }
         }
 
         public void SetInputParameters(int nursesCount, int doctorsCount, int warmUpHours)
         {
             AgentResources.SetUpResources(nursesCount, doctorsCount);
+            WarmUpEndTime = warmUpHours * 60 * 60;
         }
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"

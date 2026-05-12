@@ -300,14 +300,14 @@ namespace GUI
             var nursesCount = (int)numericUpDownNurses.Value;
             var doctorsCount = (int)numericUpDownDoctors.Value;
             var warmUpHours = (int)numericUpDownWarpUmHours.Value;
-
             _simulation.SetInputParameters(nursesCount, doctorsCount, warmUpHours);
 
             if (!_simulation.IsRunning())
             {
                 buttonStartSim.Text = "Ukončiť";
                 int repl = (int)numericUpDownReplications.Value;
-                _simulation.SimulateAsync(repl, 24 * 60 * 60 * 28);
+                var simEndTime = _simulation.WarmUpEndTime + MySimulation.REPLICATION_TIME_SECONDS;
+                _simulation.SimulateAsync(repl, simEndTime);
             }
             else
             {
