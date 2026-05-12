@@ -71,7 +71,6 @@ namespace Agents.AgentEntranceTreat.ContinualAssistants
                         msg.QueuesAmbulances.EnqueuePatientAmbulanceB(msg.Patient, msg.Patient.Priority);
                     }
 
-                    msg.Patient.TimeStartWaitingForMedicalTreat = MySim.CurrentTime;
 
                     msg.Patient.UnassignResources();
                     msg.Patient.HasEntranceTreatDone = true;

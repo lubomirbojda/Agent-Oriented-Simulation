@@ -5,10 +5,7 @@ public class Patient
     public bool CameByAmbulance { get; private set; }
     public double ArrivalTime { get; private set; }
 
-    public double TimeStartWaitingForEntranceTreat { get; set; } = -1;
     public double WaitingForEntranceTreat { get; set; } = -1;
-
-    public double TimeStartWaitingForMedicalTreat { get; set; } = -1;
     public double WaitingForMedicalTreat { get; set; } = -1;
 
     public int Id { get; private set; } = 0;

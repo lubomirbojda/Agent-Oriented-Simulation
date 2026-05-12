@@ -33,15 +33,6 @@ namespace GUI
             tabControlSimulation = new TabControl();
             tabPagePatients = new TabPage();
             dataGridViewPatients = new DataGridView();
-            ColumnId_Patient = new DataGridViewTextBoxColumn();
-            ColumnAmbulance_patient = new DataGridViewTextBoxColumn();
-            ColumnWaitingForEntrance_Patient = new DataGridViewTextBoxColumn();
-            ColumnEntranceComplete_patient = new DataGridViewTextBoxColumn();
-            ColumnPriority_patient = new DataGridViewTextBoxColumn();
-            ColumnWaitingForMedical_patient = new DataGridViewTextBoxColumn();
-            ColumnAssignedNurse_patinet = new DataGridViewTextBoxColumn();
-            ColumnAssignedDoctor_patient = new DataGridViewTextBoxColumn();
-            ColumnAssignedAmbulance_patinet = new DataGridViewTextBoxColumn();
             tabPageDoctors = new TabPage();
             dataGridViewDoctors = new DataGridView();
             ColumnID_doctors = new DataGridViewTextBoxColumn();
@@ -97,6 +88,15 @@ namespace GUI
             groupBox1 = new GroupBox();
             groupBox2 = new GroupBox();
             groupBox3 = new GroupBox();
+            ColumnId_Patient = new DataGridViewTextBoxColumn();
+            ColumnAmbulance_patient = new DataGridViewTextBoxColumn();
+            ColumnWaitingForEntrance_Patient = new DataGridViewTextBoxColumn();
+            ColumnEntranceComplete_patient = new DataGridViewTextBoxColumn();
+            ColumnPriority_patient = new DataGridViewTextBoxColumn();
+            ColumnWaitingForMedical_patient = new DataGridViewTextBoxColumn();
+            ColumnAssignedNurse_patinet = new DataGridViewTextBoxColumn();
+            ColumnAssignedDoctor_patient = new DataGridViewTextBoxColumn();
+            ColumnAssignedAmbulance_patinet = new DataGridViewTextBoxColumn();
             tabControlMain.SuspendLayout();
             tabPageSimulation.SuspendLayout();
             tabControlSimulation.SuspendLayout();
@@ -179,58 +179,13 @@ namespace GUI
             dataGridViewPatients.Size = new Size(1123, 479);
             dataGridViewPatients.TabIndex = 0;
             // 
-            // ColumnId_Patient
-            // 
-            ColumnId_Patient.HeaderText = "Id";
-            ColumnId_Patient.Name = "ColumnId_Patient";
-            // 
-            // ColumnAmbulance_patient
-            // 
-            ColumnAmbulance_patient.HeaderText = "Prišiel sanitkou?";
-            ColumnAmbulance_patient.Name = "ColumnAmbulance_patient";
-            // 
-            // ColumnWaitingForEntrance_Patient
-            // 
-            ColumnWaitingForEntrance_Patient.HeaderText = "Čakanie na vsetupné vyšetrenie";
-            ColumnWaitingForEntrance_Patient.Name = "ColumnWaitingForEntrance_Patient";
-            // 
-            // ColumnEntranceComplete_patient
-            // 
-            ColumnEntranceComplete_patient.HeaderText = "Vstupné vyšetrenie hotové";
-            ColumnEntranceComplete_patient.Name = "ColumnEntranceComplete_patient";
-            // 
-            // ColumnPriority_patient
-            // 
-            ColumnPriority_patient.HeaderText = "Priorita";
-            ColumnPriority_patient.Name = "ColumnPriority_patient";
-            // 
-            // ColumnWaitingForMedical_patient
-            // 
-            ColumnWaitingForMedical_patient.HeaderText = "Čakanie na lekárske ošetrenie";
-            ColumnWaitingForMedical_patient.Name = "ColumnWaitingForMedical_patient";
-            // 
-            // ColumnAssignedNurse_patinet
-            // 
-            ColumnAssignedNurse_patinet.HeaderText = "Aktuálne priradená seestrička";
-            ColumnAssignedNurse_patinet.Name = "ColumnAssignedNurse_patinet";
-            // 
-            // ColumnAssignedDoctor_patient
-            // 
-            ColumnAssignedDoctor_patient.HeaderText = "Aktuálne priradený doktor";
-            ColumnAssignedDoctor_patient.Name = "ColumnAssignedDoctor_patient";
-            // 
-            // ColumnAssignedAmbulance_patinet
-            // 
-            ColumnAssignedAmbulance_patinet.HeaderText = "Aktuálne priradená ambulancia";
-            ColumnAssignedAmbulance_patinet.Name = "ColumnAssignedAmbulance_patinet";
-            // 
             // tabPageDoctors
             // 
             tabPageDoctors.Controls.Add(dataGridViewDoctors);
             tabPageDoctors.Location = new Point(4, 24);
             tabPageDoctors.Name = "tabPageDoctors";
             tabPageDoctors.Padding = new Padding(3);
-            tabPageDoctors.Size = new Size(1071, 485);
+            tabPageDoctors.Size = new Size(1129, 485);
             tabPageDoctors.TabIndex = 1;
             tabPageDoctors.Text = "Doktori";
             tabPageDoctors.UseVisualStyleBackColor = true;
@@ -242,7 +197,7 @@ namespace GUI
             dataGridViewDoctors.Dock = DockStyle.Fill;
             dataGridViewDoctors.Location = new Point(3, 3);
             dataGridViewDoctors.Name = "dataGridViewDoctors";
-            dataGridViewDoctors.Size = new Size(1065, 479);
+            dataGridViewDoctors.Size = new Size(1123, 479);
             dataGridViewDoctors.TabIndex = 0;
             // 
             // ColumnID_doctors
@@ -266,7 +221,7 @@ namespace GUI
             tabPageNurses.Location = new Point(4, 24);
             tabPageNurses.Name = "tabPageNurses";
             tabPageNurses.Padding = new Padding(3);
-            tabPageNurses.Size = new Size(1071, 485);
+            tabPageNurses.Size = new Size(1129, 485);
             tabPageNurses.TabIndex = 2;
             tabPageNurses.Text = "Sestričky";
             tabPageNurses.UseVisualStyleBackColor = true;
@@ -278,7 +233,7 @@ namespace GUI
             dataGridViewNurses.Dock = DockStyle.Fill;
             dataGridViewNurses.Location = new Point(3, 3);
             dataGridViewNurses.Name = "dataGridViewNurses";
-            dataGridViewNurses.Size = new Size(1065, 479);
+            dataGridViewNurses.Size = new Size(1123, 479);
             dataGridViewNurses.TabIndex = 0;
             // 
             // ColumnId_nurse
@@ -302,7 +257,7 @@ namespace GUI
             tabPageAmbulationsA.Location = new Point(4, 24);
             tabPageAmbulationsA.Name = "tabPageAmbulationsA";
             tabPageAmbulationsA.Padding = new Padding(3);
-            tabPageAmbulationsA.Size = new Size(1071, 485);
+            tabPageAmbulationsA.Size = new Size(1129, 485);
             tabPageAmbulationsA.TabIndex = 3;
             tabPageAmbulationsA.Text = "Ambulancie A";
             tabPageAmbulationsA.UseVisualStyleBackColor = true;
@@ -314,7 +269,7 @@ namespace GUI
             dataGridViewAmbA.Dock = DockStyle.Fill;
             dataGridViewAmbA.Location = new Point(3, 3);
             dataGridViewAmbA.Name = "dataGridViewAmbA";
-            dataGridViewAmbA.Size = new Size(1065, 479);
+            dataGridViewAmbA.Size = new Size(1123, 479);
             dataGridViewAmbA.TabIndex = 0;
             // 
             // Columnid_amb_a
@@ -348,7 +303,7 @@ namespace GUI
             tabPageAmbulationsB.Location = new Point(4, 24);
             tabPageAmbulationsB.Name = "tabPageAmbulationsB";
             tabPageAmbulationsB.Padding = new Padding(3);
-            tabPageAmbulationsB.Size = new Size(1071, 485);
+            tabPageAmbulationsB.Size = new Size(1129, 485);
             tabPageAmbulationsB.TabIndex = 4;
             tabPageAmbulationsB.Text = "Ambulancie B";
             tabPageAmbulationsB.UseVisualStyleBackColor = true;
@@ -360,7 +315,7 @@ namespace GUI
             dataGridViewAmbB.Dock = DockStyle.Fill;
             dataGridViewAmbB.Location = new Point(3, 3);
             dataGridViewAmbB.Name = "dataGridViewAmbB";
-            dataGridViewAmbB.Size = new Size(1065, 479);
+            dataGridViewAmbB.Size = new Size(1123, 479);
             dataGridViewAmbB.TabIndex = 0;
             // 
             // ColumnId_amb_b
@@ -393,7 +348,7 @@ namespace GUI
             tabPageAnimation.Location = new Point(4, 24);
             tabPageAnimation.Name = "tabPageAnimation";
             tabPageAnimation.Padding = new Padding(3);
-            tabPageAnimation.Size = new Size(1085, 519);
+            tabPageAnimation.Size = new Size(1143, 519);
             tabPageAnimation.TabIndex = 1;
             tabPageAnimation.Text = "Animácia";
             tabPageAnimation.UseVisualStyleBackColor = true;
@@ -697,6 +652,51 @@ namespace GUI
             groupBox3.TabStop = false;
             groupBox3.Text = "groupBox3";
             // 
+            // ColumnId_Patient
+            // 
+            ColumnId_Patient.HeaderText = "Id";
+            ColumnId_Patient.Name = "ColumnId_Patient";
+            // 
+            // ColumnAmbulance_patient
+            // 
+            ColumnAmbulance_patient.HeaderText = "Prišiel sanitkou?";
+            ColumnAmbulance_patient.Name = "ColumnAmbulance_patient";
+            // 
+            // ColumnWaitingForEntrance_Patient
+            // 
+            ColumnWaitingForEntrance_Patient.HeaderText = "Čakanie na vstupné vyšetrenie";
+            ColumnWaitingForEntrance_Patient.Name = "ColumnWaitingForEntrance_Patient";
+            // 
+            // ColumnEntranceComplete_patient
+            // 
+            ColumnEntranceComplete_patient.HeaderText = "Vstupné vyšetrenie hotové";
+            ColumnEntranceComplete_patient.Name = "ColumnEntranceComplete_patient";
+            // 
+            // ColumnPriority_patient
+            // 
+            ColumnPriority_patient.HeaderText = "Priorita";
+            ColumnPriority_patient.Name = "ColumnPriority_patient";
+            // 
+            // ColumnWaitingForMedical_patient
+            // 
+            ColumnWaitingForMedical_patient.HeaderText = "Čakanie na lekárske ošetrenie";
+            ColumnWaitingForMedical_patient.Name = "ColumnWaitingForMedical_patient";
+            // 
+            // ColumnAssignedNurse_patinet
+            // 
+            ColumnAssignedNurse_patinet.HeaderText = "Aktuálne priradená seestrička";
+            ColumnAssignedNurse_patinet.Name = "ColumnAssignedNurse_patinet";
+            // 
+            // ColumnAssignedDoctor_patient
+            // 
+            ColumnAssignedDoctor_patient.HeaderText = "Aktuálne priradený doktor";
+            ColumnAssignedDoctor_patient.Name = "ColumnAssignedDoctor_patient";
+            // 
+            // ColumnAssignedAmbulance_patinet
+            // 
+            ColumnAssignedAmbulance_patinet.HeaderText = "Aktuálne priradená ambulancia";
+            ColumnAssignedAmbulance_patinet.Name = "ColumnAssignedAmbulance_patinet";
+            // 
             // FormSimulation
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -778,15 +778,6 @@ namespace GUI
         private Label label8;
         private DataGridView dataGridViewDoctors;
         private DataGridView dataGridViewPatients;
-        private DataGridViewTextBoxColumn ColumnId_Patient;
-        private DataGridViewTextBoxColumn ColumnAmbulance_patient;
-        private DataGridViewTextBoxColumn ColumnWaitingForEntrance_Patient;
-        private DataGridViewTextBoxColumn ColumnEntranceComplete_patient;
-        private DataGridViewTextBoxColumn ColumnPriority_patient;
-        private DataGridViewTextBoxColumn ColumnWaitingForMedical_patient;
-        private DataGridViewTextBoxColumn ColumnAssignedNurse_patinet;
-        private DataGridViewTextBoxColumn ColumnAssignedDoctor_patient;
-        private DataGridViewTextBoxColumn ColumnAssignedAmbulance_patinet;
         private Label label2;
         private Label label9;
         private Label label10;
@@ -817,5 +808,14 @@ namespace GUI
         private GroupBox groupBox1;
         private GroupBox groupBox2;
         private GroupBox groupBox3;
+        private DataGridViewTextBoxColumn ColumnId_Patient;
+        private DataGridViewTextBoxColumn ColumnAmbulance_patient;
+        private DataGridViewTextBoxColumn ColumnWaitingForEntrance_Patient;
+        private DataGridViewTextBoxColumn ColumnEntranceComplete_patient;
+        private DataGridViewTextBoxColumn ColumnPriority_patient;
+        private DataGridViewTextBoxColumn ColumnWaitingForMedical_patient;
+        private DataGridViewTextBoxColumn ColumnAssignedNurse_patinet;
+        private DataGridViewTextBoxColumn ColumnAssignedDoctor_patient;
+        private DataGridViewTextBoxColumn ColumnAssignedAmbulance_patinet;
     }
 }

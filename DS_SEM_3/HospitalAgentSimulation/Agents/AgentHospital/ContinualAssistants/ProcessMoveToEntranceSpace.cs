@@ -49,7 +49,6 @@ namespace Agents.AgentHospital.ContinualAssistants
                     if (msg.Patient == null) return;
 
 					MyAgent.QueueEntrancePatients.Enqueue(msg.Patient);
-					msg.Patient.TimeStartWaitingForEntranceTreat = MySim.CurrentTime;
 
 					AssistantFinished(message);
                     //MyAgent.TryAssignResources(msg);

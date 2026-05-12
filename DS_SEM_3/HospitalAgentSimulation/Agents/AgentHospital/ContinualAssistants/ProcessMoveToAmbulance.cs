@@ -31,6 +31,7 @@ namespace Agents.AgentHospital.ContinualAssistants
 
             if (!msg.Patient.HasEntranceTreatDone)
             {
+				msg.Patient.WaitingForEntranceTreat = MySim.CurrentTime - msg.Patient.ArrivalTime;
                 if (assNurse.ActualAmbulance != assNurse.LastAmbulance)
 					nurseMoveTime = MyAgent.NurseMoveToAmbulanceGen.GenerateNext();	
 				
@@ -41,6 +42,7 @@ namespace Agents.AgentHospital.ContinualAssistants
             else
             {
 				if (assDoctor == null) return;
+                msg.Patient.WaitingForMedicalTreat = MySim.CurrentTime - msg.Patient.ArrivalTime;
 
                 if (assNurse.ActualAmbulance != assNurse.LastAmbulance)
                     nurseMoveTime = MyAgent.NurseMoveToAmbulanceGen.GenerateNext();
