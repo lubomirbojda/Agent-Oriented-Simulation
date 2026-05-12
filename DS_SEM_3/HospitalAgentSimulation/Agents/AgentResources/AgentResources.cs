@@ -1,6 +1,4 @@
 using DS_SEM_3.HospitalAgentSimulation.Entities;
-using DS_SEM_3.HospitalAgentSimulation.Simulation;
-using DS_SEM_3.Statistics;
 using OSPABA;
 using Simulation;
 

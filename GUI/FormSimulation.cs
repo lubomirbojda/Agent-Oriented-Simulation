@@ -1,10 +1,5 @@
 using DS_SEM_3.HospitalAgentSimulation.Entities;
-using DS_SEM_3.HospitalAgentSimulation.Simulation;
-using OSPABA;
-using OSPAnimatorGIS;
 using Simulation;
-using System.Runtime.CompilerServices;
-using System.Windows.Forms;
 using System.Windows.Forms.Integration;
 
 namespace GUI
@@ -102,7 +97,7 @@ namespace GUI
 
             textBoxEntranceQueue.Text = MakeAverageString(_simulation.AverageEntranceQueueLength.GetAverage());
             textBoxEntranceQueueInt.Text = MakeConfidenceIntervalString(_simulation.AverageEntranceQueueLength.GetConfidenceInterval95());
-        
+
             textBoxWaitMedicalAll.Text = MakeTimeSpanString(_simulation.AverageWaitingForMedicalTreatAll.GetAverage());
             textBoxWaitMedicalAllInt.Text = MakeConfidenceIntervalTimeString(_simulation.AverageWaitingForMedicalTreatAll.GetConfidenceInterval95());
 
@@ -214,9 +209,9 @@ namespace GUI
                     string waitingForMedical = patient.WaitingForMedicalTreat >= 0 ? patient.WaitingForMedicalTreat.ToString() : "---";
                     string assignedNurse = patient.AssignedNurse != null ? patient.AssignedNurse.Id.ToString() : "---";
                     string assignedDoctor = patient.AssignedDoctor != null ? patient.AssignedDoctor.Id.ToString() : "---";
-                    string assignedAmbulance = patient.AssignedAmbulance != null ? 
-                        (patient.AssignedAmbulance.IsTypeA ? 
-                        "A_" + patient.AssignedAmbulance.Id : "B_" + patient.AssignedAmbulance.Id) 
+                    string assignedAmbulance = patient.AssignedAmbulance != null ?
+                        (patient.AssignedAmbulance.IsTypeA ?
+                        "A_" + patient.AssignedAmbulance.Id : "B_" + patient.AssignedAmbulance.Id)
                         : "---";
 
                     dataGridViewPatients.Rows.Add(id, cameByAmbulance, waitingForEntrance, entranceDone, priority,
@@ -339,6 +334,16 @@ namespace GUI
         private void MaxSpeedCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             SetSpeed();
+        }
+
+        private void tabPageAnimation_Enter(object sender, EventArgs e)
+        {
+            groupBoxAnimator.Enabled = true;
+        }
+
+        private void tabPageAnimation_Leave(object sender, EventArgs e)
+        {
+            groupBoxAnimator.Enabled = false;
         }
     }
 }

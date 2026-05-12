@@ -148,7 +148,7 @@ namespace GUI
             buttonDeleteAnimator = new Button();
             groupBox1 = new GroupBox();
             groupBox2 = new GroupBox();
-            groupBox3 = new GroupBox();
+            groupBoxAnimator = new GroupBox();
             tabControlMain.SuspendLayout();
             tabPageSimulation.SuspendLayout();
             tabControlSimulation.SuspendLayout();
@@ -171,7 +171,7 @@ namespace GUI
             ((System.ComponentModel.ISupportInitialize)numericUpDownWarpUmHours).BeginInit();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
-            groupBox3.SuspendLayout();
+            groupBoxAnimator.SuspendLayout();
             SuspendLayout();
             // 
             // tabControlMain
@@ -450,6 +450,8 @@ namespace GUI
             tabPageAnimation.TabIndex = 1;
             tabPageAnimation.Text = "Animácia";
             tabPageAnimation.UseVisualStyleBackColor = true;
+            tabPageAnimation.Enter += tabPageAnimation_Enter;
+            tabPageAnimation.Leave += tabPageAnimation_Leave;
             // 
             // tabPageStats
             // 
@@ -1210,24 +1212,24 @@ namespace GUI
             groupBox2.TabStop = false;
             groupBox2.Text = "Nastavenia simulácie";
             // 
-            // groupBox3
+            // groupBoxAnimator
             // 
-            groupBox3.Controls.Add(buttonCreateAnimator);
-            groupBox3.Controls.Add(buttonDeleteAnimator);
-            groupBox3.Enabled = false;
-            groupBox3.Location = new Point(931, 34);
-            groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(200, 100);
-            groupBox3.TabIndex = 33;
-            groupBox3.TabStop = false;
-            groupBox3.Text = "groupBox3";
+            groupBoxAnimator.Controls.Add(buttonCreateAnimator);
+            groupBoxAnimator.Controls.Add(buttonDeleteAnimator);
+            groupBoxAnimator.Enabled = false;
+            groupBoxAnimator.Location = new Point(931, 34);
+            groupBoxAnimator.Name = "groupBoxAnimator";
+            groupBoxAnimator.Size = new Size(200, 100);
+            groupBoxAnimator.TabIndex = 33;
+            groupBoxAnimator.TabStop = false;
+            groupBoxAnimator.Text = "Nastavenie animátora";
             // 
             // FormSimulation
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1152, 759);
-            Controls.Add(groupBox3);
+            Controls.Add(groupBoxAnimator);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             Controls.Add(labelActualReplication);
@@ -1265,7 +1267,7 @@ namespace GUI
             groupBox1.PerformLayout();
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
-            groupBox3.ResumeLayout(false);
+            groupBoxAnimator.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -1331,7 +1333,7 @@ namespace GUI
         private Button buttonDeleteAnimator;
         private GroupBox groupBox1;
         private GroupBox groupBox2;
-        private GroupBox groupBox3;
+        private GroupBox groupBoxAnimator;
         private DataGridViewTextBoxColumn ColumnId_Patient;
         private DataGridViewTextBoxColumn ColumnAmbulance_patient;
         private DataGridViewTextBoxColumn ColumnWaitingForEntrance_Patient;
