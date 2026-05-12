@@ -1,8 +1,11 @@
+using DS_SEM_3.Statistics;
+
 namespace DS_SEM_3.HospitalAgentSimulation.Entities;
 
 public class Resources<T> where T : Resource, new()
 {
     public T[] AllResources { get; private set; }
+    public TimeStatistics AverageUtilization { get; set; } = new();
 
     public Resources(int count)
     {
@@ -17,6 +20,21 @@ public class Resources<T> where T : Resource, new()
     }
 
     public T? TryGetFreeResource() => AllResources.FirstOrDefault(x => !x.IsBusy);
+
+    public void UpdateResourceUtilStats(double currentTime)
+    {
+        AverageUtilization.Add(AllResources.Count(r => r.IsBusy), currentTime);
+    }
+
+    public void ResetResourceUtilStats(double? time = null)
+    {
+        if (time != null)
+        {
+            AverageUtilization.ResetAtTime(time.Value);
+            return;
+        }
+        AverageUtilization.Reset();
+    }
 
     public void ResetResources()
     {

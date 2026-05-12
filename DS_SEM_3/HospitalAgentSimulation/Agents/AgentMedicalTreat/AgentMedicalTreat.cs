@@ -16,13 +16,17 @@ namespace Agents.AgentMedicalTreat
 			base(id, mySim, parent)
 		{
 			Init();
+			ResetGenerators();
+        }
 
+		private void ResetGenerators()
+		{
             MySimulation sim = (MySimulation)MySim;
             AlonePatientsMedicalTreatGen = new(sim.SeedGenerator, [
-				(10*60, 12*60, 0.1),
+                (10*60, 12*60, 0.1),
                 (12*60, 14*60, 0.6),
                 (14*60, 18*60, 0.3)
-			]);
+            ]);
 
             AmbulancePatientsMedicalTreatGen = new(sim.SeedGenerator, 15 * 60, 30 * 60);
         }
@@ -30,8 +34,9 @@ namespace Agents.AgentMedicalTreat
 		override public void PrepareReplication()
 		{
 			base.PrepareReplication();
-			// Setup component for the next replication
-		}
+            ResetGenerators();
+            // Setup component for the next replication
+        }
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"
 		private void Init()

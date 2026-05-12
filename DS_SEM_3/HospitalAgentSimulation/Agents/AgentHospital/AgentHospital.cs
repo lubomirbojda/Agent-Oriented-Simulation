@@ -43,6 +43,11 @@ namespace Agents.AgentHospital
 			base(id, mySim, parent)
 		{
 			Init();
+            ResetGenerators();
+        }
+
+        private void ResetGenerators()
+        {
             MySimulation sim = (MySimulation)MySim;
             AlonePatientsMoveToEntranceSpaceGen = new(sim.SeedGenerator, 120, 300, 150);
             AmbulancePatientsMoveToEntranceSpaceGen = new(sim.SeedGenerator, 90, 200);
@@ -52,9 +57,11 @@ namespace Agents.AgentHospital
             PatientMoveToLeaveDoorGen = new(sim.SeedGenerator, 150, 240);
         }
 
-		override public void PrepareReplication()
+        override public void PrepareReplication()
 		{
 			base.PrepareReplication();
+            ResetGenerators();
+
             // Setup component for the next replication
             PatientsInHospital.Clear();
             QueueEntrancePatients.Clear();
@@ -68,7 +75,7 @@ namespace Agents.AgentHospital
             AverageWaitingForMedicalTreatAlone.Reset();
             AverageWaitingForMedicalTreatAmbulance.Reset();
 
-            AverageEntranceQueueLength.Reset();
+            AverageEntranceQueueLength.ResetAtTime(MySim.CurrentTime);
         }
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"

@@ -24,6 +24,11 @@ namespace Agents.AgentEnviroment
             base(id, mySim, parent)
         {
             Init();
+            ResetGenerators();
+        }
+
+        private void ResetGenerators()
+        {
             MySimulation sim = (MySimulation)MySim;
             AmbulancePatientGen = new(sim.SeedGenerator, 7, 1.0 / (0.836d * 60));
             AlonePatientGen = new(sim.SeedGenerator, 1.0 / (9.57d * 60));
@@ -33,9 +38,7 @@ namespace Agents.AgentEnviroment
         {
             base.PrepareReplication();
             // Setup component for the next replication
-            MySimulation sim = (MySimulation)MySim;
-            AmbulancePatientGen = new(sim.SeedGenerator, 7, 1.0 / (0.836d * 60));
-            AlonePatientGen = new(sim.SeedGenerator, 1.0 / (9.57d * 60));
+            ResetGenerators();
 
             //Reset stats
             AverageTimeInSystemAll.Reset();

@@ -53,6 +53,7 @@ namespace Simulation
         override public void PrepareSimulation()
         {
             base.PrepareSimulation();
+            ResetStats();
             // Create global statistcis
         }
 
@@ -60,17 +61,12 @@ namespace Simulation
         {
             base.PrepareReplication();
             // Reset entities, queues, local statistics, etc...
-            //Console.WriteLine("Repliacation : " + CurrentReplication + " started");
         }
 
         override public void ReplicationFinished()
         {
             // Collect local statistics into global, update UI, etc...
             base.ReplicationFinished();
-            //Console.WriteLine("Patients finished: " + PatientsFinished);
-            //Console.WriteLine("Repliacation : " + CurrentReplication + " finished");
-            //TimeSpan avgTimeInSystem = TimeSpan.FromSeconds(AgentEnviroment.AverageTimeInSystem.GetAverage());
-            //Console.WriteLine("Average time in system: " + avgTimeInSystem.TotalMinutes);
 
             AveragePatientsFinishedAll.Add(PatientsFinished);
             AveragePatientsFinishedAlone.Add(AlonePatientsFinished);
@@ -90,6 +86,16 @@ namespace Simulation
             AverageWaitingForMedicalTreatAlone.Add(AgentHospital.AverageWaitingForMedicalTreatAlone.GetAverage());
             AverageWaitingForMedicalTreatAmbulance.Add(AgentHospital.AverageWaitingForMedicalTreatAmbulance.GetAverage());
 
+            double avgBusyNurses = AgentResources.Nurses.AverageUtilization.GetAverage(CurrentTime);
+            double avgBusyDoctors = AgentResources.Doctors.AverageUtilization.GetAverage(CurrentTime);
+            double avgBusyAmbA = AgentResources.AmbulationsA.AverageUtilization.GetAverage(CurrentTime);
+            double avgBusyAmbB = AgentResources.AmbulationsB.AverageUtilization.GetAverage(CurrentTime);
+
+            AverageNursesUtilization.Add(avgBusyNurses / AgentResources.Nurses.AllResources.Length);
+            AverageDoctorsUtilization.Add(avgBusyDoctors / AgentResources.Doctors.AllResources.Length);
+            AverageAmbulanceAUtilization.Add(avgBusyAmbA / AgentResources.AmbulationsA.AllResources.Length);
+            AverageAmbulanceBUtilization.Add(avgBusyAmbB / AgentResources.AmbulationsB.AllResources.Length);
+
             //Reset counters
             PatientsFinished = 0;
             AlonePatientsFinished = 0;
@@ -98,29 +104,34 @@ namespace Simulation
 
         private void ResetStats()
         {
-            //AveragePatientsFinishedAll.Reset();
-            //AveragePatientsFinishedAlone.Reset();
-            //AveragePatientsFinishedAmbulance.Reset();
-            //AverageTimeInSystemAll.Reset();
-            //AverageTimeInSystemAmbulance.Reset();
-            //AverageTimeInSystemAlone.Reset();
-            //AverageWaitingForEntranceTreatAll.Reset();
-            //AverageWaitingForEntranceTreatAlone.Reset();
-            //AverageWaitingForEntranceTreatAmbulance.Reset();
-            //AverageEntranceQueueLength.Reset();
-            //AverageWaitingForMedicalTreatAll.Reset();
-            //AverageWaitingForMedicalTreatAlone.Reset();
-            //AverageWaitingForMedicalTreatAmbulance.Reset();
-            //AverageNursesUtilization.Reset();
-            //AverageDoctorsUtilization.Reset();
-            //AverageAmbulanceAUtilization.Reset();
-            //AverageAmbulanceBUtilization.Reset();
+            AveragePatientsFinishedAll.Reset();
+            AveragePatientsFinishedAlone.Reset();
+            AveragePatientsFinishedAmbulance.Reset();
+            AverageTimeInSystemAll.Reset();
+            AverageTimeInSystemAmbulance.Reset();
+            AverageTimeInSystemAlone.Reset();
+            AverageWaitingForEntranceTreatAll.Reset();
+            AverageWaitingForEntranceTreatAlone.Reset();
+            AverageWaitingForEntranceTreatAmbulance.Reset();
+            AverageEntranceQueueLength.Reset();
+            AverageWaitingForMedicalTreatAll.Reset();
+            AverageWaitingForMedicalTreatAlone.Reset();
+            AverageWaitingForMedicalTreatAmbulance.Reset();
+            AverageNursesUtilization.Reset();
+            AverageDoctorsUtilization.Reset();
+            AverageAmbulanceAUtilization.Reset();
+            AverageAmbulanceBUtilization.Reset();
         }
 
         override public void SimulationFinished()
         {
             // Display simulation results
             base.SimulationFinished();
+        }
+
+        public void SetInputParameters(int nursesCount, int doctorsCount, int warmUpHours)
+        {
+            AgentResources.SetUpResources(nursesCount, doctorsCount);
         }
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"

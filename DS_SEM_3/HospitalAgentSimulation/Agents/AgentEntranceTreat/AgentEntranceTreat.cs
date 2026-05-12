@@ -20,6 +20,11 @@ namespace Agents.AgentEntranceTreat
 			base(id, mySim, parent)
 		{
 			Init();
+            ResetGenerators();
+        }
+
+        private void ResetGenerators()
+        {
             MySimulation sim = (MySimulation)MySim;
             AlonePatientsEntranceTreatGen = new(sim.SeedGenerator, [
                 (3*60, 5*60, 0.6),
@@ -48,6 +53,7 @@ namespace Agents.AgentEntranceTreat
 		{
 			base.PrepareReplication();
 			// Setup component for the next replication
+            ResetGenerators();
 		}
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"

@@ -2,6 +2,7 @@ using DS_SEM_3.HospitalAgentSimulation.Entities;
 using OSPABA;
 using OSPAnimatorGIS;
 using Simulation;
+using System.Xml.Serialization;
 
 namespace Agents.AgentResources
 {
@@ -67,6 +68,15 @@ namespace Agents.AgentResources
 			}
 		}
 
+		private void UpdateUtilStats()
+		{
+			double currentTime = MySim.CurrentTime;
+			MyAgent.Nurses.UpdateResourceUtilStats(currentTime);
+			MyAgent.Doctors.UpdateResourceUtilStats(currentTime);
+			MyAgent.AmbulationsA.UpdateResourceUtilStats(currentTime);
+			MyAgent.AmbulationsB.UpdateResourceUtilStats(currentTime);
+        }
+
         private void AssignedResources(Patient patient, MyMessage message)
         {
 			var msg = (MyMessage)message.CreateCopy();
@@ -119,6 +129,8 @@ namespace Agents.AgentResources
                     continue;
                 }
             }
+
+			UpdateUtilStats();
         }
     }
 }

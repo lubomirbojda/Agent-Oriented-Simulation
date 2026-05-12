@@ -1,4 +1,5 @@
 using DS_SEM_3.HospitalAgentSimulation.Entities;
+using DS_SEM_3.HospitalAgentSimulation.Simulation;
 using OSPABA;
 using OSPAnimatorGIS;
 using Simulation;
@@ -70,6 +71,82 @@ namespace GUI
             }
 
             labelActualReplication.Text = _simulation.CurrentReplication.ToString();
+
+            //Stats update
+            textBoxPatientsServedAll.Text = MakeAverageString(_simulation.AveragePatientsFinishedAll.GetAverage());
+            textBoxPatientsServedAllInt.Text = MakeConfidenceIntervalString(_simulation.AveragePatientsFinishedAll.GetConfidenceInterval95());
+
+            textBoxPatientsServedAlone.Text = MakeAverageString(_simulation.AveragePatientsFinishedAlone.GetAverage());
+            textBoxPatientsServedAloneInt.Text = MakeConfidenceIntervalString(_simulation.AveragePatientsFinishedAlone.GetConfidenceInterval95());
+
+            textBoxPatientsServedAmbulance.Text = MakeAverageString(_simulation.AveragePatientsFinishedAmbulance.GetAverage());
+            textBoxPatientsServedAmbulanceInt.Text = MakeConfidenceIntervalString(_simulation.AveragePatientsFinishedAmbulance.GetConfidenceInterval95());
+
+            textBoxTimeInSystemAll.Text = MakeTimeSpanString(_simulation.AverageTimeInSystemAll.GetAverage());
+            textBoxTimeInSystemAllInt.Text = MakeConfidenceIntervalTimeString(_simulation.AverageTimeInSystemAll.GetConfidenceInterval95());
+
+            textBoxTimeInSystemAlone.Text = MakeTimeSpanString(_simulation.AverageTimeInSystemAlone.GetAverage());
+            textBoxTimeInSystemAloneInt.Text = MakeConfidenceIntervalTimeString(_simulation.AverageTimeInSystemAlone.GetConfidenceInterval95());
+
+            textBoxTimeInSystemAmbulance.Text = MakeTimeSpanString(_simulation.AverageTimeInSystemAmbulance.GetAverage());
+            textBoxTimeInSystemAmbulanceInt.Text = MakeConfidenceIntervalTimeString(_simulation.AverageTimeInSystemAmbulance.GetConfidenceInterval95());
+
+            textBoxWaitEntranceAll.Text = MakeTimeSpanString(_simulation.AverageWaitingForEntranceTreatAll.GetAverage());
+            textBoxWaitEntranceAllInt.Text = MakeConfidenceIntervalTimeString(_simulation.AverageWaitingForEntranceTreatAll.GetConfidenceInterval95());
+
+            textBoxWaitEntranceAlone.Text = MakeTimeSpanString(_simulation.AverageWaitingForEntranceTreatAlone.GetAverage());
+            textBoxWaitEntranceAloneInt.Text = MakeConfidenceIntervalTimeString(_simulation.AverageWaitingForEntranceTreatAlone.GetConfidenceInterval95());
+
+            textBoxWaitEntranceAmbulance.Text = MakeTimeSpanString(_simulation.AverageWaitingForEntranceTreatAmbulance.GetAverage());
+            textBoxWaitEntranceAmbulanceInt.Text = MakeConfidenceIntervalTimeString(_simulation.AverageWaitingForEntranceTreatAmbulance.GetConfidenceInterval95());
+
+            textBoxEntranceQueue.Text = MakeAverageString(_simulation.AverageEntranceQueueLength.GetAverage());
+            textBoxEntranceQueueInt.Text = MakeConfidenceIntervalString(_simulation.AverageEntranceQueueLength.GetConfidenceInterval95());
+        
+            textBoxWaitMedicalAll.Text = MakeTimeSpanString(_simulation.AverageWaitingForMedicalTreatAll.GetAverage());
+            textBoxWaitMedicalAllInt.Text = MakeConfidenceIntervalTimeString(_simulation.AverageWaitingForMedicalTreatAll.GetConfidenceInterval95());
+
+            textBoxWaitMedicalAlone.Text = MakeTimeSpanString(_simulation.AverageWaitingForMedicalTreatAlone.GetAverage());
+            textBoxWaitMedicalAloneInt.Text = MakeConfidenceIntervalTimeString(_simulation.AverageWaitingForMedicalTreatAlone.GetConfidenceInterval95());
+
+            textBoxWaitMedicalAmbulance.Text = MakeTimeSpanString(_simulation.AverageWaitingForMedicalTreatAmbulance.GetAverage());
+            textBoxWaitMedicalAmbulanceInt.Text = MakeConfidenceIntervalTimeString(_simulation.AverageWaitingForMedicalTreatAmbulance.GetConfidenceInterval95());
+
+            textBoxUtilNurses.Text = MakeAverageString(_simulation.AverageNursesUtilization.GetAverage());
+            textBoxUtilNursesInt.Text = MakeConfidenceIntervalString(_simulation.AverageNursesUtilization.GetConfidenceInterval95());
+
+            textBoxUtilDoctors.Text = MakeAverageString(_simulation.AverageDoctorsUtilization.GetAverage());
+            textBoxUtilDoctorsInt.Text = MakeConfidenceIntervalString(_simulation.AverageDoctorsUtilization.GetConfidenceInterval95());
+
+            textBoxUtilAmbA.Text = MakeAverageString(_simulation.AverageAmbulanceAUtilization.GetAverage());
+            textBoxUtilAmbAInt.Text = MakeConfidenceIntervalString(_simulation.AverageAmbulanceAUtilization.GetConfidenceInterval95());
+
+            textBoxUtilAmbB.Text = MakeAverageString(_simulation.AverageAmbulanceBUtilization.GetAverage());
+            textBoxUtilAmbBInt.Text = MakeConfidenceIntervalString(_simulation.AverageAmbulanceBUtilization.GetConfidenceInterval95());
+        }
+
+        private string MakeAverageString(double value)
+        {
+            return value.ToString("F5");
+        }
+
+        private string MakeConfidenceIntervalString((double lower, double upper) interval)
+        {
+            return $"[{interval.lower:F5}  -  {interval.upper:F5}]";
+        }
+
+        private string MakeConfidenceIntervalTimeString((double lower, double upper) interval)
+        {
+            return $"[{MakeTimeSpanString(interval.lower)}  -  {MakeTimeSpanString(interval.upper)}]";
+        }
+
+        private string MakeTimeSpanString(double time)
+        {
+            TimeSpan timeSpan = TimeSpan.FromSeconds(time);
+
+            string str = timeSpan.ToString(@"hh\:mm\:ss");
+
+            return str;
         }
 
         private void SetSpeed()
@@ -220,6 +297,12 @@ namespace GUI
 
         private void buttonStartSim_Click(object sender, EventArgs e)
         {
+            var nursesCount = (int)numericUpDownNurses.Value;
+            var doctorsCount = (int)numericUpDownDoctors.Value;
+            var warmUpHours = (int)numericUpDownWarpUmHours.Value;
+
+            _simulation.SetInputParameters(nursesCount, doctorsCount, warmUpHours);
+
             if (!_simulation.IsRunning())
             {
                 buttonStartSim.Text = "Ukončiť";

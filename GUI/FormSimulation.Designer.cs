@@ -33,6 +33,15 @@ namespace GUI
             tabControlSimulation = new TabControl();
             tabPagePatients = new TabPage();
             dataGridViewPatients = new DataGridView();
+            ColumnId_Patient = new DataGridViewTextBoxColumn();
+            ColumnAmbulance_patient = new DataGridViewTextBoxColumn();
+            ColumnWaitingForEntrance_Patient = new DataGridViewTextBoxColumn();
+            ColumnEntranceComplete_patient = new DataGridViewTextBoxColumn();
+            ColumnPriority_patient = new DataGridViewTextBoxColumn();
+            ColumnWaitingForMedical_patient = new DataGridViewTextBoxColumn();
+            ColumnAssignedNurse_patinet = new DataGridViewTextBoxColumn();
+            ColumnAssignedDoctor_patient = new DataGridViewTextBoxColumn();
+            ColumnAssignedAmbulance_patinet = new DataGridViewTextBoxColumn();
             tabPageDoctors = new TabPage();
             dataGridViewDoctors = new DataGridView();
             ColumnID_doctors = new DataGridViewTextBoxColumn();
@@ -58,6 +67,60 @@ namespace GUI
             ColumnNurse_amb_b = new DataGridViewTextBoxColumn();
             ColumnDoc_amb_b = new DataGridViewTextBoxColumn();
             tabPageAnimation = new TabPage();
+            tabPageStats = new TabPage();
+            textBoxUtilAmbBInt = new TextBox();
+            textBoxUtilAmbB = new TextBox();
+            label31 = new Label();
+            textBoxUtilAmbAInt = new TextBox();
+            textBoxUtilAmbA = new TextBox();
+            label30 = new Label();
+            textBoxUtilDoctorsInt = new TextBox();
+            textBoxUtilDoctors = new TextBox();
+            label29 = new Label();
+            textBoxUtilNursesInt = new TextBox();
+            textBoxUtilNurses = new TextBox();
+            label28 = new Label();
+            textBoxWaitMedicalAmbulanceInt = new TextBox();
+            textBoxWaitMedicalAmbulance = new TextBox();
+            label25 = new Label();
+            textBoxWaitMedicalAloneInt = new TextBox();
+            textBoxWaitMedicalAlone = new TextBox();
+            label26 = new Label();
+            textBoxWaitMedicalAllInt = new TextBox();
+            textBoxWaitMedicalAll = new TextBox();
+            label27 = new Label();
+            textBoxEntranceQueueInt = new TextBox();
+            textBoxEntranceQueue = new TextBox();
+            label24 = new Label();
+            textBoxWaitEntranceAmbulanceInt = new TextBox();
+            textBoxWaitEntranceAmbulance = new TextBox();
+            label23 = new Label();
+            textBoxWaitEntranceAloneInt = new TextBox();
+            textBoxWaitEntranceAlone = new TextBox();
+            label22 = new Label();
+            textBoxWaitEntranceAllInt = new TextBox();
+            textBoxWaitEntranceAll = new TextBox();
+            label21 = new Label();
+            textBoxTimeInSystemAmbulanceInt = new TextBox();
+            textBoxTimeInSystemAmbulance = new TextBox();
+            label20 = new Label();
+            textBoxTimeInSystemAloneInt = new TextBox();
+            textBoxTimeInSystemAlone = new TextBox();
+            label19 = new Label();
+            textBoxTimeInSystemAllInt = new TextBox();
+            textBoxTimeInSystemAll = new TextBox();
+            label18 = new Label();
+            textBoxPatientsServedAmbulanceInt = new TextBox();
+            textBoxPatientsServedAmbulance = new TextBox();
+            label17 = new Label();
+            textBoxPatientsServedAloneInt = new TextBox();
+            textBoxPatientsServedAlone = new TextBox();
+            label16 = new Label();
+            label15 = new Label();
+            label14 = new Label();
+            textBoxPatientsServedAllInt = new TextBox();
+            textBoxPatientsServedAll = new TextBox();
+            label13 = new Label();
             trackBarPauseTime = new TrackBar();
             MaxSpeedCheckBox = new CheckBox();
             label1 = new Label();
@@ -69,10 +132,10 @@ namespace GUI
             numericUpDown2 = new NumericUpDown();
             label4 = new Label();
             label5 = new Label();
-            numericUpDown3 = new NumericUpDown();
-            numericUpDown4 = new NumericUpDown();
+            numericUpDownNurses = new NumericUpDown();
+            numericUpDownDoctors = new NumericUpDown();
             label6 = new Label();
-            numericUpDown5 = new NumericUpDown();
+            numericUpDownWarpUmHours = new NumericUpDown();
             buttonStartSim = new Button();
             buttonPauseSim = new Button();
             label7 = new Label();
@@ -88,15 +151,6 @@ namespace GUI
             groupBox1 = new GroupBox();
             groupBox2 = new GroupBox();
             groupBox3 = new GroupBox();
-            ColumnId_Patient = new DataGridViewTextBoxColumn();
-            ColumnAmbulance_patient = new DataGridViewTextBoxColumn();
-            ColumnWaitingForEntrance_Patient = new DataGridViewTextBoxColumn();
-            ColumnEntranceComplete_patient = new DataGridViewTextBoxColumn();
-            ColumnPriority_patient = new DataGridViewTextBoxColumn();
-            ColumnWaitingForMedical_patient = new DataGridViewTextBoxColumn();
-            ColumnAssignedNurse_patinet = new DataGridViewTextBoxColumn();
-            ColumnAssignedDoctor_patient = new DataGridViewTextBoxColumn();
-            ColumnAssignedAmbulance_patinet = new DataGridViewTextBoxColumn();
             tabControlMain.SuspendLayout();
             tabPageSimulation.SuspendLayout();
             tabControlSimulation.SuspendLayout();
@@ -110,13 +164,14 @@ namespace GUI
             ((System.ComponentModel.ISupportInitialize)dataGridViewAmbA).BeginInit();
             tabPageAmbulationsB.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewAmbB).BeginInit();
+            tabPageStats.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)trackBarPauseTime).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBarIntervalTime).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDownReplications).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown3).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown4).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown5).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDownNurses).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDownDoctors).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDownWarpUmHours).BeginInit();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
@@ -127,10 +182,11 @@ namespace GUI
             tabControlMain.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tabControlMain.Controls.Add(tabPageSimulation);
             tabControlMain.Controls.Add(tabPageAnimation);
+            tabControlMain.Controls.Add(tabPageStats);
             tabControlMain.Location = new Point(1, 141);
             tabControlMain.Name = "tabControlMain";
             tabControlMain.SelectedIndex = 0;
-            tabControlMain.Size = new Size(1151, 547);
+            tabControlMain.Size = new Size(1151, 617);
             tabControlMain.TabIndex = 0;
             // 
             // tabPageSimulation
@@ -139,7 +195,7 @@ namespace GUI
             tabPageSimulation.Location = new Point(4, 24);
             tabPageSimulation.Name = "tabPageSimulation";
             tabPageSimulation.Padding = new Padding(3);
-            tabPageSimulation.Size = new Size(1143, 519);
+            tabPageSimulation.Size = new Size(1143, 589);
             tabPageSimulation.TabIndex = 0;
             tabPageSimulation.Text = "Simulácia";
             tabPageSimulation.UseVisualStyleBackColor = true;
@@ -155,7 +211,7 @@ namespace GUI
             tabControlSimulation.Location = new Point(3, 3);
             tabControlSimulation.Name = "tabControlSimulation";
             tabControlSimulation.SelectedIndex = 0;
-            tabControlSimulation.Size = new Size(1137, 513);
+            tabControlSimulation.Size = new Size(1137, 583);
             tabControlSimulation.TabIndex = 0;
             // 
             // tabPagePatients
@@ -164,7 +220,7 @@ namespace GUI
             tabPagePatients.Location = new Point(4, 24);
             tabPagePatients.Name = "tabPagePatients";
             tabPagePatients.Padding = new Padding(3);
-            tabPagePatients.Size = new Size(1129, 485);
+            tabPagePatients.Size = new Size(1129, 555);
             tabPagePatients.TabIndex = 0;
             tabPagePatients.Text = "Pacienti";
             tabPagePatients.UseVisualStyleBackColor = true;
@@ -176,8 +232,53 @@ namespace GUI
             dataGridViewPatients.Dock = DockStyle.Fill;
             dataGridViewPatients.Location = new Point(3, 3);
             dataGridViewPatients.Name = "dataGridViewPatients";
-            dataGridViewPatients.Size = new Size(1123, 479);
+            dataGridViewPatients.Size = new Size(1123, 549);
             dataGridViewPatients.TabIndex = 0;
+            // 
+            // ColumnId_Patient
+            // 
+            ColumnId_Patient.HeaderText = "Id";
+            ColumnId_Patient.Name = "ColumnId_Patient";
+            // 
+            // ColumnAmbulance_patient
+            // 
+            ColumnAmbulance_patient.HeaderText = "Prišiel sanitkou?";
+            ColumnAmbulance_patient.Name = "ColumnAmbulance_patient";
+            // 
+            // ColumnWaitingForEntrance_Patient
+            // 
+            ColumnWaitingForEntrance_Patient.HeaderText = "Čakanie na vstupné vyšetrenie";
+            ColumnWaitingForEntrance_Patient.Name = "ColumnWaitingForEntrance_Patient";
+            // 
+            // ColumnEntranceComplete_patient
+            // 
+            ColumnEntranceComplete_patient.HeaderText = "Vstupné vyšetrenie hotové";
+            ColumnEntranceComplete_patient.Name = "ColumnEntranceComplete_patient";
+            // 
+            // ColumnPriority_patient
+            // 
+            ColumnPriority_patient.HeaderText = "Priorita";
+            ColumnPriority_patient.Name = "ColumnPriority_patient";
+            // 
+            // ColumnWaitingForMedical_patient
+            // 
+            ColumnWaitingForMedical_patient.HeaderText = "Čakanie na lekárske ošetrenie";
+            ColumnWaitingForMedical_patient.Name = "ColumnWaitingForMedical_patient";
+            // 
+            // ColumnAssignedNurse_patinet
+            // 
+            ColumnAssignedNurse_patinet.HeaderText = "Aktuálne priradená seestrička";
+            ColumnAssignedNurse_patinet.Name = "ColumnAssignedNurse_patinet";
+            // 
+            // ColumnAssignedDoctor_patient
+            // 
+            ColumnAssignedDoctor_patient.HeaderText = "Aktuálne priradený doktor";
+            ColumnAssignedDoctor_patient.Name = "ColumnAssignedDoctor_patient";
+            // 
+            // ColumnAssignedAmbulance_patinet
+            // 
+            ColumnAssignedAmbulance_patinet.HeaderText = "Aktuálne priradená ambulancia";
+            ColumnAssignedAmbulance_patinet.Name = "ColumnAssignedAmbulance_patinet";
             // 
             // tabPageDoctors
             // 
@@ -185,7 +286,7 @@ namespace GUI
             tabPageDoctors.Location = new Point(4, 24);
             tabPageDoctors.Name = "tabPageDoctors";
             tabPageDoctors.Padding = new Padding(3);
-            tabPageDoctors.Size = new Size(1129, 485);
+            tabPageDoctors.Size = new Size(1129, 555);
             tabPageDoctors.TabIndex = 1;
             tabPageDoctors.Text = "Doktori";
             tabPageDoctors.UseVisualStyleBackColor = true;
@@ -197,7 +298,7 @@ namespace GUI
             dataGridViewDoctors.Dock = DockStyle.Fill;
             dataGridViewDoctors.Location = new Point(3, 3);
             dataGridViewDoctors.Name = "dataGridViewDoctors";
-            dataGridViewDoctors.Size = new Size(1123, 479);
+            dataGridViewDoctors.Size = new Size(1123, 549);
             dataGridViewDoctors.TabIndex = 0;
             // 
             // ColumnID_doctors
@@ -221,7 +322,7 @@ namespace GUI
             tabPageNurses.Location = new Point(4, 24);
             tabPageNurses.Name = "tabPageNurses";
             tabPageNurses.Padding = new Padding(3);
-            tabPageNurses.Size = new Size(1129, 485);
+            tabPageNurses.Size = new Size(1129, 555);
             tabPageNurses.TabIndex = 2;
             tabPageNurses.Text = "Sestričky";
             tabPageNurses.UseVisualStyleBackColor = true;
@@ -233,7 +334,7 @@ namespace GUI
             dataGridViewNurses.Dock = DockStyle.Fill;
             dataGridViewNurses.Location = new Point(3, 3);
             dataGridViewNurses.Name = "dataGridViewNurses";
-            dataGridViewNurses.Size = new Size(1123, 479);
+            dataGridViewNurses.Size = new Size(1123, 549);
             dataGridViewNurses.TabIndex = 0;
             // 
             // ColumnId_nurse
@@ -257,7 +358,7 @@ namespace GUI
             tabPageAmbulationsA.Location = new Point(4, 24);
             tabPageAmbulationsA.Name = "tabPageAmbulationsA";
             tabPageAmbulationsA.Padding = new Padding(3);
-            tabPageAmbulationsA.Size = new Size(1129, 485);
+            tabPageAmbulationsA.Size = new Size(1129, 555);
             tabPageAmbulationsA.TabIndex = 3;
             tabPageAmbulationsA.Text = "Ambulancie A";
             tabPageAmbulationsA.UseVisualStyleBackColor = true;
@@ -269,7 +370,7 @@ namespace GUI
             dataGridViewAmbA.Dock = DockStyle.Fill;
             dataGridViewAmbA.Location = new Point(3, 3);
             dataGridViewAmbA.Name = "dataGridViewAmbA";
-            dataGridViewAmbA.Size = new Size(1123, 479);
+            dataGridViewAmbA.Size = new Size(1123, 549);
             dataGridViewAmbA.TabIndex = 0;
             // 
             // Columnid_amb_a
@@ -303,7 +404,7 @@ namespace GUI
             tabPageAmbulationsB.Location = new Point(4, 24);
             tabPageAmbulationsB.Name = "tabPageAmbulationsB";
             tabPageAmbulationsB.Padding = new Padding(3);
-            tabPageAmbulationsB.Size = new Size(1129, 485);
+            tabPageAmbulationsB.Size = new Size(1129, 555);
             tabPageAmbulationsB.TabIndex = 4;
             tabPageAmbulationsB.Text = "Ambulancie B";
             tabPageAmbulationsB.UseVisualStyleBackColor = true;
@@ -315,7 +416,7 @@ namespace GUI
             dataGridViewAmbB.Dock = DockStyle.Fill;
             dataGridViewAmbB.Location = new Point(3, 3);
             dataGridViewAmbB.Name = "dataGridViewAmbB";
-            dataGridViewAmbB.Size = new Size(1123, 479);
+            dataGridViewAmbB.Size = new Size(1123, 549);
             dataGridViewAmbB.TabIndex = 0;
             // 
             // ColumnId_amb_b
@@ -348,10 +449,501 @@ namespace GUI
             tabPageAnimation.Location = new Point(4, 24);
             tabPageAnimation.Name = "tabPageAnimation";
             tabPageAnimation.Padding = new Padding(3);
-            tabPageAnimation.Size = new Size(1143, 519);
+            tabPageAnimation.Size = new Size(1143, 589);
             tabPageAnimation.TabIndex = 1;
             tabPageAnimation.Text = "Animácia";
             tabPageAnimation.UseVisualStyleBackColor = true;
+            // 
+            // tabPageStats
+            // 
+            tabPageStats.Controls.Add(textBoxUtilAmbBInt);
+            tabPageStats.Controls.Add(textBoxUtilAmbB);
+            tabPageStats.Controls.Add(label31);
+            tabPageStats.Controls.Add(textBoxUtilAmbAInt);
+            tabPageStats.Controls.Add(textBoxUtilAmbA);
+            tabPageStats.Controls.Add(label30);
+            tabPageStats.Controls.Add(textBoxUtilDoctorsInt);
+            tabPageStats.Controls.Add(textBoxUtilDoctors);
+            tabPageStats.Controls.Add(label29);
+            tabPageStats.Controls.Add(textBoxUtilNursesInt);
+            tabPageStats.Controls.Add(textBoxUtilNurses);
+            tabPageStats.Controls.Add(label28);
+            tabPageStats.Controls.Add(textBoxWaitMedicalAmbulanceInt);
+            tabPageStats.Controls.Add(textBoxWaitMedicalAmbulance);
+            tabPageStats.Controls.Add(label25);
+            tabPageStats.Controls.Add(textBoxWaitMedicalAloneInt);
+            tabPageStats.Controls.Add(textBoxWaitMedicalAlone);
+            tabPageStats.Controls.Add(label26);
+            tabPageStats.Controls.Add(textBoxWaitMedicalAllInt);
+            tabPageStats.Controls.Add(textBoxWaitMedicalAll);
+            tabPageStats.Controls.Add(label27);
+            tabPageStats.Controls.Add(textBoxEntranceQueueInt);
+            tabPageStats.Controls.Add(textBoxEntranceQueue);
+            tabPageStats.Controls.Add(label24);
+            tabPageStats.Controls.Add(textBoxWaitEntranceAmbulanceInt);
+            tabPageStats.Controls.Add(textBoxWaitEntranceAmbulance);
+            tabPageStats.Controls.Add(label23);
+            tabPageStats.Controls.Add(textBoxWaitEntranceAloneInt);
+            tabPageStats.Controls.Add(textBoxWaitEntranceAlone);
+            tabPageStats.Controls.Add(label22);
+            tabPageStats.Controls.Add(textBoxWaitEntranceAllInt);
+            tabPageStats.Controls.Add(textBoxWaitEntranceAll);
+            tabPageStats.Controls.Add(label21);
+            tabPageStats.Controls.Add(textBoxTimeInSystemAmbulanceInt);
+            tabPageStats.Controls.Add(textBoxTimeInSystemAmbulance);
+            tabPageStats.Controls.Add(label20);
+            tabPageStats.Controls.Add(textBoxTimeInSystemAloneInt);
+            tabPageStats.Controls.Add(textBoxTimeInSystemAlone);
+            tabPageStats.Controls.Add(label19);
+            tabPageStats.Controls.Add(textBoxTimeInSystemAllInt);
+            tabPageStats.Controls.Add(textBoxTimeInSystemAll);
+            tabPageStats.Controls.Add(label18);
+            tabPageStats.Controls.Add(textBoxPatientsServedAmbulanceInt);
+            tabPageStats.Controls.Add(textBoxPatientsServedAmbulance);
+            tabPageStats.Controls.Add(label17);
+            tabPageStats.Controls.Add(textBoxPatientsServedAloneInt);
+            tabPageStats.Controls.Add(textBoxPatientsServedAlone);
+            tabPageStats.Controls.Add(label16);
+            tabPageStats.Controls.Add(label15);
+            tabPageStats.Controls.Add(label14);
+            tabPageStats.Controls.Add(textBoxPatientsServedAllInt);
+            tabPageStats.Controls.Add(textBoxPatientsServedAll);
+            tabPageStats.Controls.Add(label13);
+            tabPageStats.Location = new Point(4, 24);
+            tabPageStats.Name = "tabPageStats";
+            tabPageStats.Padding = new Padding(3);
+            tabPageStats.Size = new Size(1143, 589);
+            tabPageStats.TabIndex = 2;
+            tabPageStats.Text = "Štatistiky";
+            tabPageStats.UseVisualStyleBackColor = true;
+            // 
+            // textBoxUtilAmbBInt
+            // 
+            textBoxUtilAmbBInt.Location = new Point(575, 509);
+            textBoxUtilAmbBInt.Name = "textBoxUtilAmbBInt";
+            textBoxUtilAmbBInt.Size = new Size(354, 23);
+            textBoxUtilAmbBInt.TabIndex = 52;
+            // 
+            // textBoxUtilAmbB
+            // 
+            textBoxUtilAmbB.Location = new Point(316, 509);
+            textBoxUtilAmbB.Name = "textBoxUtilAmbB";
+            textBoxUtilAmbB.Size = new Size(222, 23);
+            textBoxUtilAmbB.TabIndex = 51;
+            // 
+            // label31
+            // 
+            label31.AutoSize = true;
+            label31.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 238);
+            label31.Location = new Point(41, 509);
+            label31.Name = "label31";
+            label31.Size = new Size(166, 17);
+            label31.TabIndex = 50;
+            label31.Text = "Vyťaženie - ambulancie B";
+            // 
+            // textBoxUtilAmbAInt
+            // 
+            textBoxUtilAmbAInt.Location = new Point(575, 480);
+            textBoxUtilAmbAInt.Name = "textBoxUtilAmbAInt";
+            textBoxUtilAmbAInt.Size = new Size(354, 23);
+            textBoxUtilAmbAInt.TabIndex = 49;
+            // 
+            // textBoxUtilAmbA
+            // 
+            textBoxUtilAmbA.Location = new Point(316, 480);
+            textBoxUtilAmbA.Name = "textBoxUtilAmbA";
+            textBoxUtilAmbA.Size = new Size(222, 23);
+            textBoxUtilAmbA.TabIndex = 48;
+            // 
+            // label30
+            // 
+            label30.AutoSize = true;
+            label30.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 238);
+            label30.Location = new Point(41, 480);
+            label30.Name = "label30";
+            label30.Size = new Size(167, 17);
+            label30.TabIndex = 47;
+            label30.Text = "Vyťaženie - ambulancie A";
+            // 
+            // textBoxUtilDoctorsInt
+            // 
+            textBoxUtilDoctorsInt.Location = new Point(575, 451);
+            textBoxUtilDoctorsInt.Name = "textBoxUtilDoctorsInt";
+            textBoxUtilDoctorsInt.Size = new Size(354, 23);
+            textBoxUtilDoctorsInt.TabIndex = 46;
+            // 
+            // textBoxUtilDoctors
+            // 
+            textBoxUtilDoctors.Location = new Point(316, 451);
+            textBoxUtilDoctors.Name = "textBoxUtilDoctors";
+            textBoxUtilDoctors.Size = new Size(222, 23);
+            textBoxUtilDoctors.TabIndex = 45;
+            // 
+            // label29
+            // 
+            label29.AutoSize = true;
+            label29.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 238);
+            label29.Location = new Point(41, 451);
+            label29.Name = "label29";
+            label29.Size = new Size(132, 17);
+            label29.TabIndex = 44;
+            label29.Text = "Vyťaženie - doktory";
+            // 
+            // textBoxUtilNursesInt
+            // 
+            textBoxUtilNursesInt.Location = new Point(575, 422);
+            textBoxUtilNursesInt.Name = "textBoxUtilNursesInt";
+            textBoxUtilNursesInt.Size = new Size(354, 23);
+            textBoxUtilNursesInt.TabIndex = 43;
+            // 
+            // textBoxUtilNurses
+            // 
+            textBoxUtilNurses.Location = new Point(316, 422);
+            textBoxUtilNurses.Name = "textBoxUtilNurses";
+            textBoxUtilNurses.Size = new Size(222, 23);
+            textBoxUtilNurses.TabIndex = 42;
+            // 
+            // label28
+            // 
+            label28.AutoSize = true;
+            label28.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 238);
+            label28.Location = new Point(41, 422);
+            label28.Name = "label28";
+            label28.Size = new Size(136, 17);
+            label28.TabIndex = 41;
+            label28.Text = "Vyťaženie - sestričky";
+            // 
+            // textBoxWaitMedicalAmbulanceInt
+            // 
+            textBoxWaitMedicalAmbulanceInt.Location = new Point(575, 393);
+            textBoxWaitMedicalAmbulanceInt.Name = "textBoxWaitMedicalAmbulanceInt";
+            textBoxWaitMedicalAmbulanceInt.Size = new Size(354, 23);
+            textBoxWaitMedicalAmbulanceInt.TabIndex = 40;
+            // 
+            // textBoxWaitMedicalAmbulance
+            // 
+            textBoxWaitMedicalAmbulance.Location = new Point(316, 393);
+            textBoxWaitMedicalAmbulance.Name = "textBoxWaitMedicalAmbulance";
+            textBoxWaitMedicalAmbulance.Size = new Size(222, 23);
+            textBoxWaitMedicalAmbulance.TabIndex = 39;
+            // 
+            // label25
+            // 
+            label25.AutoSize = true;
+            label25.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 238);
+            label25.Location = new Point(41, 393);
+            label25.Name = "label25";
+            label25.Size = new Size(216, 17);
+            label25.TabIndex = 38;
+            label25.Text = "Čas čakania na ošetrenie - sanitka";
+            // 
+            // textBoxWaitMedicalAloneInt
+            // 
+            textBoxWaitMedicalAloneInt.Location = new Point(575, 364);
+            textBoxWaitMedicalAloneInt.Name = "textBoxWaitMedicalAloneInt";
+            textBoxWaitMedicalAloneInt.Size = new Size(354, 23);
+            textBoxWaitMedicalAloneInt.TabIndex = 37;
+            // 
+            // textBoxWaitMedicalAlone
+            // 
+            textBoxWaitMedicalAlone.Location = new Point(316, 364);
+            textBoxWaitMedicalAlone.Name = "textBoxWaitMedicalAlone";
+            textBoxWaitMedicalAlone.Size = new Size(222, 23);
+            textBoxWaitMedicalAlone.TabIndex = 36;
+            // 
+            // label26
+            // 
+            label26.AutoSize = true;
+            label26.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 238);
+            label26.Location = new Point(41, 364);
+            label26.Name = "label26";
+            label26.Size = new Size(201, 17);
+            label26.TabIndex = 35;
+            label26.Text = "Čas čakania na ošetrenie - pešo";
+            // 
+            // textBoxWaitMedicalAllInt
+            // 
+            textBoxWaitMedicalAllInt.Location = new Point(575, 335);
+            textBoxWaitMedicalAllInt.Name = "textBoxWaitMedicalAllInt";
+            textBoxWaitMedicalAllInt.Size = new Size(354, 23);
+            textBoxWaitMedicalAllInt.TabIndex = 34;
+            // 
+            // textBoxWaitMedicalAll
+            // 
+            textBoxWaitMedicalAll.Location = new Point(316, 335);
+            textBoxWaitMedicalAll.Name = "textBoxWaitMedicalAll";
+            textBoxWaitMedicalAll.Size = new Size(222, 23);
+            textBoxWaitMedicalAll.TabIndex = 33;
+            // 
+            // label27
+            // 
+            label27.AutoSize = true;
+            label27.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 238);
+            label27.Location = new Point(41, 335);
+            label27.Name = "label27";
+            label27.Size = new Size(207, 17);
+            label27.TabIndex = 32;
+            label27.Text = "Čas čakania na ošetrenie - všetci";
+            // 
+            // textBoxEntranceQueueInt
+            // 
+            textBoxEntranceQueueInt.Location = new Point(575, 306);
+            textBoxEntranceQueueInt.Name = "textBoxEntranceQueueInt";
+            textBoxEntranceQueueInt.Size = new Size(354, 23);
+            textBoxEntranceQueueInt.TabIndex = 31;
+            // 
+            // textBoxEntranceQueue
+            // 
+            textBoxEntranceQueue.Location = new Point(316, 306);
+            textBoxEntranceQueue.Name = "textBoxEntranceQueue";
+            textBoxEntranceQueue.Size = new Size(222, 23);
+            textBoxEntranceQueue.TabIndex = 30;
+            // 
+            // label24
+            // 
+            label24.AutoSize = true;
+            label24.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 238);
+            label24.Location = new Point(41, 306);
+            label24.Name = "label24";
+            label24.Size = new Size(174, 17);
+            label24.TabIndex = 29;
+            label24.Text = "Dĺžka radu na vstupné vyš.";
+            // 
+            // textBoxWaitEntranceAmbulanceInt
+            // 
+            textBoxWaitEntranceAmbulanceInt.Location = new Point(575, 277);
+            textBoxWaitEntranceAmbulanceInt.Name = "textBoxWaitEntranceAmbulanceInt";
+            textBoxWaitEntranceAmbulanceInt.Size = new Size(354, 23);
+            textBoxWaitEntranceAmbulanceInt.TabIndex = 28;
+            // 
+            // textBoxWaitEntranceAmbulance
+            // 
+            textBoxWaitEntranceAmbulance.Location = new Point(316, 277);
+            textBoxWaitEntranceAmbulance.Name = "textBoxWaitEntranceAmbulance";
+            textBoxWaitEntranceAmbulance.Size = new Size(222, 23);
+            textBoxWaitEntranceAmbulance.TabIndex = 27;
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 238);
+            label23.Location = new Point(41, 277);
+            label23.Name = "label23";
+            label23.Size = new Size(236, 17);
+            label23.TabIndex = 26;
+            label23.Text = "Čas čakania na vstupné vyš. - sanitka";
+            // 
+            // textBoxWaitEntranceAloneInt
+            // 
+            textBoxWaitEntranceAloneInt.Location = new Point(575, 248);
+            textBoxWaitEntranceAloneInt.Name = "textBoxWaitEntranceAloneInt";
+            textBoxWaitEntranceAloneInt.Size = new Size(354, 23);
+            textBoxWaitEntranceAloneInt.TabIndex = 25;
+            // 
+            // textBoxWaitEntranceAlone
+            // 
+            textBoxWaitEntranceAlone.Location = new Point(316, 248);
+            textBoxWaitEntranceAlone.Name = "textBoxWaitEntranceAlone";
+            textBoxWaitEntranceAlone.Size = new Size(222, 23);
+            textBoxWaitEntranceAlone.TabIndex = 24;
+            // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 238);
+            label22.Location = new Point(41, 248);
+            label22.Name = "label22";
+            label22.Size = new Size(221, 17);
+            label22.TabIndex = 23;
+            label22.Text = "Čas čakania na vstupné vyš. - pešo";
+            // 
+            // textBoxWaitEntranceAllInt
+            // 
+            textBoxWaitEntranceAllInt.Location = new Point(575, 219);
+            textBoxWaitEntranceAllInt.Name = "textBoxWaitEntranceAllInt";
+            textBoxWaitEntranceAllInt.Size = new Size(354, 23);
+            textBoxWaitEntranceAllInt.TabIndex = 22;
+            // 
+            // textBoxWaitEntranceAll
+            // 
+            textBoxWaitEntranceAll.Location = new Point(316, 219);
+            textBoxWaitEntranceAll.Name = "textBoxWaitEntranceAll";
+            textBoxWaitEntranceAll.Size = new Size(222, 23);
+            textBoxWaitEntranceAll.TabIndex = 21;
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 238);
+            label21.Location = new Point(41, 219);
+            label21.Name = "label21";
+            label21.Size = new Size(227, 17);
+            label21.TabIndex = 20;
+            label21.Text = "Čas čakania na vstupné vyš. - všetci";
+            // 
+            // textBoxTimeInSystemAmbulanceInt
+            // 
+            textBoxTimeInSystemAmbulanceInt.Location = new Point(575, 190);
+            textBoxTimeInSystemAmbulanceInt.Name = "textBoxTimeInSystemAmbulanceInt";
+            textBoxTimeInSystemAmbulanceInt.Size = new Size(354, 23);
+            textBoxTimeInSystemAmbulanceInt.TabIndex = 19;
+            // 
+            // textBoxTimeInSystemAmbulance
+            // 
+            textBoxTimeInSystemAmbulance.Location = new Point(316, 190);
+            textBoxTimeInSystemAmbulance.Name = "textBoxTimeInSystemAmbulance";
+            textBoxTimeInSystemAmbulance.Size = new Size(222, 23);
+            textBoxTimeInSystemAmbulance.TabIndex = 18;
+            // 
+            // label20
+            // 
+            label20.AutoSize = true;
+            label20.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 238);
+            label20.Location = new Point(41, 190);
+            label20.Name = "label20";
+            label20.Size = new Size(151, 17);
+            label20.TabIndex = 17;
+            label20.Text = "Čas v systéme - sanitka";
+            // 
+            // textBoxTimeInSystemAloneInt
+            // 
+            textBoxTimeInSystemAloneInt.Location = new Point(575, 161);
+            textBoxTimeInSystemAloneInt.Name = "textBoxTimeInSystemAloneInt";
+            textBoxTimeInSystemAloneInt.Size = new Size(354, 23);
+            textBoxTimeInSystemAloneInt.TabIndex = 16;
+            // 
+            // textBoxTimeInSystemAlone
+            // 
+            textBoxTimeInSystemAlone.Location = new Point(316, 161);
+            textBoxTimeInSystemAlone.Name = "textBoxTimeInSystemAlone";
+            textBoxTimeInSystemAlone.Size = new Size(222, 23);
+            textBoxTimeInSystemAlone.TabIndex = 15;
+            // 
+            // label19
+            // 
+            label19.AutoSize = true;
+            label19.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 238);
+            label19.Location = new Point(41, 161);
+            label19.Name = "label19";
+            label19.Size = new Size(136, 17);
+            label19.TabIndex = 14;
+            label19.Text = "Čas v systéme - pešo";
+            // 
+            // textBoxTimeInSystemAllInt
+            // 
+            textBoxTimeInSystemAllInt.Location = new Point(575, 132);
+            textBoxTimeInSystemAllInt.Name = "textBoxTimeInSystemAllInt";
+            textBoxTimeInSystemAllInt.Size = new Size(354, 23);
+            textBoxTimeInSystemAllInt.TabIndex = 13;
+            // 
+            // textBoxTimeInSystemAll
+            // 
+            textBoxTimeInSystemAll.Location = new Point(316, 132);
+            textBoxTimeInSystemAll.Name = "textBoxTimeInSystemAll";
+            textBoxTimeInSystemAll.Size = new Size(222, 23);
+            textBoxTimeInSystemAll.TabIndex = 12;
+            // 
+            // label18
+            // 
+            label18.AutoSize = true;
+            label18.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 238);
+            label18.Location = new Point(41, 132);
+            label18.Name = "label18";
+            label18.Size = new Size(142, 17);
+            label18.TabIndex = 11;
+            label18.Text = "Čas v systéme - všetci";
+            // 
+            // textBoxPatientsServedAmbulanceInt
+            // 
+            textBoxPatientsServedAmbulanceInt.Location = new Point(575, 103);
+            textBoxPatientsServedAmbulanceInt.Name = "textBoxPatientsServedAmbulanceInt";
+            textBoxPatientsServedAmbulanceInt.Size = new Size(354, 23);
+            textBoxPatientsServedAmbulanceInt.TabIndex = 10;
+            // 
+            // textBoxPatientsServedAmbulance
+            // 
+            textBoxPatientsServedAmbulance.Location = new Point(316, 103);
+            textBoxPatientsServedAmbulance.Name = "textBoxPatientsServedAmbulance";
+            textBoxPatientsServedAmbulance.Size = new Size(222, 23);
+            textBoxPatientsServedAmbulance.TabIndex = 9;
+            // 
+            // label17
+            // 
+            label17.AutoSize = true;
+            label17.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 238);
+            label17.Location = new Point(41, 103);
+            label17.Name = "label17";
+            label17.Size = new Size(182, 17);
+            label17.TabIndex = 8;
+            label17.Text = "Obslúžený pacienti - sanitka";
+            // 
+            // textBoxPatientsServedAloneInt
+            // 
+            textBoxPatientsServedAloneInt.Location = new Point(575, 74);
+            textBoxPatientsServedAloneInt.Name = "textBoxPatientsServedAloneInt";
+            textBoxPatientsServedAloneInt.Size = new Size(354, 23);
+            textBoxPatientsServedAloneInt.TabIndex = 7;
+            // 
+            // textBoxPatientsServedAlone
+            // 
+            textBoxPatientsServedAlone.Location = new Point(316, 74);
+            textBoxPatientsServedAlone.Name = "textBoxPatientsServedAlone";
+            textBoxPatientsServedAlone.Size = new Size(222, 23);
+            textBoxPatientsServedAlone.TabIndex = 6;
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 238);
+            label16.Location = new Point(41, 74);
+            label16.Name = "label16";
+            label16.Size = new Size(167, 17);
+            label16.TabIndex = 5;
+            label16.Text = "Obslúžený pacienti - pešo";
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 238);
+            label15.Location = new Point(679, 17);
+            label15.Name = "label15";
+            label15.Size = new Size(172, 25);
+            label15.TabIndex = 4;
+            label15.Text = "95% interval spoľ.";
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 238);
+            label14.Location = new Point(383, 17);
+            label14.Name = "label14";
+            label14.Size = new Size(82, 25);
+            label14.TabIndex = 3;
+            label14.Text = "Priemer";
+            // 
+            // textBoxPatientsServedAllInt
+            // 
+            textBoxPatientsServedAllInt.Location = new Point(575, 45);
+            textBoxPatientsServedAllInt.Name = "textBoxPatientsServedAllInt";
+            textBoxPatientsServedAllInt.Size = new Size(354, 23);
+            textBoxPatientsServedAllInt.TabIndex = 2;
+            // 
+            // textBoxPatientsServedAll
+            // 
+            textBoxPatientsServedAll.Location = new Point(316, 45);
+            textBoxPatientsServedAll.Name = "textBoxPatientsServedAll";
+            textBoxPatientsServedAll.Size = new Size(222, 23);
+            textBoxPatientsServedAll.TabIndex = 1;
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 238);
+            label13.Location = new Point(41, 45);
+            label13.Name = "label13";
+            label13.Size = new Size(185, 17);
+            label13.TabIndex = 0;
+            label13.Text = "Obslúžený pacienti - celkovo";
             // 
             // trackBarPauseTime
             // 
@@ -460,21 +1052,21 @@ namespace GUI
             label5.TabIndex = 13;
             label5.Text = "Doktori:";
             // 
-            // numericUpDown3
+            // numericUpDownNurses
             // 
-            numericUpDown3.Location = new Point(279, 41);
-            numericUpDown3.Name = "numericUpDown3";
-            numericUpDown3.Size = new Size(54, 23);
-            numericUpDown3.TabIndex = 14;
-            numericUpDown3.Value = new decimal(new int[] { 12, 0, 0, 0 });
+            numericUpDownNurses.Location = new Point(279, 41);
+            numericUpDownNurses.Name = "numericUpDownNurses";
+            numericUpDownNurses.Size = new Size(54, 23);
+            numericUpDownNurses.TabIndex = 14;
+            numericUpDownNurses.Value = new decimal(new int[] { 12, 0, 0, 0 });
             // 
-            // numericUpDown4
+            // numericUpDownDoctors
             // 
-            numericUpDown4.Location = new Point(279, 72);
-            numericUpDown4.Name = "numericUpDown4";
-            numericUpDown4.Size = new Size(54, 23);
-            numericUpDown4.TabIndex = 15;
-            numericUpDown4.Value = new decimal(new int[] { 8, 0, 0, 0 });
+            numericUpDownDoctors.Location = new Point(279, 72);
+            numericUpDownDoctors.Name = "numericUpDownDoctors";
+            numericUpDownDoctors.Size = new Size(54, 23);
+            numericUpDownDoctors.TabIndex = 15;
+            numericUpDownDoctors.Value = new decimal(new int[] { 8, 0, 0, 0 });
             // 
             // label6
             // 
@@ -485,12 +1077,12 @@ namespace GUI
             label6.TabIndex = 16;
             label6.Text = "Zahrievanie(h):";
             // 
-            // numericUpDown5
+            // numericUpDownWarpUmHours
             // 
-            numericUpDown5.Location = new Point(128, 91);
-            numericUpDown5.Name = "numericUpDown5";
-            numericUpDown5.Size = new Size(83, 23);
-            numericUpDown5.TabIndex = 17;
+            numericUpDownWarpUmHours.Location = new Point(128, 91);
+            numericUpDownWarpUmHours.Name = "numericUpDownWarpUmHours";
+            numericUpDownWarpUmHours.Size = new Size(83, 23);
+            numericUpDownWarpUmHours.TabIndex = 17;
             // 
             // buttonStartSim
             // 
@@ -629,10 +1221,10 @@ namespace GUI
             groupBox2.Controls.Add(numericUpDown2);
             groupBox2.Controls.Add(label4);
             groupBox2.Controls.Add(label5);
-            groupBox2.Controls.Add(numericUpDown3);
-            groupBox2.Controls.Add(numericUpDown4);
+            groupBox2.Controls.Add(numericUpDownNurses);
+            groupBox2.Controls.Add(numericUpDownDoctors);
             groupBox2.Controls.Add(label6);
-            groupBox2.Controls.Add(numericUpDown5);
+            groupBox2.Controls.Add(numericUpDownWarpUmHours);
             groupBox2.Location = new Point(563, 12);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new Size(362, 127);
@@ -652,56 +1244,11 @@ namespace GUI
             groupBox3.TabStop = false;
             groupBox3.Text = "groupBox3";
             // 
-            // ColumnId_Patient
-            // 
-            ColumnId_Patient.HeaderText = "Id";
-            ColumnId_Patient.Name = "ColumnId_Patient";
-            // 
-            // ColumnAmbulance_patient
-            // 
-            ColumnAmbulance_patient.HeaderText = "Prišiel sanitkou?";
-            ColumnAmbulance_patient.Name = "ColumnAmbulance_patient";
-            // 
-            // ColumnWaitingForEntrance_Patient
-            // 
-            ColumnWaitingForEntrance_Patient.HeaderText = "Čakanie na vstupné vyšetrenie";
-            ColumnWaitingForEntrance_Patient.Name = "ColumnWaitingForEntrance_Patient";
-            // 
-            // ColumnEntranceComplete_patient
-            // 
-            ColumnEntranceComplete_patient.HeaderText = "Vstupné vyšetrenie hotové";
-            ColumnEntranceComplete_patient.Name = "ColumnEntranceComplete_patient";
-            // 
-            // ColumnPriority_patient
-            // 
-            ColumnPriority_patient.HeaderText = "Priorita";
-            ColumnPriority_patient.Name = "ColumnPriority_patient";
-            // 
-            // ColumnWaitingForMedical_patient
-            // 
-            ColumnWaitingForMedical_patient.HeaderText = "Čakanie na lekárske ošetrenie";
-            ColumnWaitingForMedical_patient.Name = "ColumnWaitingForMedical_patient";
-            // 
-            // ColumnAssignedNurse_patinet
-            // 
-            ColumnAssignedNurse_patinet.HeaderText = "Aktuálne priradená seestrička";
-            ColumnAssignedNurse_patinet.Name = "ColumnAssignedNurse_patinet";
-            // 
-            // ColumnAssignedDoctor_patient
-            // 
-            ColumnAssignedDoctor_patient.HeaderText = "Aktuálne priradený doktor";
-            ColumnAssignedDoctor_patient.Name = "ColumnAssignedDoctor_patient";
-            // 
-            // ColumnAssignedAmbulance_patinet
-            // 
-            ColumnAssignedAmbulance_patinet.HeaderText = "Aktuálne priradená ambulancia";
-            ColumnAssignedAmbulance_patinet.Name = "ColumnAssignedAmbulance_patinet";
-            // 
             // FormSimulation
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1152, 689);
+            ClientSize = new Size(1152, 759);
             Controls.Add(groupBox3);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
@@ -728,13 +1275,15 @@ namespace GUI
             ((System.ComponentModel.ISupportInitialize)dataGridViewAmbA).EndInit();
             tabPageAmbulationsB.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridViewAmbB).EndInit();
+            tabPageStats.ResumeLayout(false);
+            tabPageStats.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)trackBarPauseTime).EndInit();
             ((System.ComponentModel.ISupportInitialize)trackBarIntervalTime).EndInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDownReplications).EndInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown3).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown4).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown5).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDownNurses).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDownDoctors).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDownWarpUmHours).EndInit();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             groupBox2.ResumeLayout(false);
@@ -761,10 +1310,10 @@ namespace GUI
         private NumericUpDown numericUpDown2;
         private Label label4;
         private Label label5;
-        private NumericUpDown numericUpDown3;
-        private NumericUpDown numericUpDown4;
+        private NumericUpDown numericUpDownNurses;
+        private NumericUpDown numericUpDownDoctors;
         private Label label6;
-        private NumericUpDown numericUpDown5;
+        private NumericUpDown numericUpDownWarpUmHours;
         private Button buttonStartSim;
         private Button buttonPauseSim;
         private TabPage tabPageSimulation;
@@ -817,5 +1366,59 @@ namespace GUI
         private DataGridViewTextBoxColumn ColumnAssignedNurse_patinet;
         private DataGridViewTextBoxColumn ColumnAssignedDoctor_patient;
         private DataGridViewTextBoxColumn ColumnAssignedAmbulance_patinet;
+        private TabPage tabPageStats;
+        private Label label14;
+        private TextBox textBoxPatientsServedAllInt;
+        private TextBox textBoxPatientsServedAll;
+        private Label label13;
+        private TextBox textBoxPatientsServedAmbulanceInt;
+        private TextBox textBoxPatientsServedAmbulance;
+        private Label label17;
+        private TextBox textBoxPatientsServedAloneInt;
+        private TextBox textBoxPatientsServedAlone;
+        private Label label16;
+        private Label label15;
+        private TextBox textBoxTimeInSystemAmbulanceInt;
+        private TextBox textBoxTimeInSystemAmbulance;
+        private Label label20;
+        private TextBox textBoxTimeInSystemAloneInt;
+        private TextBox textBoxTimeInSystemAlone;
+        private Label label19;
+        private TextBox textBoxTimeInSystemAllInt;
+        private TextBox textBoxTimeInSystemAll;
+        private Label label18;
+        private TextBox textBoxEntranceQueueInt;
+        private TextBox textBoxEntranceQueue;
+        private Label label24;
+        private TextBox textBoxWaitEntranceAmbulanceInt;
+        private TextBox textBoxWaitEntranceAmbulance;
+        private Label label23;
+        private TextBox textBoxWaitEntranceAloneInt;
+        private TextBox textBoxWaitEntranceAlone;
+        private Label label22;
+        private TextBox textBoxWaitEntranceAllInt;
+        private TextBox textBoxWaitEntranceAll;
+        private Label label21;
+        private TextBox textBoxWaitMedicalAmbulanceInt;
+        private TextBox textBoxWaitMedicalAmbulance;
+        private Label label25;
+        private TextBox textBoxWaitMedicalAloneInt;
+        private TextBox textBoxWaitMedicalAlone;
+        private Label label26;
+        private TextBox textBoxWaitMedicalAllInt;
+        private TextBox textBoxWaitMedicalAll;
+        private Label label27;
+        private TextBox textBoxUtilAmbBInt;
+        private TextBox textBoxUtilAmbB;
+        private Label label31;
+        private TextBox textBoxUtilAmbAInt;
+        private TextBox textBoxUtilAmbA;
+        private Label label30;
+        private TextBox textBoxUtilDoctorsInt;
+        private TextBox textBoxUtilDoctors;
+        private Label label29;
+        private TextBox textBoxUtilNursesInt;
+        private TextBox textBoxUtilNurses;
+        private Label label28;
     }
 }

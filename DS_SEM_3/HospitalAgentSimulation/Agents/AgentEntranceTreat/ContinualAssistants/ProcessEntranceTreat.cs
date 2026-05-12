@@ -73,6 +73,7 @@ namespace Agents.AgentEntranceTreat.ContinualAssistants
 
 
                     msg.Patient.UnassignResources();
+                    
                     msg.Patient.HasEntranceTreatDone = true;
                     AssistantFinished(message);
                     //MyAgent.TryAssignResources(msg);

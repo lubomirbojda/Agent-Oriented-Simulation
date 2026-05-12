@@ -1,14 +1,16 @@
+using DS_SEM_3.HospitalAgentSimulation.Entities;
+using DS_SEM_3.HospitalAgentSimulation.Simulation;
+using DS_SEM_3.Statistics;
 using OSPABA;
 using Simulation;
-using DS_SEM_3.HospitalAgentSimulation.Entities;
 
 namespace Agents.AgentResources
 {
 	//meta! id="108"
 	public class AgentResources : OSPABA.Agent
 	{
-		public Resources<Nurse> Nurses { get; private set; } = new(8);
-        public Resources<Doctor> Doctors { get; private set; } = new(6);
+		public Resources<Nurse> Nurses { get; private set; } = new(0);
+        public Resources<Doctor> Doctors { get; private set; } = new(0);
         public Resources<AmbulanceA> AmbulationsA { get; private set; } = new(5);
         public Resources<AmbulanceB> AmbulationsB { get; private set; } = new(7);
 
@@ -19,6 +21,12 @@ namespace Agents.AgentResources
 			Init();
 		}
 
+		public void SetUpResources(int nursesCount, int doctorsCount)
+		{
+			Nurses = new(nursesCount);
+			Doctors = new(doctorsCount);
+        }
+
 		override public void PrepareReplication()
 		{
 			base.PrepareReplication();
@@ -27,10 +35,15 @@ namespace Agents.AgentResources
             Doctors.ResetResources();
             AmbulationsA.ResetResources();
             AmbulationsB.ResetResources();
+
+			Nurses.ResetResourceUtilStats(MySim.CurrentTime);
+            Doctors.ResetResourceUtilStats(MySim.CurrentTime);
+            AmbulationsA.ResetResourceUtilStats(MySim.CurrentTime);
+            AmbulationsB.ResetResourceUtilStats(MySim.CurrentTime);
         }
 
-		//meta! userInfo="Generated code: do not modify", tag="begin"
-		private void Init()
+        //meta! userInfo="Generated code: do not modify", tag="begin"
+        private void Init()
 		{
 			new ManagerResources(SimId.ManagerResources, MySim, this);
 			AddOwnMessage(Mc.TryAssignResources);
