@@ -1168,6 +1168,7 @@ namespace GUI
             buttonCreateAnimator.TabIndex = 28;
             buttonCreateAnimator.Text = "Vytvoriť animátor";
             buttonCreateAnimator.UseVisualStyleBackColor = true;
+            buttonCreateAnimator.Click += buttonCreateAnimator_Click;
             // 
             // buttonDeleteAnimator
             // 

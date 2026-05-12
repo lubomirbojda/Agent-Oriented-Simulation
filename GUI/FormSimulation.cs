@@ -1,4 +1,5 @@
 using DS_SEM_3.HospitalAgentSimulation.Entities;
+using OSPAnimator;
 using Simulation;
 using System.Windows.Forms.Integration;
 
@@ -344,6 +345,90 @@ namespace GUI
         private void tabPageAnimation_Leave(object sender, EventArgs e)
         {
             groupBoxAnimator.Enabled = false;
+        }
+
+        private void buttonCreateAnimator_Click(object sender, EventArgs e)
+        {
+            if (_simulation.AnimatorExists) return;
+
+            _simulation.CreateAnimator();
+            _WPFHost = new ElementHost();
+            _WPFHost.Dock = DockStyle.Fill;
+            _WPFHost.Child = _simulation.Animator.Canvas;
+            tabPageAnimation.Controls.Add(_WPFHost);
+
+            SetSpeed();
+            DrawStaticBackground();
+        }
+
+        private void DrawStaticBackground()
+        {
+            //ambulances A
+            int i = 0;
+            foreach (var amb in _simulation.AgentResources.AmbulationsA.AllResources)
+            {
+                amb.MainAnimShapeItem.Label = "Amb A" + amb.Id;
+                amb.MainAnimShapeItem.Color = System.Windows.Media.Colors.LightBlue;
+
+                amb.CircleNode.Color = System.Windows.Media.Colors.Black;
+                
+                _simulation.Animator.Register(amb.MainAnimShapeItem);
+                _simulation.Animator.Register(amb.CircleNode);
+                i++;
+            }
+
+            i = 0;
+            //ambulances B
+            foreach (var amb in _simulation.AgentResources.AmbulationsB.AllResources)
+            {
+                amb.MainAnimShapeItem.Label = "Amb B" + amb.Id;
+                amb.MainAnimShapeItem.Color = System.Windows.Media.Colors.Yellow;
+
+                amb.CircleNode.Color = System.Windows.Media.Colors.Black;
+
+                _simulation.Animator.Register(amb.MainAnimShapeItem);
+                _simulation.Animator.Register(amb.CircleNode);
+                i++;
+            }
+
+            DrawResourcesStartPlace();
+            DrawResources();
+        }
+
+        private void DrawResourcesStartPlace()
+        {
+            var boxNurses = new AnimShapeItem();
+            boxNurses.Width = 400;
+            boxNurses.Height = 150;
+            boxNurses.Color = System.Windows.Media.Colors.SandyBrown;
+            boxNurses.SetPosition(-500, 500);
+            boxNurses.AnimShape = AnimShape.RECTANGLE;
+            _simulation.Animator.Register(boxNurses);
+
+            var boxDoctors = new AnimShapeItem();
+            boxDoctors.Width = 400;
+            boxDoctors.Height = 150;
+            boxDoctors.Color = System.Windows.Media.Colors.SandyBrown;
+            boxDoctors.SetPosition(1800, 500);
+            boxDoctors.AnimShape = AnimShape.RECTANGLE;
+            _simulation.Animator.Register(boxDoctors);
+        }
+
+        private void DrawResources()
+        {
+            foreach (var nurse in _simulation.AgentResources.Nurses.AllResources)
+            {
+                nurse.MainAnimShapeItem.Color = System.Windows.Media.Colors.Purple;
+                nurse.MainAnimShapeItem.Label = nurse.Id.ToString();
+                _simulation.Animator.Register(nurse.MainAnimShapeItem);
+            }
+
+            foreach (var doctor in _simulation.AgentResources.Doctors.AllResources)
+            {
+                doctor.MainAnimShapeItem.Color = System.Windows.Media.Colors.DarkBlue;
+                doctor.MainAnimShapeItem.Label = doctor.Id.ToString();
+                _simulation.Animator.Register(doctor.MainAnimShapeItem);
+            }
         }
     }
 }

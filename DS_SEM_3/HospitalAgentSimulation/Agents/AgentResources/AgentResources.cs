@@ -23,6 +23,46 @@ namespace Agents.AgentResources
 		{
 			Nurses = new(nursesCount);
 			Doctors = new(doctorsCount);
+
+			//animator set start position
+			int i = 0;
+			foreach (var nurse in Nurses.AllResources)
+			{
+				nurse.MainAnimShapeItem.SetPosition(-480 + (45 * i) , 550);
+				i++;
+			}
+			i = 0;
+            foreach (var doctor in Doctors.AllResources)
+            {
+                doctor.MainAnimShapeItem.SetPosition(1820 + (45 * i), 550);
+                i++;
+            }
+
+			i = 0;
+			foreach (var ambulance in AmbulationsA.AllResources)
+			{
+                var X = 100 + i * 250;
+                var Y = 200;
+                ambulance.MainAnimShapeItem.SetPosition(X, Y);
+                var circleX = X + (ambulance.MainAnimShapeItem.Width / 2);
+                var circleY = Y + ambulance.MainAnimShapeItem.Height + 20;
+                ambulance.CircleNode.SetPosition(circleX, circleY);
+                i++;
+            }
+
+            i = 0;
+            foreach (var ambulance in AmbulationsB.AllResources)
+            {
+                var X = 100 + i * 250;
+                var Y = 800;
+                ambulance.MainAnimShapeItem.SetPosition(X, Y);
+                var circleX = X + (ambulance.MainAnimShapeItem.Width / 2);
+                var circleY = Y - 40;
+                ambulance.CircleNode.SetPosition(circleX, circleY);
+                i++;
+            }
+
+            
         }
 
 		override public void PrepareReplication()

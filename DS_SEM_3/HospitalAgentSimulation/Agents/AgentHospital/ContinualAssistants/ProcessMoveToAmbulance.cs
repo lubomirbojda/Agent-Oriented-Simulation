@@ -47,8 +47,18 @@ namespace Agents.AgentHospital.ContinualAssistants
                 }
 				//------------
                 if (assNurse.ActualAmbulance != assNurse.LastAmbulance)
-					nurseMoveTime = MyAgent.NurseMoveToAmbulanceGen.GenerateNext();	
-				
+				{
+                    nurseMoveTime = MyAgent.NurseMoveToAmbulanceGen.GenerateNext();
+					//animation-----
+					var pos = assNurse.ActualAmbulance?.CircleNode.GetPosition(MySim.CurrentTime);
+					if (pos.HasValue)
+					{
+                        assNurse.MainAnimShapeItem.MoveTo(MySim.CurrentTime, nurseMoveTime, pos.Value);
+                    }
+                    //-----
+                }
+
+
                 msg.Code = Mc.MoveToAmbulance;
                 Hold(nurseMoveTime, msg);
                 return;
@@ -74,12 +84,32 @@ namespace Agents.AgentHospital.ContinualAssistants
 					patientMoveTime = MyAgent.PatientMoveToAmbulanceGen.GenerateNext();
 
                 if (assNurse.ActualAmbulance != assNurse.LastAmbulance)
+				{
                     nurseMoveTime = MyAgent.NurseMoveToAmbulanceGen.GenerateNext();
+                    //animation-----
+                    var pos = assNurse.ActualAmbulance?.CircleNode.GetPosition(MySim.CurrentTime);
+                    if (pos.HasValue)
+                    {
+                        assNurse.MainAnimShapeItem.MoveTo(MySim.CurrentTime, nurseMoveTime, pos.Value);
+                    }
+                    //-----
+                }
 
-				if (assDoctor.ActualAmbulance != assDoctor.LastAmbulance)
-					doctorMoveTime = MyAgent.DoctorMoveToAmbulanceGen.GenerateNext();
 
-				var higherMoveTime = Math.Max(doctorMoveTime, nurseMoveTime);
+                if (assDoctor.ActualAmbulance != assDoctor.LastAmbulance)
+				{
+                    doctorMoveTime = MyAgent.DoctorMoveToAmbulanceGen.GenerateNext();
+                    //animation-----
+                    var pos = assDoctor.ActualAmbulance?.CircleNode.GetPosition(MySim.CurrentTime);
+                    if (pos.HasValue)
+                    {
+                        assDoctor.MainAnimShapeItem.MoveTo(MySim.CurrentTime, doctorMoveTime, pos.Value);
+                    }
+                    //-----
+                }
+
+
+                var higherMoveTime = Math.Max(doctorMoveTime, nurseMoveTime);
 				var finalMoveTime = Math.Max(higherMoveTime, patientMoveTime);
                 msg.Code = Mc.MoveToAmbulance;
                 Hold(finalMoveTime, msg);
@@ -96,6 +126,17 @@ namespace Agents.AgentHospital.ContinualAssistants
                     MyMessage msg = (MyMessage)message;
                     if (msg.Patient == null) return;
 					msg.Patient.CanStartTreat = true;
+                    var assNurse = msg.Patient.AssignedNurse;
+                    var assDoctor = msg.Patient.AssignedDoctor;
+                    if (assNurse == null || assNurse.ActualAmbulance == null) 
+                        return;
+                    assNurse.MainAnimShapeItem.MoveTo(MySim.CurrentTime, 0, assNurse.ActualAmbulance.GetActiveNursePosition(MySim.CurrentTime));
+
+                    if (!msg.Patient.HasEntranceTreatDone)
+					{
+
+					}
+
 
                     AssistantFinished(message);
                     break;
