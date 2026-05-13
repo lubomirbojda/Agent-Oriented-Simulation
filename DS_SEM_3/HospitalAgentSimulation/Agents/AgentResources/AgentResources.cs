@@ -1,4 +1,5 @@
 using DS_SEM_3.HospitalAgentSimulation.Entities;
+using DS_SEM_3.HospitalAgentSimulation.Simulation;
 using OSPABA;
 using Simulation;
 
@@ -11,6 +12,7 @@ namespace Agents.AgentResources
         public Resources<Doctor> Doctors { get; private set; } = new(0);
         public Resources<AmbulanceA> AmbulationsA { get; private set; } = new(5);
         public Resources<AmbulanceB> AmbulationsB { get; private set; } = new(7);
+        public ResourcesAssign ResourcesAssign { get; set; } = ResourcesAssign.BASIC_FCFS;
 
 
         public AgentResources(int id, OSPABA.Simulation mySim, Agent parent) :

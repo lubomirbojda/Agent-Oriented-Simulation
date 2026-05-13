@@ -148,6 +148,8 @@ namespace GUI
             buttonDeleteAnimator = new Button();
             groupBox1 = new GroupBox();
             groupBox2 = new GroupBox();
+            label32 = new Label();
+            comboBoxAssign = new ComboBox();
             groupBoxAnimator = new GroupBox();
             tabControlMain.SuspendLayout();
             tabPageSimulation.SuspendLayout();
@@ -1199,6 +1201,8 @@ namespace GUI
             // 
             // groupBox2
             // 
+            groupBox2.Controls.Add(label32);
+            groupBox2.Controls.Add(comboBoxAssign);
             groupBox2.Controls.Add(label3);
             groupBox2.Controls.Add(numericUpDownReplications);
             groupBox2.Controls.Add(label4);
@@ -1213,6 +1217,24 @@ namespace GUI
             groupBox2.TabIndex = 32;
             groupBox2.TabStop = false;
             groupBox2.Text = "Nastavenia simulácie";
+            // 
+            // label32
+            // 
+            label32.AutoSize = true;
+            label32.Location = new Point(24, 98);
+            label32.Name = "label32";
+            label32.Size = new Size(76, 15);
+            label32.TabIndex = 19;
+            label32.Text = "Prideľovanie:";
+            // 
+            // comboBoxAssign
+            // 
+            comboBoxAssign.FormattingEnabled = true;
+            comboBoxAssign.Location = new Point(112, 95);
+            comboBoxAssign.Name = "comboBoxAssign";
+            comboBoxAssign.Size = new Size(222, 23);
+            comboBoxAssign.TabIndex = 18;
+            comboBoxAssign.SelectedIndexChanged += comboBoxAssign_SelectedIndexChanged;
             // 
             // groupBoxAnimator
             // 
@@ -1399,5 +1421,7 @@ namespace GUI
         private TextBox textBoxUtilNursesInt;
         private TextBox textBoxUtilNurses;
         private Label label28;
+        private Label label32;
+        private ComboBox comboBoxAssign;
     }
 }

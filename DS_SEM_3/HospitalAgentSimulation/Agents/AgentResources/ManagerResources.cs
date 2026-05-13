@@ -1,4 +1,5 @@
 using DS_SEM_3.HospitalAgentSimulation.Entities;
+using DS_SEM_3.HospitalAgentSimulation.Simulation;
 using OSPABA;
 using OSPAnimatorGIS;
 using Simulation;
@@ -88,6 +89,20 @@ namespace Agents.AgentResources
 
         private void TryAssignResources(MyMessage message)
         {
+			switch(MyAgent.ResourcesAssign)
+            {
+                case ResourcesAssign.BASIC_FCFS:
+					AssignFCFS(message);
+                    break;
+
+                case ResourcesAssign.DOCTOR_LEFT:
+					AssignDoctorLeft(message);
+                    break;
+            }
+        }
+
+		private void AssignFCFS(MyMessage message)
+		{
             bool assigned = true;
 
             while (assigned)
@@ -130,7 +145,12 @@ namespace Agents.AgentResources
                 }
             }
 
-			UpdateUtilStats();
+            UpdateUtilStats();
+        }
+
+		private void AssignDoctorLeft(MyMessage message)
+		{
+            
         }
     }
 }

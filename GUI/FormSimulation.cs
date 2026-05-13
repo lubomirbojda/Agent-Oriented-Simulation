@@ -1,4 +1,5 @@
 using DS_SEM_3.HospitalAgentSimulation.Entities;
+using DS_SEM_3.HospitalAgentSimulation.Simulation;
 using OSPAnimator;
 using Simulation;
 using System.Windows.Forms.Integration;
@@ -18,6 +19,8 @@ namespace GUI
             _simulation.OnReplicationWillStart(OnRepliactionStart);
 
             _simulation.OnReplicationDidFinish(OnRepliactionFinish);
+
+            comboBoxAssign.DataSource = Enum.GetValues(typeof(ResourcesAssign));
 
             //_simulation.CreateAnimator();
             //_WPFHost = new ElementHost();
@@ -452,6 +455,14 @@ namespace GUI
         {
             _simulation.RemoveAnimator();
             tabPageAnimation.Controls.Remove(_WPFHost);
+        }
+
+        private void comboBoxAssign_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBoxAssign.SelectedItem != null)
+            {
+                ResourcesAssign selectedMode = (ResourcesAssign)comboBoxAssign.SelectedItem;
+            }
         }
     }
 }
