@@ -74,11 +74,6 @@ namespace Agents.AgentHospital
 			}
 		}
 
-		//meta! userInfo="Removed from model"
-		public void ProcessTryAssignResources(MessageForm message)
-		{
-		}
-
 		//meta! sender="AgentEntranceTreat", id="121", type="Response"
 		public void ProcessEntranceTreat(MessageForm message)
 		{
@@ -120,10 +115,6 @@ namespace Agents.AgentHospital
 			var msgCopy = msg.CreateCopy();
 			msgCopy.Addressee = MyAgent.FindAssistant(SimId.ProcessMoveToAmbulance);
 			StartContinualAssistant(msgCopy);
-
-			//message.Code = Mc.TryAssignResources;
-			//message.Addressee = MySim.FindAgent(SimId.AgentResources);
-			//Notice(message);
 		}
 
 		//meta! sender="ProcessMoveToLeaveDoor", id="139", type="Finish"
@@ -192,13 +183,5 @@ namespace Agents.AgentHospital
 				return (AgentHospital)base.MyAgent;
 			}
 		}
-
-        private void StartMoveToAmbulance(Patient patient, MessageForm message)
-        {
-            MyMessage msg = (MyMessage)message.CreateCopy();
-            msg.Patient = patient;
-            msg.Addressee = MyAgent.FindAssistant(SimId.ProcessMoveToAmbulance);
-            StartContinualAssistant(msg);
-        }
     }
 }
