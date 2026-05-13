@@ -11,6 +11,9 @@ namespace GUI
         private ElementHost _WPFHost;
         private MySimulation _simulation;
 
+        private List<double> _historyWaitAmbulance = new List<double>();
+        private List<double> _historyWaitAlone = new List<double>();
+
         public FormSimulation()
         {
             InitializeComponent();
@@ -21,12 +24,6 @@ namespace GUI
             _simulation.OnReplicationDidFinish(OnRepliactionFinish);
 
             comboBoxAssign.DataSource = Enum.GetValues(typeof(ResourcesAssign));
-
-            //_simulation.CreateAnimator();
-            //_WPFHost = new ElementHost();
-            //_WPFHost.Dock = DockStyle.Fill;
-            //_WPFHost.Child = _simulation.Animator.Canvas;
-            //tabPageAnimation.Controls.Add(_WPFHost);
         }
 
         private void RefreshGUI(OSPABA.Simulation sim)
@@ -122,6 +119,8 @@ namespace GUI
 
             textBoxUtilAmbB.Text = MakeAverageString(_simulation.AverageAmbulanceBUtilization.GetAverage());
             textBoxUtilAmbBInt.Text = MakeConfidenceIntervalString(_simulation.AverageAmbulanceBUtilization.GetConfidenceInterval95());
+
+            UpdateGraphs();
         }
 
         private string MakeAverageString(double value)
@@ -314,6 +313,8 @@ namespace GUI
 
             if (!_simulation.IsRunning())
             {
+                _historyWaitAmbulance.Clear();
+                _historyWaitAlone.Clear();
                 buttonStartSim.Text = "Ukončiť";
                 int repl = (int)numericUpDownReplications.Value;
                 var simEndTime = _simulation.WarmUpEndTime + MySimulation.REPLICATION_TIME_SECONDS;
@@ -463,6 +464,65 @@ namespace GUI
             {
                 ResourcesAssign selectedMode = (ResourcesAssign)comboBoxAssign.SelectedItem;
                 _simulation.AgentResources.ResourcesAssign = selectedMode;
+            }
+        }
+
+        private void UpdateGraphs()
+        {
+            double avgAmbulance = _simulation.AverageWaitingForMedicalTreatAmbulance.GetAverage();
+            double avgAlone = _simulation.AverageWaitingForMedicalTreatAlone.GetAverage();
+
+            _historyWaitAmbulance.Add(avgAmbulance);
+            _historyWaitAlone.Add(avgAlone);
+
+            int totalCount = _historyWaitAmbulance.Count;
+            int skipCount = (int)(totalCount * 0.20);
+            int plotCount = totalCount - skipCount;
+
+            if (plotCount >= 2)
+            {
+                double[] xs = new double[plotCount];
+                double[] ysAmbulance = new double[plotCount];
+                double[] ysAlone = new double[plotCount];
+
+                double minAmb = double.MaxValue, maxAmb = double.MinValue;
+                double minAlone = double.MaxValue, maxAlone = double.MinValue;
+
+                for (int i = 0; i < plotCount; i++)
+                {
+                    int historyIndex = skipCount + i;
+                    xs[i] = historyIndex + 1;
+
+                    ysAmbulance[i] = _historyWaitAmbulance[historyIndex];
+                    if (ysAmbulance[i] < minAmb) minAmb = ysAmbulance[i];
+                    if (ysAmbulance[i] > maxAmb) maxAmb = ysAmbulance[i];
+
+                    ysAlone[i] = _historyWaitAlone[historyIndex];
+                    if (ysAlone[i] < minAlone) 
+                        minAlone = ysAlone[i];
+                    if (ysAlone[i] > maxAlone) 
+                        maxAlone = ysAlone[i];
+                }
+
+
+                formsPlotAmbulance.Plot.Clear();
+                formsPlotAmbulance.Plot.Add.Scatter(xs, ysAmbulance);
+
+                formsPlotAmbulance.Plot.XLabel("Replikácia");
+                formsPlotAmbulance.Plot.YLabel("Priemerný čas (s)");
+
+                formsPlotAmbulance.Plot.Axes.SetLimits(xs[0], xs[plotCount - 1], minAmb, maxAmb);
+
+                formsPlotAmbulance.Refresh();
+
+                formsPlotAlone.Plot.Clear();
+                formsPlotAlone.Plot.Add.Scatter(xs, ysAlone);
+
+                formsPlotAlone.Plot.XLabel("Replikácia");
+                formsPlotAlone.Plot.YLabel("Priemerný čas (s)");
+
+                formsPlotAlone.Plot.Axes.SetLimits(xs[0], xs[plotCount - 1], minAlone, maxAlone);
+                formsPlotAlone.Refresh();
             }
         }
     }

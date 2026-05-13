@@ -121,6 +121,9 @@ namespace GUI
             textBoxPatientsServedAllInt = new TextBox();
             textBoxPatientsServedAll = new TextBox();
             label13 = new Label();
+            tabPageGraphs = new TabPage();
+            formsPlotAmbulance = new ScottPlot.WinForms.FormsPlot();
+            formsPlotAlone = new ScottPlot.WinForms.FormsPlot();
             trackBarPauseTime = new TrackBar();
             MaxSpeedCheckBox = new CheckBox();
             label1 = new Label();
@@ -151,6 +154,8 @@ namespace GUI
             label32 = new Label();
             comboBoxAssign = new ComboBox();
             groupBoxAnimator = new GroupBox();
+            label33 = new Label();
+            label34 = new Label();
             tabControlMain.SuspendLayout();
             tabPageSimulation.SuspendLayout();
             tabControlSimulation.SuspendLayout();
@@ -165,6 +170,7 @@ namespace GUI
             tabPageAmbulationsB.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewAmbB).BeginInit();
             tabPageStats.SuspendLayout();
+            tabPageGraphs.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)trackBarPauseTime).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBarIntervalTime).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDownReplications).BeginInit();
@@ -182,6 +188,7 @@ namespace GUI
             tabControlMain.Controls.Add(tabPageSimulation);
             tabControlMain.Controls.Add(tabPageAnimation);
             tabControlMain.Controls.Add(tabPageStats);
+            tabControlMain.Controls.Add(tabPageGraphs);
             tabControlMain.Location = new Point(1, 141);
             tabControlMain.Name = "tabControlMain";
             tabControlMain.SelectedIndex = 0;
@@ -946,6 +953,34 @@ namespace GUI
             label13.TabIndex = 0;
             label13.Text = "Obslúžený pacienti - celkovo";
             // 
+            // tabPageGraphs
+            // 
+            tabPageGraphs.Controls.Add(label34);
+            tabPageGraphs.Controls.Add(label33);
+            tabPageGraphs.Controls.Add(formsPlotAmbulance);
+            tabPageGraphs.Controls.Add(formsPlotAlone);
+            tabPageGraphs.Location = new Point(4, 24);
+            tabPageGraphs.Name = "tabPageGraphs";
+            tabPageGraphs.Padding = new Padding(3);
+            tabPageGraphs.Size = new Size(1143, 589);
+            tabPageGraphs.TabIndex = 3;
+            tabPageGraphs.Text = "Grafy";
+            tabPageGraphs.UseVisualStyleBackColor = true;
+            // 
+            // formsPlotAmbulance
+            // 
+            formsPlotAmbulance.Location = new Point(261, 33);
+            formsPlotAmbulance.Name = "formsPlotAmbulance";
+            formsPlotAmbulance.Size = new Size(571, 244);
+            formsPlotAmbulance.TabIndex = 1;
+            // 
+            // formsPlotAlone
+            // 
+            formsPlotAlone.Location = new Point(258, 317);
+            formsPlotAlone.Name = "formsPlotAlone";
+            formsPlotAlone.Size = new Size(574, 254);
+            formsPlotAlone.TabIndex = 0;
+            // 
             // trackBarPauseTime
             // 
             trackBarPauseTime.Location = new Point(91, 26);
@@ -1248,6 +1283,24 @@ namespace GUI
             groupBoxAnimator.TabStop = false;
             groupBoxAnimator.Text = "Nastavenie animátora";
             // 
+            // label33
+            // 
+            label33.AutoSize = true;
+            label33.Location = new Point(472, 15);
+            label33.Name = "label33";
+            label33.Size = new Size(158, 15);
+            label33.TabIndex = 2;
+            label33.Text = "Čakanie na oštrenie (sanitka)";
+            // 
+            // label34
+            // 
+            label34.AutoSize = true;
+            label34.Location = new Point(478, 299);
+            label34.Name = "label34";
+            label34.Size = new Size(152, 15);
+            label34.TabIndex = 3;
+            label34.Text = "Čakanie na ošetrenie (pešo)";
+            // 
             // FormSimulation
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1281,6 +1334,8 @@ namespace GUI
             ((System.ComponentModel.ISupportInitialize)dataGridViewAmbB).EndInit();
             tabPageStats.ResumeLayout(false);
             tabPageStats.PerformLayout();
+            tabPageGraphs.ResumeLayout(false);
+            tabPageGraphs.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)trackBarPauseTime).EndInit();
             ((System.ComponentModel.ISupportInitialize)trackBarIntervalTime).EndInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDownReplications).EndInit();
@@ -1423,5 +1478,10 @@ namespace GUI
         private Label label28;
         private Label label32;
         private ComboBox comboBoxAssign;
+        private TabPage tabPageGraphs;
+        private ScottPlot.WinForms.FormsPlot formsPlotAmbulance;
+        private ScottPlot.WinForms.FormsPlot formsPlotAlone;
+        private Label label34;
+        private Label label33;
     }
 }
