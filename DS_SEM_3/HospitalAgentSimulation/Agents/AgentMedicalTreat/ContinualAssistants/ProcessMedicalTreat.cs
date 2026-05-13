@@ -46,7 +46,15 @@ namespace Agents.AgentMedicalTreat.ContinualAssistants
                 case Mc.PatientMakeMedicalTreat:
                     MyMessage msg = (MyMessage)message;
                     if (msg.Patient == null) return;
+
+                    MyMessage msgP = (MyMessage)message;
+                    if (MySim.AnimatorExists)
+                    {
+                        msgP.Patient?.AssignedNurse?.MainAnimShapeItem.SetVisible(false);
+                        msgP.Patient?.AssignedDoctor?.MainAnimShapeItem.SetVisible(false);
+                    }
                     msg.Patient.UnassignResources();
+
                     AssistantFinished(message);
                     break;
             }

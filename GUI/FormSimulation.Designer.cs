@@ -1178,6 +1178,7 @@ namespace GUI
             buttonDeleteAnimator.TabIndex = 29;
             buttonDeleteAnimator.Text = "Vymazať animátor";
             buttonDeleteAnimator.UseVisualStyleBackColor = true;
+            buttonDeleteAnimator.Click += buttonDeleteAnimator_Click;
             // 
             // groupBox1
             // 

@@ -78,6 +78,8 @@ namespace Agents.AgentResources
             Doctors.ResetResourceUtilStats(MySim.CurrentTime);
             AmbulationsA.ResetResourceUtilStats(MySim.CurrentTime);
             AmbulationsB.ResetResourceUtilStats(MySim.CurrentTime);
+
+            SetUpResources(Nurses.AllResources.Length, Doctors.AllResources.Length);
         }
 
         //meta! userInfo="Generated code: do not modify", tag="begin"

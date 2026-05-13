@@ -191,6 +191,17 @@ namespace GUI
 
         private void RefreshAnimation()
         {
+            if (!_simulation.AnimatorExists) return;
+
+            foreach (var patient in _simulation.AgentHospital.PatientsInHospital)
+            {
+                if (patient.AssignedAmbulance != null)
+                {
+                    patient.MainAnimShapeItem.Color = System.Windows.Media.Colors.Green;
+                    patient.MainAnimShapeItem.Label = patient.Id.ToString();
+                    _simulation.Animator.Register(patient.MainAnimShapeItem);
+                }
+            }
 
         }
 
@@ -371,7 +382,7 @@ namespace GUI
                 amb.MainAnimShapeItem.Color = System.Windows.Media.Colors.LightBlue;
 
                 amb.CircleNode.Color = System.Windows.Media.Colors.Black;
-                
+
                 _simulation.Animator.Register(amb.MainAnimShapeItem);
                 _simulation.Animator.Register(amb.CircleNode);
                 i++;
@@ -418,17 +429,29 @@ namespace GUI
         {
             foreach (var nurse in _simulation.AgentResources.Nurses.AllResources)
             {
-                nurse.MainAnimShapeItem.Color = System.Windows.Media.Colors.Purple;
-                nurse.MainAnimShapeItem.Label = nurse.Id.ToString();
-                _simulation.Animator.Register(nurse.MainAnimShapeItem);
+                if (nurse.ActualAmbulance != null)
+                {
+                    nurse.MainAnimShapeItem.Color = System.Windows.Media.Colors.Purple;
+                    nurse.MainAnimShapeItem.Label = nurse.Id.ToString();
+                    _simulation.Animator.Register(nurse.MainAnimShapeItem);
+                }
             }
 
             foreach (var doctor in _simulation.AgentResources.Doctors.AllResources)
             {
-                doctor.MainAnimShapeItem.Color = System.Windows.Media.Colors.DarkBlue;
-                doctor.MainAnimShapeItem.Label = doctor.Id.ToString();
-                _simulation.Animator.Register(doctor.MainAnimShapeItem);
+                if (doctor.ActualAmbulance != null)
+                {
+                    doctor.MainAnimShapeItem.Color = System.Windows.Media.Colors.DarkBlue;
+                    doctor.MainAnimShapeItem.Label = doctor.Id.ToString();
+                    _simulation.Animator.Register(doctor.MainAnimShapeItem);
+                }
             }
+        }
+
+        private void buttonDeleteAnimator_Click(object sender, EventArgs e)
+        {
+            _simulation.RemoveAnimator();
+            tabPageAnimation.Controls.Remove(_WPFHost);
         }
     }
 }

@@ -9,8 +9,6 @@ public class Doctor : Resource
 
     public Doctor() : base()
     {
-        MainAnimShapeItem.Height = 100;
-        MainAnimShapeItem.Width = 200;
         MainAnimShapeItem.Height = 30;
         MainAnimShapeItem.Width = 30;
         MainAnimShapeItem.AnimShape = AnimShape.CIRCLE;

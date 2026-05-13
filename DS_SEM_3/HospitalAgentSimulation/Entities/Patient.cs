@@ -1,3 +1,5 @@
+using OSPAnimator;
+
 namespace DS_SEM_3.HospitalAgentSimulation.Entities;
 
 public class Patient
@@ -21,11 +23,17 @@ public class Patient
 
     public bool CanStartTreat { get; set; } = false;
 
+    public AnimShapeItem MainAnimShapeItem { get; set; } = new();
+
     public Patient(bool cameByAmbulance, double arrivalTime, int id)
     {
         CameByAmbulance = cameByAmbulance;
         ArrivalTime = arrivalTime;
         Id = id;
+
+        MainAnimShapeItem.Height = 30;
+        MainAnimShapeItem.Width = 30;
+        MainAnimShapeItem.AnimShape = AnimShape.CIRCLE;
     }
 
     public void AssignResources(Nurse nurse, AmbulanceA ambulance, Doctor? doctor = null)

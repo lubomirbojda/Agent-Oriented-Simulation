@@ -35,22 +35,6 @@ namespace Agents.AgentHospital
             StartContinualAssistant(message);
         }
 
-		//meta! userInfo="Removed from model"
-		public void ProcessFinishProcessEntranceTreat(MessageForm message)
-		{
-        }
-
-		//meta! userInfo="Removed from model"
-		public void ProcessFinishProcessMedicalTreat(MessageForm message)
-		{
-			MyMessage msg = (MyMessage)message;
-			if (msg.Patient != null)
-				MyAgent.PatientsInHospital.Remove(msg.Patient);
-
-            message.Code = Mc.TreatPatient;
-            Response(message);
-        }
-
 		//meta! sender="ProcessMoveToAmbulance", id="96", type="Finish"
 		public void ProcessFinishProcessMoveToAmbulance(MessageForm message)
         {
@@ -101,6 +85,12 @@ namespace Agents.AgentHospital
             message.Code = Mc.TryAssignResources;
             message.Addressee = MySim.FindAgent(SimId.AgentResources);
             Notice(message);
+
+            MyMessage msgP = (MyMessage)message;
+            if (MySim.AnimatorExists)
+            {
+                MySim.Animator.Remove(msgP.Patient?.MainAnimShapeItem);
+            }
         }
 
 		//meta! sender="AgentMedicalTreat", id="123", type="Response"
@@ -110,7 +100,13 @@ namespace Agents.AgentHospital
             message.Addressee = MySim.FindAgent(SimId.AgentResources);
             Notice(message);
 
-			var msg = message.CreateCopy();
+			MyMessage msgP = (MyMessage)message;
+            if (MySim.AnimatorExists)
+            {
+                MySim.Animator.Remove(msgP.Patient?.MainAnimShapeItem);
+            }
+
+            var msg = message.CreateCopy();
             msg.Addressee = MyAgent.FindAssistant(SimId.ProcessMoveToLeaveDoor);
             StartContinualAssistant(msg);
         }

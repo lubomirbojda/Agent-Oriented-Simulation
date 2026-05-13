@@ -38,6 +38,20 @@ public class AmbulanceA : Resource
         return new(x, y);
     }
 
+    public PointF GetActivePatientPosition(double time)
+    {
+        float x = MainAnimShapeItem.GetPosition(time).X + 80;
+        float y = MainAnimShapeItem.GetPosition(time).Y + 15;
+        return new(x, y);
+    }
+
+    public PointF GetActiveDoctorPosition(double time)
+    {
+        float x = MainAnimShapeItem.GetPosition(time).X + 145;
+        float y = MainAnimShapeItem.GetPosition(time).Y + 15;
+        return new(x, y);
+    }
+
     public Nurse? GetBusyNurse() => Nurses.FirstOrDefault(x => x.IsBusy);
     public Doctor? GetBusyDoctor() => Doctors.FirstOrDefault(x => x.IsBusy);
 

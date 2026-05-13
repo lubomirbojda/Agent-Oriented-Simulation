@@ -71,9 +71,15 @@ namespace Agents.AgentEntranceTreat.ContinualAssistants
                         msg.QueuesAmbulances.EnqueuePatientAmbulanceB(msg.Patient, msg.Patient.Priority);
                     }
 
-
+                    MyMessage msgP = (MyMessage)message;
+                    if (MySim.AnimatorExists)
+                    {
+                        msgP.Patient?.AssignedNurse?.MainAnimShapeItem.SetVisible(false);
+                    }
                     msg.Patient.UnassignResources();
                     
+
+
                     msg.Patient.HasEntranceTreatDone = true;
                     AssistantFinished(message);
                     //MyAgent.TryAssignResources(msg);
