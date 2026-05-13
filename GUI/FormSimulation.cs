@@ -462,6 +462,7 @@ namespace GUI
             if (comboBoxAssign.SelectedItem != null)
             {
                 ResourcesAssign selectedMode = (ResourcesAssign)comboBoxAssign.SelectedItem;
+                _simulation.AgentResources.ResourcesAssign = selectedMode;
             }
         }
     }

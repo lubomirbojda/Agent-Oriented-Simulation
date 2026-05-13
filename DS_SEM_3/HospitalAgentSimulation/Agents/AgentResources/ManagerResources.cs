@@ -94,9 +94,11 @@ namespace Agents.AgentResources
                 case ResourcesAssign.BASIC_FCFS:
 					AssignFCFS(message);
                     break;
-
-                case ResourcesAssign.DOCTOR_LEFT:
-					AssignDoctorLeft(message);
+				case ResourcesAssign.SMART_ENTRANCE:
+                    AssignSmartEntrance(message);
+					break;
+                case ResourcesAssign.BACKPRESSURE_CONTROL:
+                    AssignBackpressureControl(message);
                     break;
             }
         }
@@ -148,9 +150,157 @@ namespace Agents.AgentResources
             UpdateUtilStats();
         }
 
-		private void AssignDoctorLeft(MyMessage message)
+		private void AssignSmartEntrance(MyMessage message)
 		{
-            
+            bool assigned = true;
+
+            while (assigned)
+            {
+                assigned = false;
+
+                var nurse = MyAgent.Nurses.TryGetFreeResource();
+                var doctor = MyAgent.Doctors.TryGetFreeResource();
+                var ambA = MyAgent.AmbulationsA.TryGetFreeResource();
+                var ambB = MyAgent.AmbulationsB.TryGetFreeResource();
+
+                var queueAmbA = message.QueuesAmbulances.QueueAmbulanceA;
+                var queueAmbB = message.QueuesAmbulances.QueueAmbulanceB;
+
+                bool hasA = queueAmbA.Count > 0;
+                bool hasB = queueAmbB.Count > 0;
+                int priorityA = hasA ? queueAmbA.Keys[0].priority : int.MaxValue;
+                int priorityB = hasB ? queueAmbB.Keys[0].priority : int.MaxValue;
+                bool checkAFirst = priorityA <= priorityB;
+
+                if (checkAFirst)
+                {
+                    if (hasA && nurse != null && doctor != null && ambA != null)
+                    {
+                        var patient = message.QueuesAmbulances.DequeuePatientAmbulanceA();
+                        patient.AssignResources(nurse, ambA, doctor);
+                        AssignedResources(patient, message);
+                        assigned = true; continue;
+                    }
+                    if (hasB && nurse != null && doctor != null && ambB != null)
+                    {
+                        var patient = message.QueuesAmbulances.DequeuePatientAmbulanceB();
+                        patient.AssignResources(nurse, ambB, doctor);
+                        AssignedResources(patient, message);
+                        assigned = true; continue;
+                    }
+                }
+                else
+                {
+                    if (hasB && nurse != null && doctor != null && ambB != null)
+                    {
+                        var patient = message.QueuesAmbulances.DequeuePatientAmbulanceB();
+                        patient.AssignResources(nurse, ambB, doctor);
+                        AssignedResources(patient, message);
+                        assigned = true; continue;
+                    }
+                    if (hasA && nurse != null && doctor != null && ambA != null)
+                    {
+                        var patient = message.QueuesAmbulances.DequeuePatientAmbulanceA();
+                        patient.AssignResources(nurse, ambA, doctor);
+                        AssignedResources(patient, message);
+                        assigned = true; continue;
+                    }
+                }
+
+                if (message.QueueEntrancePatients.GetCount() > 0 && nurse != null && ambB != null)
+                {
+                    int freeDoctorsCount = MyAgent.Doctors.AllResources.Count(r => !r.IsBusy);
+                    int freeNursesCount = MyAgent.Nurses.AllResources.Count(r => !r.IsBusy);
+                    int freeAmbBCount = MyAgent.AmbulationsB.AllResources.Count(r => !r.IsBusy);
+
+                    bool shouldThrottle = (freeDoctorsCount == 0) && (freeNursesCount < 2 || freeAmbBCount < 2);
+
+                    if (!shouldThrottle)
+                    {
+                        var patient = message.QueueEntrancePatients.Dequeue();
+                        patient.AssignResources(nurse, ambB);
+                        AssignedResources(patient, message);
+                        assigned = true; continue;
+                    }
+                }
+            }
+            UpdateUtilStats();
+        }
+
+        private void AssignBackpressureControl(MyMessage message)
+        {
+            bool assigned = true;
+
+            while (assigned)
+            {
+                assigned = false;
+
+                var nurse = MyAgent.Nurses.TryGetFreeResource();
+                var doctor = MyAgent.Doctors.TryGetFreeResource();
+                var ambA = MyAgent.AmbulationsA.TryGetFreeResource();
+                var ambB = MyAgent.AmbulationsB.TryGetFreeResource();
+
+                var queueAmbA = message.QueuesAmbulances.QueueAmbulanceA;
+                var queueAmbB = message.QueuesAmbulances.QueueAmbulanceB;
+
+                bool hasA = queueAmbA.Count > 0;
+                bool hasB = queueAmbB.Count > 0;
+                int priorityA = hasA ? queueAmbA.Keys[0].priority : int.MaxValue;
+                int priorityB = hasB ? queueAmbB.Keys[0].priority : int.MaxValue;
+                bool checkAFirst = priorityA <= priorityB;
+
+                if (checkAFirst)
+                {
+                    if (hasA && nurse != null && doctor != null && ambA != null)
+                    {
+                        var patient = message.QueuesAmbulances.DequeuePatientAmbulanceA();
+                        patient.AssignResources(nurse, ambA, doctor);
+                        AssignedResources(patient, message);
+                        assigned = true; continue;
+                    }
+                    if (hasB && nurse != null && doctor != null && ambB != null)
+                    {
+                        var patient = message.QueuesAmbulances.DequeuePatientAmbulanceB();
+                        patient.AssignResources(nurse, ambB, doctor);
+                        AssignedResources(patient, message);
+                        assigned = true; continue;
+                    }
+                }
+                else
+                {
+                    if (hasB && nurse != null && doctor != null && ambB != null)
+                    {
+                        var patient = message.QueuesAmbulances.DequeuePatientAmbulanceB();
+                        patient.AssignResources(nurse, ambB, doctor);
+                        AssignedResources(patient, message);
+                        assigned = true; continue;
+                    }
+                    if (hasA && nurse != null && doctor != null && ambA != null)
+                    {
+                        var patient = message.QueuesAmbulances.DequeuePatientAmbulanceA();
+                        patient.AssignResources(nurse, ambA, doctor);
+                        AssignedResources(patient, message);
+                        assigned = true; continue;
+                    }
+                }
+
+                if (message.QueueEntrancePatients.GetCount() > 0 && nurse != null && ambB != null)
+                {
+                    int waitingForDoctorCount = queueAmbA.Count + queueAmbB.Count;
+
+                    if (waitingForDoctorCount >= 3)
+                    {
+                    }
+                    else
+                    {
+                        var patient = message.QueueEntrancePatients.Dequeue();
+                        patient.AssignResources(nurse, ambB);
+                        AssignedResources(patient, message);
+                        assigned = true; continue;
+                    }
+                }
+            }
+            UpdateUtilStats();
         }
     }
 }
